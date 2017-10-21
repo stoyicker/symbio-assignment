@@ -10,10 +10,19 @@ class BinaryIdlingResource(private val name: String) : IdlingResource {
     private val isIdle = AtomicBoolean(true)
     private var resourceCallback: IdlingResource.ResourceCallback? = null
 
+    /**
+     * @see IdlingResource.getName
+     */
     override fun getName() = name
 
+    /**
+     * @see IdlingResource.isIdleNow
+     */
     override fun isIdleNow() = isIdle.get()
 
+    /**
+     * @see IdlingResource.registerIdleTransitionCallback
+     */
     override fun registerIdleTransitionCallback(callback: IdlingResource.ResourceCallback?) {
         resourceCallback = callback
     }
