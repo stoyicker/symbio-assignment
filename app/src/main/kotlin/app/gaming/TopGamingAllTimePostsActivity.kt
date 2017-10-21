@@ -12,7 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewAnimationUtils
 import app.MainApplication
-import app.common.PresentationPost
+import app.common.PresentationCountry
 import app.filter.FilterFeature
 import kotlinx.android.synthetic.main.activity_top_gaming.root
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
@@ -119,7 +119,7 @@ internal class TopGamingAllTimePostsActivity : AppCompatActivity() {
          * To be called when an item click happens.
          * @param item The item clicked.
          */
-        fun onItemClicked(item: PresentationPost)
+        fun onItemClicked(item: PresentationCountry)
 
         /**
          * To be called when a page load is requested.
@@ -133,7 +133,7 @@ internal class TopGamingAllTimePostsActivity : AppCompatActivity() {
         private const val KEY_STARTED_MANUALLY = "KEY_STARTED_MANUALLY"
         /**
          * Safe way to obtain an intent to route to this activity. More useful if it were to have
-         * parameters for example, but a good idea to have nevertheless.
+         * more parameters for example, but a good idea to have nevertheless.
          * @param context The context to start this activity from.
          */
         fun getCallingIntent(context: Context): Intent {

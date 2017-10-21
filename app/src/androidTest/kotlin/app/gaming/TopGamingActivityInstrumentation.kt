@@ -22,9 +22,10 @@ import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.v7.widget.Toolbar
 import android.view.View
-import app.common.PresentationPost
-import app.detail.PostDetailActivity
-import domain.entity.Post
+import app.common.PresentationCountry
+import app.detail.CountryDetailActivity
+import app.list.PresentationCountryEntityMapper
+import domain.entity.Country
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.subjects.ReplaySubject
 import org.hamcrest.Matchers.allOf
@@ -40,7 +41,7 @@ import kotlin.test.assertEquals
 /**
  * The setup seems a bit strange, but there is a reason: we need to define SUBJECT before
  * the activity is launched since injection happens on launch. Also,
- * ActivityTestRule#beforeActivityLaunched is only called when the Activity is scheduled for launch
+ActivityTestRule#beforeActivityLaunched is only called when the Activity is scheduled for launch
  * already, and JUnit's @Before is invoked before the test, but with the Activity prepared already.
  * This forces us to manually launch the activity in every test.
  */
@@ -94,14 +95,9 @@ internal class TopGamingActivityInstrumentation {
 
     @Test
     fun onLoadItemsAreShown() {
+        val name = "name"
         SUBJECT = ReplaySubject.create()
-        SUBJECT.onNext(setOf(Post(
-                "0",
-                "Bananas title",
-                "r/bananas",
-                879,
-                "tb",
-                "link")))
+        SUBJECT.onNext(listOf(Country(name)))
         SUBJECT.onComplete()
         launchActivity()
         onView(withId(R.id.progress)).check { view, _ ->
@@ -128,24 +124,16 @@ internal class TopGamingActivityInstrumentation {
 
     @Test
     fun onItemClickDetailIntentIsLaunched() {
-        val srcPost = Post(
-                "0",
-                "Bananas title",
-                "r/bananas",
-                879,
-                "tb",
-                "link")
+        val name = "name"
         SUBJECT = ReplaySubject.create()
-        SUBJECT.onNext(setOf(srcPost))
+        SUBJECT.onNext(listOf(Country(name)))
         SUBJECT.onComplete()
         launchActivity()
         Intents.init()
         intending(anyIntent()).respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, null))
-        onView(withIndex(withText(srcPost.title), 0)).perform(click())
-        intended(allOf(hasComponent(PostDetailActivity::class.java.name),
-                hasExtra(PostDetailActivity.KEY_MODEL, PresentationPost(
-                srcPost.id, srcPost.title, srcPost.subreddit, srcPost.score, srcPost.thumbnailLink,
-                        srcPost.url))
+        onView(withIndex(withText(name), 0)).perform(click())
+        intended(allOf(hasComponent(CountryDetailActivity::class.java.name),
+                hasExtra(CountryDetailActivity.KEY_MODEL, PresentationCountry(name))
         ))
         Intents.release()
     }
@@ -158,17 +146,17 @@ internal class TopGamingActivityInstrumentation {
 
     companion object {
         private lateinit var IDLING_RESOURCE: BinaryIdlingResource
-        internal lateinit var SUBJECT: ReplaySubject<Iterable<Post>>
+        internal lateinit var SUBJECT: ReplaySubject<List<Country>>
         internal val SUBSCRIBER_GENERATOR:
-                (TopGamingAllTimePostsCoordinator) -> DisposableSingleObserver<Iterable<Post>> =
+                (TopGamingAllTimePostsCoordinator) -> DisposableSingleObserver<List<Country>> =
                 {
-                    object : PageLoadSubscriber(it) {
+                    object : PageLoadSubscriber(it, PresentationCountryEntityMapper()) {
                         override fun onStart() {
                             super.onStart()
                             IDLING_RESOURCE.setIdleState(false)
                         }
 
-                        override fun onSuccess(payload: Iterable<Post>) {
+                        override fun onSuccess(payload: List<Country>) {
                             super.onSuccess(payload)
                             IDLING_RESOURCE.setIdleState(true)
                         }

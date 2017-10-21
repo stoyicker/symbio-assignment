@@ -10,5 +10,5 @@ class TopGamingAllTimeFetchPostsUseCase(
         page: Int,
         postExecutionThread: PostExecutionThread)
     : TopGamingAllTimePostsUseCase(page, postExecutionThread) {
-    override fun buildUseCase() = Domain.topPostsFacade.fetchTop(SUBREDDIT, TIME_RANGE, safePage)
+    override fun buildUseCase() = Domain.countryListFacade.getCountries()
 }

@@ -1,19 +1,17 @@
 package app.gaming
 
-import app.common.PresentationEntityMapper
-import app.common.PresentationPost
-import domain.entity.Post
+import app.list.PresentationCountryEntityMapper
+import domain.entity.Country
 import io.reactivex.observers.DisposableSingleObserver
 
 /**
  * The subscriber that will react to the outcome of the associated use case and request the
  * view to update itself.
  */
-internal open class PageLoadSubscriber(
-        private val coordinator: TopGamingAllTimePostsCoordinator)
-    : DisposableSingleObserver<Iterable<Post>>() {
-    private val entityMapper = PresentationEntityMapper()
-
+internal open class PageLoadSubscriber constructor(
+        private val coordinator: TopGamingAllTimePostsCoordinator,
+        private val entityMapper: PresentationCountryEntityMapper)
+    : DisposableSingleObserver<List<Country>>() {
     override fun onStart() {
         coordinator.view.apply {
             showLoadingLayout()
@@ -22,14 +20,13 @@ internal open class PageLoadSubscriber(
         }
     }
 
-    override fun onSuccess(payload: Iterable<Post>) {
+    override fun onSuccess(payload: List<Country>) {
         coordinator.apply {
             if (!payload.none()) {
                 page++
                 // * is the spread operator. We use it to build an immutable list.
-                view.updateContent(listOf(*payload.map {
-                    entityMapper.transform(it)
-                }.toTypedArray()))
+                view.updateContent(listOf(
+                        *payload.map { entityMapper.transform(it) }.toTypedArray()))
             }
             view.apply {
                 hideLoadingLayout()
@@ -51,6 +48,6 @@ internal open class PageLoadSubscriber(
      */
     internal interface Factory {
         fun newSubscriber(coordinator: TopGamingAllTimePostsCoordinator)
-                : DisposableSingleObserver<Iterable<Post>>
+                : DisposableSingleObserver<List<Country>>
     }
 }

@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/stoyicker/symbio-assignment.svg?branch=master)](https://travis-ci.org/stoyicker/symbio-assignment)
 
+// TODO Write about Observable<X> vs Single<List<X>>
+
 This project is developed on top of my master-slave demo for the New York Times reactive cache 
 framework for Android ([Store](https://github.com/NYTimes/Store)), [stoyicker/master-slave-clean-store](github.com/stoyicker/master-slave-clean-store).
 

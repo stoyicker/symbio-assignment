@@ -14,10 +14,10 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
-import app.common.PresentationPost
+import app.common.PresentationCountry
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
-import kotlinx.android.synthetic.main.item_post.view.*
+import kotlinx.android.synthetic.main.item_post.view.title_view
 import org.jorge.assignment.app.R
 
 /**
@@ -74,8 +74,8 @@ internal class TopGamingAllTimePostsFeatureView(
  */
 internal class Adapter(private val callback: TopGamingAllTimePostsActivity.BehaviorCallback)
     : RecyclerView.Adapter<Adapter.ViewHolder>(), Filterable {
-    private var items = listOf<PresentationPost>()
-    private var shownItems = emptyList<PresentationPost>()
+    private var items = listOf<PresentationCountry>()
+    private var shownItems = emptyList<PresentationCountry>()
     private lateinit var recyclerView: RecyclerView
     private val filter = RepeatableFilter()
 
@@ -129,7 +129,7 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
      * the current filter.
      * @param toAdd The items to add.
      */
-    internal fun addItems(toAdd: List<PresentationPost>) {
+    internal fun addItems(toAdd: List<PresentationCountry>) {
         // If the list is empty we have tried to load a non-existent page, which means we already
         // have all pages. Also there is nothing to add.
         if (toAdd.isNotEmpty()) {
@@ -152,7 +152,7 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
             val filteredItems = if (currentQuery.isBlank()) {
                 items
             } else {
-                items.filter { it.title.contains(currentQuery, true) }
+                items.filter { it.name.contains(currentQuery, true) }
             }
             diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize() = shownItems.size
@@ -173,27 +173,27 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
                             }
                         }
 
-                override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int) =
-                        shownItems[oldItemPosition].let {
-                            (_, oldTitle, oldSubreddit, oldScore, oldThumbnail) ->
-                            filteredItems[newItemPosition].let {
-                                (_, newTitle, newSubreddit, newScore, newThumbnail) ->
-                                Bundle().apply {
-                                    putString(KEY_TITLE, newTitle.takeIf {
-                                        !it.contentEquals(oldTitle)
-                                    })
-                                    putString(KEY_SUBREDDIT, newSubreddit.takeIf {
-                                        !it.contentEquals(oldSubreddit)
-                                    })
-                                    putString(KEY_SCORE, "${newScore.takeIf {
-                                        it != oldScore
-                                    }}")
-                                    putString(KEY_THUMBNAIL, newThumbnail.takeIf {
-                                        it != oldThumbnail
-                                    })
-                                }
-                            }
-                        }
+                override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int) = null
+//                        shownItems[oldItemPosition].let {
+//                            (_, oldTitle, oldSubreddit, oldScore, oldThumbnail) ->
+//                            filteredItems[newItemPosition].let {
+//                                (_, newTitle, newSubreddit, newScore, newThumbnail) ->
+//                                Bundle().apply {
+//                                    putString(KEY_TITLE, newTitle.takeIf {
+//                                        !it.contentEquals(oldTitle)
+//                                    })
+//                                    putString(KEY_SUBREDDIT, newSubreddit.takeIf {
+//                                        !it.contentEquals(oldSubreddit)
+//                                    })
+//                                    putString(KEY_SCORE, "${newScore.takeIf {
+//                                        it != oldScore
+//                                    }}")
+//                                    putString(KEY_THUMBNAIL, newThumbnail.takeIf {
+//                                        it != oldThumbnail
+//                                    })
+//                                }
+//                            }
+//                        }
             })
             return FilterResults().also {
                 it.values = filteredItems
@@ -203,7 +203,7 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             @Suppress("UNCHECKED_CAST")
-            shownItems = results?.values as List<PresentationPost>? ?: items
+            shownItems = results?.values as List<PresentationCountry>? ?: items
             diff.dispatchUpdatesTo(this@Adapter)
         }
 
@@ -220,19 +220,19 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
      */
     internal class ViewHolder internal constructor(
             itemView: View,
-            private val onItemClicked: (PresentationPost) -> Unit)
+            private val onItemClicked: (PresentationCountry) -> Unit)
         : RecyclerView.ViewHolder(itemView), Target {
 
         /**
          * Draw an item.
          * @title The item to draw.
          */
-        internal fun render(item: PresentationPost) {
-            setTitle(item.title)
-            setSubreddit(item.subreddit)
-            setScore(item.score)
-            setThumbnail(item.thumbnailLink)
-            itemView.setOnClickListener { onItemClicked(item) }
+        internal fun render(item: PresentationCountry) {
+            setTitle(item.name)
+//            setSubreddit(item.subreddit)
+//            setScore(item.score)
+//            setThumbnail(item.thumbnailLink)
+//            itemView.setOnClickListener { onItemClicked(item) }
         }
 
         /**
@@ -240,7 +240,7 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
          * @param bundle The updates that need to be drawn.
          * @param item The item these updates correspond to.
          */
-        internal fun renderPartial(bundle: Bundle, item: PresentationPost) {
+        internal fun renderPartial(bundle: Bundle, item: PresentationCountry) {
             bundle.getString(KEY_TITLE)?.let { setTitle(it) }
             bundle.getString(KEY_SUBREDDIT)?.let { setSubreddit(it) }
             bundle.getString(KEY_SCORE)?.let { setScore(Integer.valueOf(it)) }
@@ -254,7 +254,7 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
          */
         private fun setTitle(title: String) {
             itemView.title_view.text = title
-            itemView.thumbnail.contentDescription = title.toString()
+//            itemView.thumbnail.contentDescription = title
         }
 
         /**
@@ -262,7 +262,7 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
          * @param name The new subreddit name.
          */
         private fun setSubreddit(name: String) {
-            itemView.subreddit.text = name
+//            itemView.subreddit.text = name
         }
 
         /**
@@ -270,19 +270,19 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
          * @param score The new score.
          */
         private fun setScore(score: Int) {
-            itemView.score.text = score.toString()
+//            itemView.score.text = score.toString()
         }
 
         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-            itemView.thumbnail.visibility = View.GONE
-            itemView.thumbnail.setImageDrawable(null)
+//            itemView.thumbnail.visibility = View.GONE
+//            itemView.thumbnail.setImageDrawable(null)
         }
 
         override fun onBitmapFailed(errorDrawable: Drawable?) { }
 
         override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-            itemView.thumbnail.setImageBitmap(bitmap)
-            itemView.thumbnail.visibility = View.VISIBLE
+//            itemView.thumbnail.setImageBitmap(bitmap)
+//            itemView.thumbnail.visibility = View.VISIBLE
         }
 
         /**
@@ -290,22 +290,22 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
          * @param thumbnailLink The new thumbnail link, or <code>null</code> if none is applicable.
          */
         private fun setThumbnail(thumbnailLink: String?) {
-            itemView.thumbnail.let {
-                if (thumbnailLink != null) {
-                    Picasso.with(it.context).load(thumbnailLink).into(this)
-                } else {
-                    it.visibility = View.GONE
-                    it.setImageDrawable(null)
-                }
-            }
+//            itemView.thumbnail.let {
+//                if (thumbnailLink != null) {
+//                    Picasso.with(it.context).load(thumbnailLink).into(this)
+//                } else {
+//                    it.visibility = View.GONE
+//                    it.setImageDrawable(null)
+//                }
+//            }
         }
     }
 }
 
-private val KEY_TITLE = "org.jorge.assignment.app.KEY_TITLE"
-private val KEY_SUBREDDIT = "org.jorge.assignment.app.KEY_SUBREDDIT"
-private val KEY_SCORE = "org.jorge.assignment.app.KEY_SCORE"
-private val KEY_THUMBNAIL = "org.jorge.assignment.app.KEY_THUMBNAIL"
+private const val KEY_TITLE = "org.jorge.assignment.app.KEY_TITLE"
+private const val KEY_SUBREDDIT = "org.jorge.assignment.app.KEY_SUBREDDIT"
+private const val KEY_SCORE = "org.jorge.assignment.app.KEY_SCORE"
+private const val KEY_THUMBNAIL = "org.jorge.assignment.app.KEY_THUMBNAIL"
 
 /**
  * @see <a href="https://gist.githubusercontent.com/nesquena/d09dc68ff07e845cc622/raw/e2429b173f75afb408b420ad4088fed68240334c/EndlessRecyclerViewScrollListener.java">Adapted from CodePath</a>

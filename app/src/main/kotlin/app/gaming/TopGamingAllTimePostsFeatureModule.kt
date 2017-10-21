@@ -4,8 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import app.common.PresentationPost
-import app.detail.PostDetailActivity
+import app.common.PresentationCountry
+import app.detail.CountryDetailActivity
+import app.list.PresentationCountryEntityMapper
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -42,8 +43,8 @@ internal class TopGamingAllTimePostsFeatureModule(
     fun coordinatorBehaviorCallback(coordinator: TopGamingAllTimePostsCoordinator) =
             object : TopGamingAllTimePostsActivity.BehaviorCallback {
                 @SuppressLint("InlinedApi")
-                override fun onItemClicked(item: PresentationPost) {
-                    context.startActivity(PostDetailActivity.getCallingIntent(context, item))
+                override fun onItemClicked(item: PresentationCountry) {
+                    context.startActivity(CountryDetailActivity.getCallingIntent(context, item))
                 }
 
                 override fun onPageLoadRequested() {
@@ -53,9 +54,14 @@ internal class TopGamingAllTimePostsFeatureModule(
 
     @Provides
     @Singleton
-    fun pageLoadSubscriberFactory() = object : PageLoadSubscriber.Factory {
-        override fun newSubscriber(coordinator: TopGamingAllTimePostsCoordinator) =
-                PageLoadSubscriber(coordinator)
+    fun presentationCountryEntityMapper() = PresentationCountryEntityMapper()
+
+    @Provides
+    @Singleton
+    fun pageLoadSubscriberFactory(entityMapper: PresentationCountryEntityMapper) =
+            object : PageLoadSubscriber.Factory {
+                override fun newSubscriber(coordinator: TopGamingAllTimePostsCoordinator) =
+                        PageLoadSubscriber(coordinator, entityMapper)
     }
 
     @Provides

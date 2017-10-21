@@ -1,7 +1,6 @@
 package app.detail
 
 import android.content.Context
-import app.share.ShareFeature
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -9,22 +8,19 @@ import org.mockito.Mockito.mock
 import javax.inject.Singleton
 
 /**
- * Module used to provide stuff required by PostDetailActivity.
- * @see PostDetailActivity
+ * Module used to provide stuff required by CountryDetailActivity.
+ * @see CountryDetailActivity
  */
 @Module
 internal class PostDetailFeatureInstrumentationModule(private val context: Context) {
     @Provides
-    fun postDetailView(): PostDetailView = mock(PostDetailView::class.java)
-
-    @Provides
-    fun shareFeature() = ShareFeature(context)
+    fun postDetailView(): CountryDetailView = mock(CountryDetailView::class.java)
 }
 
 /**
  * A component to inject instances that require access to dependencies provided by
- * PostDetailFeatureModule.
- * @see PostDetailFeatureModule
+ * CountryDetailModule.
+ * @see CountryDetailModule
  */
 @Component(modules = arrayOf(PostDetailFeatureInstrumentationModule::class))
 @Singleton

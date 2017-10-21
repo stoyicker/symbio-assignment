@@ -15,9 +15,9 @@ import kotlin.test.assertEquals
 internal class DomainSpek : SubjectSpek<Domain>({
     subject { Domain } // <- Test subject is the singleton instance
 
-    it ("should hold the provided top posts facade") {
+    it ("should hold the provided top posts countryListFacade") {
         val expectedFacade = mock<DomainTopPostsFacade>()
-        Domain.topPostsFacade(expectedFacade)
-        assertEquals(expectedFacade, Domain.topPostsFacade, "Top posts facade not held.")
+        Domain.countryListFacade(expectedFacade)
+        assertEquals(expectedFacade, Domain.countryListFacade, "Top posts countryListFacade not held.")
     }
 })

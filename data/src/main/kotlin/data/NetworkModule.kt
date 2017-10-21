@@ -1,4 +1,4 @@
-package data.common
+package data
 
 import dagger.Module
 import dagger.Provides

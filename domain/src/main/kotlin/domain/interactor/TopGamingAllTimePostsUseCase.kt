@@ -1,8 +1,7 @@
 package domain.interactor
 
 import domain.Domain
-import domain.entity.Post
-import domain.entity.TimeRange
+import domain.entity.Country
 import domain.exec.PostExecutionThread
 import kotlin.properties.Delegates
 
@@ -16,7 +15,7 @@ import kotlin.properties.Delegates
 abstract class TopGamingAllTimePostsUseCase(
         page: Int,
         postExecutionThread: PostExecutionThread)
-    : SingleDisposableUseCase<Iterable<Post>>(
+    : SingleDisposableUseCase<List<Country>>(
         asyncExecutionScheduler = Domain.useCaseScheduler,
         postExecutionScheduler = postExecutionThread.scheduler()) {
     // This makes sure we do not try to request negative pages
@@ -24,11 +23,6 @@ abstract class TopGamingAllTimePostsUseCase(
 
     init {
         safePage = page
-    }
-
-    companion object {
-        const val SUBREDDIT = "gaming"
-        val TIME_RANGE = TimeRange.ALL_TIME
     }
 
     /**

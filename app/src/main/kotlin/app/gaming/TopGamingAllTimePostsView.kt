@@ -3,7 +3,7 @@ package app.gaming
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.FrameLayout
-import app.common.PresentationPost
+import app.common.PresentationCountry
 import org.jorge.assignment.app.R
 import util.android.ext.getDimension
 
@@ -14,7 +14,7 @@ internal class TopGamingAllTimePostsView(
        internal val contentView: RecyclerView,
        internal val errorView: View,
        private val progressView: View,
-       private val guideView: View) : LoadableContentView<PresentationPost> {
+       private val guideView: View) : LoadableContentView<PresentationCountry> {
     override fun showLoadingLayout() {
         pushInfoArea()
         progressView.visibility = View.VISIBLE
@@ -25,7 +25,7 @@ internal class TopGamingAllTimePostsView(
         progressView.visibility = View.GONE
     }
 
-    override fun updateContent(actionResult: List<PresentationPost>) {
+    override fun updateContent(actionResult: List<PresentationCountry>) {
         (contentView.adapter as Adapter).addItems(actionResult)
         guideView.visibility = View.VISIBLE
     }

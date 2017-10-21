@@ -1,6 +1,6 @@
 package domain
 
-import domain.repository.DomainTopPostsFacade
+import domain.repository.CountryListFacade
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -10,14 +10,12 @@ import io.reactivex.schedulers.Schedulers
  * myself instead.
  */
 object Domain {
-    internal lateinit var topPostsFacade: DomainTopPostsFacade
+    internal lateinit var countryListFacade: CountryListFacade
     internal val useCaseScheduler = Schedulers.io()
 
     /**
-     * Set an implemented DomainTopPostsFacade.
+     * Set an implemented facade.
      * @param facade The facade to set.
      */
-    fun topPostsFacade(facade: DomainTopPostsFacade) {
-        topPostsFacade = facade
-    }
+    fun countryListFacade(facade: CountryListFacade) { this.countryListFacade = facade }
 }

@@ -1,4 +1,4 @@
-package data.top
+package data.countries
 
 import com.nhaarman.mockito_kotlin.anyVararg
 import com.nhaarman.mockito_kotlin.doReturn
@@ -11,11 +11,8 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import data.ComponentHolder
-import domain.entity.Post
-import domain.entity.TimeRange
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
-import io.reactivex.subscribers.TestSubscriber
 import org.jetbrains.spek.api.SubjectSpek
 import org.jetbrains.spek.api.dsl.it
 import org.junit.platform.runner.JUnitPlatform
@@ -29,11 +26,11 @@ import javax.inject.Singleton
  * Unit tests for cache cleanup.
  */
 @RunWith(JUnitPlatform::class)
-internal class TopRequestSourceSpek : SubjectSpek<TopRequestSource>({
-    subject { TopRequestSource() }
+internal class TopRequestSourceSpek : SubjectSpek<CountryListRequestSource>({
+    subject { CountryListRequestSource() }
 
     beforeEachTest {
-        ComponentHolder.topRequestSourceComponent = DaggerTopRequestSourceSpekDataComponent
+        ComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceSpekDataComponent
                 .builder()
                 .topRequestSourceSpekModule(TopRequestSourceSpekModule(CACHE_DIR, MOCK_STORE))
                 .build()
@@ -45,32 +42,23 @@ internal class TopRequestSourceSpek : SubjectSpek<TopRequestSource>({
     }
 
     it ("should fall back to the cache on failed fetch") {
-        val value = TopRequestDataContainer.EMPTY
+        val value = mock<List<DataCountry>>()
         whenever(MOCK_STORE.fetch(anyVararg())) doReturn Single.error(mock<Exception>())
         whenever(MOCK_STORE.get(anyVararg())) doReturn Single.just(value)
-        val testSubscriber = TestObserver<TopRequestDataContainer>()
-        // Parameters do not matter because of the mocked method on the provided store
-        subject.fetch(TopRequestParameters("", TimeRange.ALL_TIME, 0))
-                .subscribe(testSubscriber)
+        val testSubscriber = TestObserver<List<DataCountry>>()
+        subject.fetch().subscribe(testSubscriber)
         verify(MOCK_STORE).fetch(anyVararg())
         testSubscriber.assertValue(value)
         testSubscriber.assertComplete()
     }
 
     it ("should fall back to the cache on failed fetch without propagating the error when the cache is not empty") {
-        val requestData = mock<TopRequestData> {
-            on { after } doReturn "a random after"
-        }
-        val cachedValue = mock<TopRequestDataContainer> {
-            on { data } doReturn requestData
-        }
+        val cachedValue = mock<List<DataCountry>>()
         val fetchError = mock<Exception>()
         whenever(MOCK_STORE.fetch(anyVararg())) doReturn Single.error(fetchError)
         whenever(MOCK_STORE.get(anyVararg())) doReturn Single.just(cachedValue)
-        val testSubscriber = TestObserver<TopRequestDataContainer>()
-        // Parameters do not matter because of the mocked method on the provided store
-        subject.fetch(TopRequestParameters("", TimeRange.ALL_TIME, 0))
-                .subscribe(testSubscriber)
+        val testSubscriber = TestObserver<List<DataCountry>>()
+        subject.fetch().subscribe(testSubscriber)
         verify(MOCK_STORE).fetch(anyVararg())
         verify(MOCK_STORE).get(anyVararg())
         testSubscriber.assertNoErrors()
@@ -80,7 +68,7 @@ internal class TopRequestSourceSpek : SubjectSpek<TopRequestSource>({
 }) {
     private companion object {
         val CACHE_DIR = File("build/test-generated/")
-        val MOCK_STORE = mock<Store<TopRequestDataContainer, TopRequestParameters>>()
+        val MOCK_STORE = mock<Store<List<DataCountry>, Unit>>()
     }
 }
 
@@ -89,8 +77,7 @@ internal class TopRequestSourceSpek : SubjectSpek<TopRequestSource>({
  */
 @Module
 internal class TopRequestSourceSpekModule(
-        private val cacheDir: File,
-        private val store: Store<TopRequestDataContainer, TopRequestParameters>) {
+        private val cacheDir: File, private val store: Store<List<DataCountry>, Unit>) {
     @Provides
     fun networkInterface() = mock<Retrofit>()
 
@@ -119,4 +106,4 @@ internal class TopRequestSourceSpekModule(
  */
 @Component(modules = arrayOf(TopRequestSourceSpekModule::class))
 @Singleton
-internal interface TopRequestSourceSpekDataComponent : TopRequestSourceComponent
+internal interface CountryListRequestSourceSpekDataComponent : CountryListRequestSourceComponent

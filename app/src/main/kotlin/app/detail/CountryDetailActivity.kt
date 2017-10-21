@@ -6,25 +6,21 @@ import android.os.Bundle
 import android.support.annotation.VisibleForTesting
 import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.view.MenuItem
 import app.MainApplication
-import app.common.PresentationPost
-import app.share.ShareFeature
-import kotlinx.android.synthetic.main.include_post_detail_view.*
-import kotlinx.android.synthetic.main.include_toolbar.*
+import app.common.PresentationCountry
+import kotlinx.android.synthetic.main.include_post_detail_view.thumbnail
+import kotlinx.android.synthetic.main.include_post_detail_view.title_view
+import kotlinx.android.synthetic.main.include_toolbar.toolbar
 import org.jorge.assignment.app.R
 import javax.inject.Inject
 
-
 /**
- * Activity that shows a post in detail.
+ * Activity that shows a model in detail.
  */
-internal class PostDetailActivity : AppCompatActivity() {
+internal class CountryDetailActivity : AppCompatActivity() {
     @Inject
-    lateinit var view: PostDetailView
-    @Inject
-    lateinit var shareFeatureDelegate: ShareFeature
+    lateinit var view: CountryDetailView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         overridePendingTransition(0, 0)
@@ -32,24 +28,13 @@ internal class PostDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_post_detail)
         configureToolbar()
         inject()
-        intent?.getParcelableExtra<PresentationPost>(KEY_MODEL)?.let { view.updateContent(it) }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.post_detail, menu)
-        return true
+        render()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
                 NavUtils.navigateUpFromSameTask(this)
-                return true
-            }
-            R.id.share -> {
-                intent?.getParcelableExtra<PresentationPost>(KEY_MODEL)?.let {
-                    shareFeatureDelegate.share(it)
-                }
                 return true
             }
         }
@@ -70,17 +55,24 @@ internal class PostDetailActivity : AppCompatActivity() {
                 .inject(this)
     }
 
-    internal companion object {
+    /**
+     * Requests the details of the given model to be shown.
+     */
+    private fun render() {
+        intent?.getParcelableExtra<PresentationCountry>(KEY_MODEL)?.let { view.updateContent(it) }
+    }
+
+    companion object {
         @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-        internal const val KEY_MODEL = "KEY_MODEL"
+        const val KEY_MODEL = "KEY_MODEL"
 
         /**
          * Safe way to obtain an intent to route to this activity. More useful if it were to have
-         * parameters for example, but a good idea to have nevertheless.
+         * more parameters for example, but a good idea to have nevertheless.
          * @param context The context to start this activity from.
          */
-        fun getCallingIntent(context: Context, model: PresentationPost): Intent {
-            val intent = Intent(context, PostDetailActivity::class.java)
+        fun getCallingIntent(context: Context, model: PresentationCountry): Intent {
+            val intent = Intent(context, CountryDetailActivity::class.java)
             intent.putExtra(KEY_MODEL, model)
             return intent
         }

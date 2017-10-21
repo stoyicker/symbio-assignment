@@ -4,15 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import app.common.PresentationPost
+import app.common.PresentationCountry
 import app.common.UIPostExecutionThread
-import app.detail.PostDetailActivity
+import app.detail.CountryDetailActivity
 import app.gaming.TopGamingActivityInstrumentation.Companion.SUBJECT
 import app.gaming.TopGamingActivityInstrumentation.Companion.SUBSCRIBER_GENERATOR
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import domain.entity.Post
+import domain.entity.Country
 import domain.exec.PostExecutionThread
 import domain.interactor.TopGamingAllTimePostsUseCase
 import io.reactivex.Single
@@ -33,8 +33,8 @@ internal class TopGamingAllTimePostsFeatureInstrumentationModule(
     fun coordinatorBehaviorCallback(coordinator: TopGamingAllTimePostsCoordinator) =
             object : TopGamingAllTimePostsActivity.BehaviorCallback {
                 @SuppressLint("InlinedApi")
-                override fun onItemClicked(item: PresentationPost) {
-                    context.startActivity(PostDetailActivity.getCallingIntent(context, item))
+                override fun onItemClicked(item: PresentationCountry) {
+                    context.startActivity(CountryDetailActivity.getCallingIntent(context, item))
                 }
 
                 override fun onPageLoadRequested() {
@@ -62,7 +62,7 @@ internal class TopGamingAllTimePostsFeatureInstrumentationModule(
         object : TopGamingAllTimePostsUseCase.Factory {
             override fun newFetch(page: Int, postExecutionThread: PostExecutionThread) =
                 object : TopGamingAllTimePostsUseCase(page, UIPostExecutionThread) {
-                    override fun buildUseCase(): Single<Iterable<Post>> = SUBJECT.singleOrError()
+                    override fun buildUseCase(): Single<List<Country>> = SUBJECT.singleOrError()
                 }
 
             override fun newGet(page: Int, postExecutionThread: PostExecutionThread) =

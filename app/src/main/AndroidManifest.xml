@@ -27,7 +27,7 @@
                        android:resource="@xml/searchable"/>
         </activity>
         <activity
-            android:name="app.detail.PostDetailActivity"
+            android:name="app.detail.CountryDetailActivity"
             android:theme="@style/AppTheme"
             android:launchMode="singleTask"
             android:parentActivityName="app.gaming.TopGamingAllTimePostsActivity"

@@ -12,8 +12,10 @@ import util.android.HtmlCompat
 /**
  * Contains boilerplate for list filtering.
  */
-internal class FilterFeature(activity: Activity, private val searchView: SearchView,
-                             private val target: TopGamingAllTimePostsFeatureView) {
+internal class FilterFeature(
+        activity: Activity,
+        private val searchView: SearchView,
+        private val target: TopGamingAllTimePostsFeatureView) {
     internal var query: CharSequence = ""
         private set
 
@@ -33,6 +35,7 @@ internal class FilterFeature(activity: Activity, private val searchView: SearchV
             setIconifiedByDefault(false)
             queryHint = HtmlCompat.fromHtml(context.getString(R.string.search_view_hint))
         }
+        // Neat trick so your keystrokes get sent directly to the search field even if not focused
         activity.setDefaultKeyMode(AppCompatActivity.DEFAULT_KEYS_SEARCH_LOCAL)
     }
 

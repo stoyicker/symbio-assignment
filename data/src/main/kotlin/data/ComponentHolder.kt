@@ -1,12 +1,12 @@
 package data
 
-import data.top.TopPostsFacadeComponent
-import data.top.TopRequestSourceComponent
+import data.countries.CountryListFacadeComponent
+import data.countries.CountryListRequestSourceComponent
 
 /**
  * A holder for dependency injectors.
  */
 internal object ComponentHolder {
-    lateinit var topPostsFacadeComponent: TopPostsFacadeComponent
-    lateinit var topRequestSourceComponent: TopRequestSourceComponent
+    lateinit var topPostsFacadeComponent: CountryListFacadeComponent
+    lateinit var countryListRequestSourceComponent: CountryListRequestSourceComponent
 }
