@@ -1,4 +1,4 @@
-package app.gaming
+package app.list
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,8 +12,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewAnimationUtils
 import app.MainApplication
-import app.common.PresentationCountry
-import app.filter.FilterFeature
 import kotlinx.android.synthetic.main.activity_top_gaming.root
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
 import kotlinx.android.synthetic.main.include_top_posts_view.content
@@ -26,11 +24,11 @@ import javax.inject.Inject
 /**
  * An Activity that shows the top posts from r/gaming.
  */
-internal class TopGamingAllTimePostsActivity : AppCompatActivity() {
+internal class CountryListActivity : AppCompatActivity() {
     @Inject
-    lateinit var view: TopGamingAllTimePostsFeatureView
+    lateinit var viewConfig: CountryListViewConfig
     @Inject
-    lateinit var coordinator: TopGamingAllTimePostsCoordinator
+    lateinit var coordinator: CountryListCoordinator
     private lateinit var filterFeatureDelegate: FilterFeature
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +54,7 @@ internal class TopGamingAllTimePostsActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.top_gaming, menu)
         filterFeatureDelegate = FilterFeature(this,
-                menu.findItem(R.id.search).actionView as SearchView, view)
+                menu.findItem(R.id.search).actionView as SearchView, viewConfig)
         filterFeatureDelegate.applyQuery(intent.getStringExtra(KEY_QUERY))
         return true
     }
@@ -79,8 +77,8 @@ internal class TopGamingAllTimePostsActivity : AppCompatActivity() {
      */
     private fun requestLoad() {
         coordinator.actionLoadNextPage(intent.getBooleanExtra(
-                TopGamingAllTimePostsActivity.KEY_STARTED_MANUALLY, false))
-        intent.putExtra(TopGamingAllTimePostsActivity.KEY_STARTED_MANUALLY, false)
+                CountryListActivity.KEY_STARTED_MANUALLY, false))
+        intent.putExtra(CountryListActivity.KEY_STARTED_MANUALLY, false)
     }
 
     /**
@@ -112,7 +110,7 @@ internal class TopGamingAllTimePostsActivity : AppCompatActivity() {
     }
 
     /**
-     * An interface for the view to communicate with the coordinator.
+     * An interface for the viewConfig to communicate with the coordinator.
      */
     internal interface BehaviorCallback {
         /**
@@ -127,18 +125,18 @@ internal class TopGamingAllTimePostsActivity : AppCompatActivity() {
         fun onPageLoadRequested()
     }
 
-    internal companion object {
-        private const val KEY_ENABLE_ENTER_ANIMATION = "KEY_ENABLE_ENTER_ANIMATION"
-        private const val KEY_QUERY = "KEY_QUERY"
-        private const val KEY_STARTED_MANUALLY = "KEY_STARTED_MANUALLY"
+    companion object {
+        private const val KEY_ENABLE_ENTER_ANIMATION = "org.jorge.assignment.KEY_ENABLE_ENTER_ANIMATION"
+        private const val KEY_QUERY = "org.jorge.assignment.KEY_QUERY"
+        private const val KEY_STARTED_MANUALLY = "org.jorge.assignment.KEY_STARTED_MANUALLY"
         /**
          * Safe way to obtain an intent to route to this activity. More useful if it were to have
          * more parameters for example, but a good idea to have nevertheless.
          * @param context The context to start this activity from.
          */
         fun getCallingIntent(context: Context): Intent {
-            val intent = Intent(context, TopGamingAllTimePostsActivity::class.java)
-            intent.putExtra(TopGamingAllTimePostsActivity.KEY_STARTED_MANUALLY, true)
+            val intent = Intent(context, CountryListActivity::class.java)
+            intent.putExtra(CountryListActivity.KEY_STARTED_MANUALLY, true)
             return intent
         }
     }

@@ -8,7 +8,7 @@ import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import app.MainApplication
-import app.common.PresentationCountry
+import app.list.PresentationCountry
 import kotlinx.android.synthetic.main.include_post_detail_view.thumbnail
 import kotlinx.android.synthetic.main.include_post_detail_view.title_view
 import kotlinx.android.synthetic.main.include_toolbar.toolbar

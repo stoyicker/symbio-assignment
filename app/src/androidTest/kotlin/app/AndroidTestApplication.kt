@@ -7,9 +7,9 @@ import android.widget.TextView
 import app.detail.DaggerPostDetailFeatureInstrumentationComponent
 import app.detail.PostDetailFeatureComponent
 import app.detail.PostDetailFeatureInstrumentationModule
-import app.gaming.DaggerTopGamingAllTimePostsFeatureInstrumentationComponent
-import app.gaming.TopGamingAllTimePostsFeatureInstrumentationComponent
-import app.gaming.TopGamingAllTimePostsFeatureInstrumentationModule
+import app.list.DaggerCountryListInstrumentationComponent
+import app.list.CountryListInstrumentationComponent
+import app.list.TopGamingAllTimePostsFeatureInstrumentationModule
 
 /**
  * Custom application.
@@ -17,8 +17,8 @@ import app.gaming.TopGamingAllTimePostsFeatureInstrumentationModule
 internal open class AndroidTestApplication : MainApplication() {
     override fun buildTopGamingAllTimePostsFeatureComponent(
             contentView: RecyclerView, errorView: View, progressView: View, guideView: View)
-            : TopGamingAllTimePostsFeatureInstrumentationComponent =
-            DaggerTopGamingAllTimePostsFeatureInstrumentationComponent.builder()
+            : CountryListInstrumentationComponent =
+            DaggerCountryListInstrumentationComponent.builder()
                     .topGamingAllTimePostsFeatureInstrumentationModule(
                             TopGamingAllTimePostsFeatureInstrumentationModule(
                                     this, contentView, errorView, progressView, guideView))

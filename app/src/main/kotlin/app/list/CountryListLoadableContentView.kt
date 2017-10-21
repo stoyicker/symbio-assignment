@@ -1,16 +1,15 @@
-package app.gaming
+package app.list
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.FrameLayout
-import app.common.PresentationCountry
 import org.jorge.assignment.app.R
 import util.android.ext.getDimension
 
 /**
  * Wraps UI behavior for top all time gaming posts scenario.
  */
-internal class TopGamingAllTimePostsView(
+internal class CountryListLoadableContentView(
        internal val contentView: RecyclerView,
        internal val errorView: View,
        private val progressView: View,

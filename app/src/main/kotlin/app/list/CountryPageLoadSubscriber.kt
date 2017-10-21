@@ -1,15 +1,14 @@
-package app.gaming
+package app.list
 
-import app.list.PresentationCountryEntityMapper
 import domain.entity.Country
 import io.reactivex.observers.DisposableSingleObserver
 
 /**
  * The subscriber that will react to the outcome of the associated use case and request the
- * view to update itself.
+ * viewConfig to update itself.
  */
-internal open class PageLoadSubscriber constructor(
-        private val coordinator: TopGamingAllTimePostsCoordinator,
+internal open class CountryPageLoadSubscriber(
+        private val coordinator: CountryListCoordinator,
         private val entityMapper: PresentationCountryEntityMapper)
     : DisposableSingleObserver<List<Country>>() {
     override fun onStart() {
@@ -47,7 +46,7 @@ internal open class PageLoadSubscriber constructor(
      * Description of a factory that creates page load subscribers.
      */
     internal interface Factory {
-        fun newSubscriber(coordinator: TopGamingAllTimePostsCoordinator)
+        fun newSubscriber(coordinator: CountryListCoordinator)
                 : DisposableSingleObserver<List<Country>>
     }
 }

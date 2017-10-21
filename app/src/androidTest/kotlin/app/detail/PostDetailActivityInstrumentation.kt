@@ -11,7 +11,7 @@ import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.v7.widget.Toolbar
 import android.view.View
-import app.common.PresentationCountry
+import app.list.PresentationCountry
 import org.jorge.assignment.app.R
 import org.junit.Rule
 import org.junit.Test

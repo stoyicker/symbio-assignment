@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="app.gaming.TopGamingAllTimePostsActivity"
+            android:name="app.list.CountryListActivity"
             android:theme="@style/AppTheme"
             android:launchMode="singleTask">
             <intent-filter>
@@ -30,11 +30,11 @@
             android:name="app.detail.CountryDetailActivity"
             android:theme="@style/AppTheme"
             android:launchMode="singleTask"
-            android:parentActivityName="app.gaming.TopGamingAllTimePostsActivity"
+            android:parentActivityName="app.list.CountryListActivity"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="app.gaming.TopGamingAllTimePostsActivity" />
+                android:value="app.list.CountryListActivity" />
         </activity>
         <meta-data
             android:name="android.max_aspect"

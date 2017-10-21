@@ -1,11 +1,10 @@
-package app.filter
+package app.list
 
 import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
-import app.gaming.TopGamingAllTimePostsFeatureView
 import org.jorge.assignment.app.R
 import util.android.HtmlCompat
 
@@ -15,7 +14,7 @@ import util.android.HtmlCompat
 internal class FilterFeature(
         activity: Activity,
         private val searchView: SearchView,
-        private val target: TopGamingAllTimePostsFeatureView) {
+        private val target: CountryListViewConfig) {
     internal var query: CharSequence = ""
         private set
 

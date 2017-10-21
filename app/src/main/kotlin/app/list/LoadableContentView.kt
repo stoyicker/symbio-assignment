@@ -1,4 +1,4 @@
-package app.gaming
+package app.list
 
 internal interface LoadableContentView<in T : Any?> {
     /**

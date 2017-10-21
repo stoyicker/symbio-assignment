@@ -12,14 +12,15 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import data.NetworkModule
+import domain.repository.CountryListFacade
 import okio.BufferedSource
 import retrofit2.Retrofit
 import java.io.File
 import javax.inject.Singleton
 
 /**
- * A component to inject instances that require access to data provided by CountryListRequestSourceModule.
- * @see CountryListRequestSourceModule
+ * A component to inject CountryListRequestSource instances,
+ * @see CountryListFacade
  */
 @Component(modules = arrayOf(NetworkModule::class, CountryListRequestSourceModule::class))
 @Singleton

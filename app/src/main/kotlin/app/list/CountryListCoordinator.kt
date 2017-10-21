@@ -1,17 +1,17 @@
-package app.gaming
+package app.list
 
 import app.common.UIPostExecutionThread
 import domain.interactor.TopGamingAllTimePostsUseCase
 
 /**
- * Takes care of binding the logic of the top gaming posts request to the view that handles its
+ * Takes care of binding the logic of the top gaming posts request to the viewConfig that handles its
  * outcome.
- * @param view The view associated to this object.
+ * @param view The viewConfig associated to this object.
  */
-internal class TopGamingAllTimePostsCoordinator(
-        internal val view: TopGamingAllTimePostsView,
+internal class CountryListCoordinator(
+        internal val view: CountryListLoadableContentView,
         private val useCaseFactory: TopGamingAllTimePostsUseCase.Factory,
-        private val pageLoadSubscriberFactory: PageLoadSubscriber.Factory) {
+        private val countryPageLoadSubscriberFactory: CountryPageLoadSubscriber.Factory) {
     internal var page = 0
     private var ongoingUseCase: TopGamingAllTimePostsUseCase? = null
 
@@ -27,7 +27,7 @@ internal class TopGamingAllTimePostsCoordinator(
         } else {
             useCaseFactory.newGet(page, UIPostExecutionThread)
         }
-        ongoingUseCase.execute(pageLoadSubscriberFactory.newSubscriber(this))
+        ongoingUseCase.execute(countryPageLoadSubscriberFactory.newSubscriber(this))
     }
 
     /**

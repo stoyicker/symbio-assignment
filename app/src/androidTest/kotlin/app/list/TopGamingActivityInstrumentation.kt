@@ -1,4 +1,4 @@
-package app.gaming
+package app.list
 
 import android.app.Activity
 import android.app.Instrumentation
@@ -22,9 +22,7 @@ import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.v7.widget.Toolbar
 import android.view.View
-import app.common.PresentationCountry
 import app.detail.CountryDetailActivity
-import app.list.PresentationCountryEntityMapper
 import domain.entity.Country
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.subjects.ReplaySubject
@@ -48,8 +46,8 @@ ActivityTestRule#beforeActivityLaunched is only called when the Activity is sche
 internal class TopGamingActivityInstrumentation {
     @JvmField
     @Rule
-    val activityTestRule = object : ActivityTestRule<TopGamingAllTimePostsActivity>(
-            TopGamingAllTimePostsActivity::class.java, false, false) {
+    val activityTestRule = object : ActivityTestRule<CountryListActivity>(
+            CountryListActivity::class.java, false, false) {
         override fun beforeActivityLaunched() {
             IDLING_RESOURCE = BinaryIdlingResource("load")
             Espresso.registerIdlingResources(IDLING_RESOURCE)
@@ -142,15 +140,15 @@ internal class TopGamingActivityInstrumentation {
      * Launches the activity.
      */
     private fun launchActivity() = activityTestRule.launchActivity(
-            TopGamingAllTimePostsActivity.getCallingIntent(InstrumentationRegistry.getContext()))
+            CountryListActivity.getCallingIntent(InstrumentationRegistry.getContext()))
 
     companion object {
         private lateinit var IDLING_RESOURCE: BinaryIdlingResource
         internal lateinit var SUBJECT: ReplaySubject<List<Country>>
         internal val SUBSCRIBER_GENERATOR:
-                (TopGamingAllTimePostsCoordinator) -> DisposableSingleObserver<List<Country>> =
+                (CountryListCoordinator) -> DisposableSingleObserver<List<Country>> =
                 {
-                    object : PageLoadSubscriber(it, PresentationCountryEntityMapper()) {
+                    object : CountryPageLoadSubscriber(it, PresentationCountryEntityMapper()) {
                         override fun onStart() {
                             super.onStart()
                             IDLING_RESOURCE.setIdleState(false)

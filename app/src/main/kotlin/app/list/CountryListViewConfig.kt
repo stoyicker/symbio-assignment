@@ -1,4 +1,4 @@
-package app.gaming
+package app.list
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -12,24 +12,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
-import app.common.PresentationCountry
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.item_post.view.title_view
 import org.jorge.assignment.app.R
 
 /**
- * Configuration for the recycler view holding the post list.
+ * Configuration for the recycler viewConfig holding the post list.
  */
-internal class TopGamingAllTimePostsFeatureView(
-        view: TopGamingAllTimePostsView,
-        private val callback: TopGamingAllTimePostsActivity.BehaviorCallback) {
+internal class CountryListViewConfig constructor(
+        view: CountryListLoadableContentView,
+        private val callback: CountryListActivity.BehaviorCallback) {
     private val adapter: Adapter = adapter(callback)
 
     /**
-     * Dumps itself onto the injected view.
+     * Dumps itself onto the injected viewConfig.
      */
     init {
         view.contentView.let { recyclerView ->
@@ -52,7 +49,7 @@ internal class TopGamingAllTimePostsFeatureView(
      * Returns an adapter with stable ids that reports user interactions to the provided callback.
      * @return An adapter with stable ids that reports user interactions to the provided callback.
      */
-    private fun adapter(callback: TopGamingAllTimePostsActivity.BehaviorCallback) =
+    private fun adapter(callback: CountryListActivity.BehaviorCallback) =
             Adapter(callback).also { it.setHasStableIds(true) }
 
     /**
@@ -72,7 +69,7 @@ internal class TopGamingAllTimePostsFeatureView(
  * An alternative would have been to use the databinding library, but the fact that it does not
  * support merge layouts would make diverse screen support more complicated.
  */
-internal class Adapter(private val callback: TopGamingAllTimePostsActivity.BehaviorCallback)
+internal class Adapter(private val callback: CountryListActivity.BehaviorCallback)
     : RecyclerView.Adapter<Adapter.ViewHolder>(), Filterable {
     private var items = listOf<PresentationCountry>()
     private var shownItems = emptyList<PresentationCountry>()
@@ -131,7 +128,7 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
      */
     internal fun addItems(toAdd: List<PresentationCountry>) {
         // If the list is empty we have tried to load a non-existent page, which means we already
-        // have all pages. Also there is nothing to add.
+        // have all pages, so there is nothing to add.
         if (toAdd.isNotEmpty()) {
             items = items.plus(toAdd).distinct()
             filter.refresh()
@@ -215,7 +212,7 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
 
     /**
      * Very simple viewholder that sets text and click event handling.
-     * @param itemView The view to dump the held data.
+     * @param itemView The viewConfig to dump the held data.
      * @param onItemClicked What to run when a click happens.
      */
     internal class ViewHolder internal constructor(

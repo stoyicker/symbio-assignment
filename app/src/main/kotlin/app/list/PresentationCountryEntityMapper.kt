@@ -1,6 +1,5 @@
 package app.list
 
-import app.common.PresentationCountry
 import domain.entity.Country
 
 /**

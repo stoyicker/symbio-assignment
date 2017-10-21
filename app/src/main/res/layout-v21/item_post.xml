@@ -15,7 +15,7 @@
         android:textIsSelectable="false"
         android:clickable="false"
         style="@style/AppTheme.TextTitle" />
-    <app.common.OutScalingImageView
+    <util.android.widget.OutScalingImageView
         android:id="@+id/thumbnail"
         android:layout_width="match_parent"
         android:layout_height="0dp"

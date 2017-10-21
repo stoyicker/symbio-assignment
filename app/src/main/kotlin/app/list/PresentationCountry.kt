@@ -1,4 +1,4 @@
-package app.common
+package app.list
 
 import android.os.Parcel
 import android.os.Parcelable

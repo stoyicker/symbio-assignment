@@ -62,7 +62,6 @@ ext {
     ]
     compileAppDependencies = [
             "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
-            "com.android.support:appcompat-v7:$supportLibraryVersion",
             "com.android.support:design:$supportLibraryVersion",
             "com.google.dagger:dagger-android:$daggerVersion",
             "com.squareup.picasso:picasso:$picassoVersion",
@@ -70,6 +69,9 @@ ext {
     ]
     providedUtilAndroidDependencies = [
             "com.android.support:support-annotations:$supportLibraryVersion"
+    ]
+    compileUtilAndroidDependencies = [
+            "com.android.support:recyclerview-v7:$supportLibraryVersion"
     ]
     compileUtilAndroidTestDependencies = [
             "com.android.support.test.espresso:espresso-core:$espressoVersion",

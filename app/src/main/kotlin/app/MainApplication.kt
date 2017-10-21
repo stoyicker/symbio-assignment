@@ -8,9 +8,9 @@ import android.widget.TextView
 import app.detail.CountryDetailModule
 import app.detail.DaggerPostDetailFeatureComponent
 import app.detail.PostDetailFeatureComponent
-import app.gaming.DaggerTopGamingAllTimePostsFeatureComponent
-import app.gaming.TopGamingAllTimePostsFeatureComponent
-import app.gaming.TopGamingAllTimePostsFeatureModule
+import app.list.DaggerCountryListComponent
+import app.list.CountryListComponent
+import app.list.CountryListModule
 
 /**
  * Custom application.
@@ -20,13 +20,13 @@ internal open class MainApplication : Application() {
     /**
      * Objects related to this feature can call this method to have its component created and access
      * a reference to it in order to inject itself.
-     * @see app.gaming.TopGamingAllTimePostsActivity
+     * @see app.list.CountryListActivity
      */
     open fun buildTopGamingAllTimePostsFeatureComponent(
             contentView: RecyclerView, errorView: View, progressView: View, guideView: View):
-            TopGamingAllTimePostsFeatureComponent = DaggerTopGamingAllTimePostsFeatureComponent
+            CountryListComponent = DaggerCountryListComponent
             .builder()
-            .topGamingAllTimePostsFeatureModule(TopGamingAllTimePostsFeatureModule(
+            .topGamingAllTimePostsFeatureModule(CountryListModule(
                                     this, contentView, errorView, progressView, guideView))
             .build()
 

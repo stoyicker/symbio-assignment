@@ -1,14 +1,13 @@
-package app.gaming
+package app.list
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import app.common.PresentationCountry
 import app.common.UIPostExecutionThread
 import app.detail.CountryDetailActivity
-import app.gaming.TopGamingActivityInstrumentation.Companion.SUBJECT
-import app.gaming.TopGamingActivityInstrumentation.Companion.SUBSCRIBER_GENERATOR
+import app.list.TopGamingActivityInstrumentation.Companion.SUBJECT
+import app.list.TopGamingActivityInstrumentation.Companion.SUBSCRIBER_GENERATOR
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -30,8 +29,8 @@ internal class TopGamingAllTimePostsFeatureInstrumentationModule(
         private val guideView: View) {
     @Provides
     @Singleton
-    fun coordinatorBehaviorCallback(coordinator: TopGamingAllTimePostsCoordinator) =
-            object : TopGamingAllTimePostsActivity.BehaviorCallback {
+    fun coordinatorBehaviorCallback(coordinator: CountryListCoordinator) =
+            object : CountryListActivity.BehaviorCallback {
                 @SuppressLint("InlinedApi")
                 override fun onItemClicked(item: PresentationCountry) {
                     context.startActivity(CountryDetailActivity.getCallingIntent(context, item))
@@ -44,17 +43,17 @@ internal class TopGamingAllTimePostsFeatureInstrumentationModule(
 
     @Provides
     @Singleton
-    fun pageLoadSubscriberFactory() = object : PageLoadSubscriber.Factory {
-        override fun newSubscriber(coordinator: TopGamingAllTimePostsCoordinator) =
+    fun pageLoadSubscriberFactory() = object : CountryPageLoadSubscriber.Factory {
+        override fun newSubscriber(coordinator: CountryListCoordinator) =
                 SUBSCRIBER_GENERATOR(coordinator)
     }
 
     @Provides
     @Singleton
-    fun topGamingAllTimePostsCoordinator(view: TopGamingAllTimePostsView,
+    fun topGamingAllTimePostsCoordinator(view: CountryListLoadableContentView,
                                          useCaseFactory: TopGamingAllTimePostsUseCase.Factory,
-                                         pageLoadSubscriberFactory: PageLoadSubscriber.Factory) =
-            TopGamingAllTimePostsCoordinator(view, useCaseFactory, pageLoadSubscriberFactory)
+                                         countryPageLoadSubscriberFactory: CountryPageLoadSubscriber.Factory) =
+            CountryListCoordinator(view, useCaseFactory, countryPageLoadSubscriberFactory)
 
     @Provides
     @Singleton
@@ -71,15 +70,15 @@ internal class TopGamingAllTimePostsFeatureInstrumentationModule(
 
     @Provides
     @Singleton
-    fun topGamingAllTimePostsView() = TopGamingAllTimePostsView(
+    fun topGamingAllTimePostsView() = CountryListLoadableContentView(
             contentView, errorView, progressView, guideView)
 
     @Provides
     @Singleton
     fun viewConfig(
-            view: TopGamingAllTimePostsView,
-            callback: TopGamingAllTimePostsActivity.BehaviorCallback) =
-            TopGamingAllTimePostsFeatureView(view, callback)
+            view: CountryListLoadableContentView,
+            callback: CountryListActivity.BehaviorCallback) =
+            CountryListViewConfig(view, callback)
 }
 
 /**
@@ -89,5 +88,5 @@ internal class TopGamingAllTimePostsFeatureInstrumentationModule(
  */
 @Component(modules = arrayOf(TopGamingAllTimePostsFeatureInstrumentationModule::class))
 @Singleton
-internal interface TopGamingAllTimePostsFeatureInstrumentationComponent
-    : TopGamingAllTimePostsFeatureComponent
+internal interface CountryListInstrumentationComponent
+    : CountryListComponent

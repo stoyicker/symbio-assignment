@@ -1,4 +1,4 @@
-package app.common
+package util.android.widget
 
 import android.content.Context
 import android.util.AttributeSet

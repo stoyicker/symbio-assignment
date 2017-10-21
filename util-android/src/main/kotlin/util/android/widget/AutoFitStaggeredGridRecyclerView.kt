@@ -1,11 +1,11 @@
-package app.gaming
+package util.android.widget
 
 import android.content.Context
 import android.support.annotation.Px
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
-import org.jorge.assignment.app.R
+import org.jorge.assignment.util.android.R
 import util.android.ext.getDimension
 
 /**

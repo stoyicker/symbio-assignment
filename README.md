@@ -50,10 +50,11 @@ Instrumentation tests are only present in the `app` module and can be run using 
 1. I'm using the splash activity to perform prefetch. I could do this on the main activity too of 
 course, but in detriment of higher coupling.
 2. Even if coupling wasn't a problem (suppose I wasn't doing anything in the splash), runtime 
-configuration changes are slow and are the differences between apps that run only on Pixel and whatnot 
-and apps that run also in budget phones.
+configuration changes are slow and are the differences between apps that run only on Pixel phones 
+and whatnot and apps that run also in budget phones.
 
-#### Single<List<T>> vs Observable<T>, do you not understand data streams?
+#### Single&lt;List&lt;T&gt;&gt; vs Observable&lt;T&gt;, do you not understand data streams?
+
 Well enough to know that the response from the only request this app executes is not a data stream. 
 We get an ordered bunch of items, that is, a _list_ of items, but only in _one_ bunch at a time. 
 Just because there are several items it doesn't mean we should use a stream-like representation - we 

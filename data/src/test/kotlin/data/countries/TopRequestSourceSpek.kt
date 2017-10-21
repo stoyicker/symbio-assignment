@@ -18,7 +18,6 @@ import org.jetbrains.spek.api.dsl.it
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import retrofit2.Retrofit
-import util.android.IndexedPersistedByDiskStore
 import java.io.File
 import javax.inject.Singleton
 
@@ -83,16 +82,6 @@ internal class TopRequestSourceSpekModule(
 
     @Provides
     fun cacheDir() = cacheDir
-
-    @Provides
-    @Singleton
-    fun pageMap(cacheDir: File) = IndexedPersistedByDiskStore(
-            cacheDir.resolve("pageMap"),
-            object : IndexedPersistedByDiskStore.ValueStringifier<String> {
-                override fun fromString(source: String) = if (source == "null") null else source
-
-                override fun toString(source: String?) = source ?: "null"
-            }, mutableMapOf(0 to null as String?)).also { it.restore() }
 
     @Provides
     @Singleton

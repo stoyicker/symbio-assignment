@@ -7,8 +7,8 @@ import domain.repository.CountryListFacade
 import javax.inject.Singleton
 
 /**
- * A component to inject CountryListFacadeModule instances,
- * @see CountryListFacadeModule
+ * A component to inject CountryListFacade instances,
+ * @see CountryListFacade
  */
 @Component(modules = arrayOf(CountryListFacadeModule::class))
 @Singleton

@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.widget.ImageView
 import android.widget.TextView
-import app.common.PresentationCountry
+import app.list.PresentationCountry
 import com.squareup.picasso.Picasso
 
 /**

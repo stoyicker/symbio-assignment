@@ -1,4 +1,4 @@
-package app.common
+package util.android.widget
 
 import android.content.Context
 import android.graphics.Canvas
@@ -9,7 +9,7 @@ import android.view.MotionEvent
 import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.LinearLayout
-import org.jorge.assignment.app.R
+import org.jorge.assignment.util.android.R
 import util.android.ext.getColorCompat
 import util.android.ext.getInteger
 
