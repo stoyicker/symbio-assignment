@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/stoyicker/symbio-assignment.svg?branch=master)](https://travis-ci.org/stoyicker/symbio-assignment)
 
-// TODO Write about Observable<X> vs Single<List<X>>
-
 This project is developed on top of my master-slave demo for the New York Times reactive cache 
 framework for Android ([Store](https://github.com/NYTimes/Store)), [stoyicker/master-slave-clean-store](github.com/stoyicker/master-slave-clean-store).
 
@@ -54,6 +52,18 @@ course, but in detriment of higher coupling.
 2. Even if coupling wasn't a problem (suppose I wasn't doing anything in the splash), runtime 
 configuration changes are slow and are the differences between apps that run only on Pixel and whatnot 
 and apps that run also in budget phones.
+
+#### Single<List<T>> vs Observable<T>, do you not understand data streams?
+Well enough to know that the response from the only request this app executes is not a data stream. 
+We get an ordered bunch of items, that is, a _list_ of items, but only in _one_ bunch at a time. 
+Just because there are several items it doesn't mean we should use a stream-like representation - we 
+are not observing for interactions with a UI element or leave an open port for incoming connections 
+or similar - therefore using Observable/Flowable is conceptually incorrect. Moreover, supposing we 
+used one of these classes instead, there would be a rather unnecessary overhead, because on our 
+subscriber we will either queue a UI update for every element (country, in this case) that is 
+received in onNext, or manually collect them and then request a single UI update, which is what is 
+happening in the actual implementation, only that we don't unfold the list into an unnecessary 
+Observable/Flowable and therefore we don't need to put it back together either.
 
 #### When transitioning from master to slave, you're sending the entire item instead of an id
 I am indeed. I know it is recommended that you pass only the id and then use this to retrieve the id 
