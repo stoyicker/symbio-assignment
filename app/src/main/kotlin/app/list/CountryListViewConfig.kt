@@ -18,15 +18,15 @@ import kotlinx.android.synthetic.main.item_post.view.title_view
 import org.jorge.assignment.app.R
 
 /**
- * Configuration for the recycler viewConfig holding the post list.
+ * Configuration for the recycler view holding the post list.
  */
-internal class CountryListViewConfig constructor(
+internal class CountryListViewConfig(
         view: CountryListLoadableContentView,
         private val callback: CountryListActivity.BehaviorCallback) {
     private val adapter: Adapter = adapter(callback)
 
     /**
-     * Dumps itself onto the injected viewConfig.
+     * Dumps itself onto the injected view.
      */
     init {
         view.contentView.let { recyclerView ->
@@ -61,6 +61,22 @@ internal class CountryListViewConfig constructor(
                 override fun onLoadMore() {
                     callback.onPageLoadRequested()
                 }
+    }
+
+    /**
+     * An interface for the view to communicate back with the activity.
+     */
+    interface InteractionCallback {
+        /**
+         * To be called when an item click happens.
+         * @param item The item clicked.
+         */
+        fun onItemClicked(item: PresentationCountry)
+
+        /**
+         * To be called when a page load is requested.
+         */
+        fun onPageLoadRequested()
     }
 }
 
@@ -212,7 +228,7 @@ internal class Adapter(private val callback: CountryListActivity.BehaviorCallbac
 
     /**
      * Very simple viewholder that sets text and click event handling.
-     * @param itemView The viewConfig to dump the held data.
+     * @param itemView The view to dump the held data onto.
      * @param onItemClicked What to run when a click happens.
      */
     internal class ViewHolder internal constructor(

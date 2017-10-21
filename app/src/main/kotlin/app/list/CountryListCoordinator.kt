@@ -4,9 +4,9 @@ import app.common.UIPostExecutionThread
 import domain.interactor.TopGamingAllTimePostsUseCase
 
 /**
- * Takes care of binding the logic of the top gaming posts request to the viewConfig that handles its
+ * Takes care of binding the logic of the top gaming posts request to the view that handles its
  * outcome.
- * @param view The viewConfig associated to this object.
+ * @param view The view associated to this object.
  */
 internal class CountryListCoordinator(
         internal val view: CountryListLoadableContentView,

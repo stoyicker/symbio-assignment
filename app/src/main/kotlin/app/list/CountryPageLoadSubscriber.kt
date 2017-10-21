@@ -5,7 +5,7 @@ import io.reactivex.observers.DisposableSingleObserver
 
 /**
  * The subscriber that will react to the outcome of the associated use case and request the
- * viewConfig to update itself.
+ * view to update itself.
  */
 internal open class CountryPageLoadSubscriber(
         private val coordinator: CountryListCoordinator,

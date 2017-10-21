@@ -8,9 +8,9 @@ import android.widget.TextView
 import app.detail.CountryDetailModule
 import app.detail.DaggerPostDetailFeatureComponent
 import app.detail.PostDetailFeatureComponent
-import app.list.DaggerCountryListComponent
 import app.list.CountryListComponent
 import app.list.CountryListModule
+import app.list.DaggerCountryListComponent
 
 /**
  * Custom application.
@@ -26,8 +26,8 @@ internal open class MainApplication : Application() {
             contentView: RecyclerView, errorView: View, progressView: View, guideView: View):
             CountryListComponent = DaggerCountryListComponent
             .builder()
-            .topGamingAllTimePostsFeatureModule(CountryListModule(
-                                    this, contentView, errorView, progressView, guideView))
+            .countryListModule(
+                    CountryListModule(contentView, errorView, progressView, guideView))
             .build()
 
 

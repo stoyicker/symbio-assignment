@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewAnimationUtils
 import app.MainApplication
+import app.detail.CountryDetailActivity
 import kotlinx.android.synthetic.main.activity_top_gaming.root
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
 import kotlinx.android.synthetic.main.include_top_posts_view.content
@@ -24,7 +25,7 @@ import javax.inject.Inject
 /**
  * An Activity that shows the top posts from r/gaming.
  */
-internal class CountryListActivity : AppCompatActivity() {
+internal class CountryListActivity : CountryListViewConfig.InteractionCallback, AppCompatActivity() {
     @Inject
     lateinit var viewConfig: CountryListViewConfig
     @Inject
@@ -109,26 +110,19 @@ internal class CountryListActivity : AppCompatActivity() {
                 content, error, progress, scroll_guide).inject(this)
     }
 
-    /**
-     * An interface for the viewConfig to communicate with the coordinator.
-     */
-    internal interface BehaviorCallback {
-        /**
-         * To be called when an item click happens.
-         * @param item The item clicked.
-         */
-        fun onItemClicked(item: PresentationCountry)
+    override fun onItemClicked(item: PresentationCountry) {
+        startActivity(CountryDetailActivity.getCallingIntent(this, item))
+    }
 
-        /**
-         * To be called when a page load is requested.
-         */
-        fun onPageLoadRequested()
+    override fun onPageLoadRequested() {
+        coordinator.actionLoadNextPage()
     }
 
     companion object {
         private const val KEY_ENABLE_ENTER_ANIMATION = "org.jorge.assignment.KEY_ENABLE_ENTER_ANIMATION"
         private const val KEY_QUERY = "org.jorge.assignment.KEY_QUERY"
         private const val KEY_STARTED_MANUALLY = "org.jorge.assignment.KEY_STARTED_MANUALLY"
+
         /**
          * Safe way to obtain an intent to route to this activity. More useful if it were to have
          * more parameters for example, but a good idea to have nevertheless.

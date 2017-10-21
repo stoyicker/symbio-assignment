@@ -8,8 +8,8 @@ import app.list.CountryListActivity
 
 /**
  * A simple activity that acts as a splash screen.
- * Note how, instead of using the content viewConfig to set the splash, we just set the splash as
- * background in the theme. This allows it to be shown without having to wait for   the content viewConfig
+ * Note how, instead of using the content view to set the splash, we just set the splash as
+ * background in the theme. This allows it to be shown without having to wait for the content view
  * to be drawn.
  */
 class SplashActivity : AppCompatActivity() {

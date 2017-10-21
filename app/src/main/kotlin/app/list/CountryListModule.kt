@@ -1,10 +1,7 @@
 package app.list
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import app.detail.CountryDetailActivity
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -30,25 +27,11 @@ internal interface CountryListComponent {
  */
 @Module
 internal class CountryListModule(
-        private val context: Context,
         private val contentView: RecyclerView,
         private val errorView: View,
         private val progressView: View,
-        private val guideView: View) {
-    @Provides
-    @Singleton
-    fun coordinatorBehaviorCallback(coordinator: CountryListCoordinator) =
-            object : CountryListActivity.BehaviorCallback {
-                @SuppressLint("InlinedApi")
-                override fun onItemClicked(item: PresentationCountry) {
-                    context.startActivity(CountryDetailActivity.getCallingIntent(context, item))
-                }
-
-                override fun onPageLoadRequested() {
-                    coordinator.actionLoadNextPage()
-                }
-            }
-
+        private val guideView: View,
+        private val interactionCallback: CountryListViewConfig.InteractionCallback) {
     @Provides
     @Singleton
     fun presentationCountryEntityMapper() = PresentationCountryEntityMapper()
@@ -80,12 +63,11 @@ internal class CountryListModule(
 
     @Provides
     @Singleton
-    fun topGamingAllTimePostsView() = CountryListLoadableContentView(
-            contentView, errorView, progressView, guideView)
+    fun topGamingAllTimePostsView() =
+            CountryListLoadableContentView(contentView, errorView, progressView, guideView)
 
     @Provides
     @Singleton
-    fun viewConfig(
-            view: CountryListLoadableContentView,
-            callback: CountryListActivity.BehaviorCallback) = CountryListViewConfig(view, callback)
+    fun viewConfig(view: CountryListLoadableContentView) =
+            CountryListViewConfig(view, interactionCallback)
 }
