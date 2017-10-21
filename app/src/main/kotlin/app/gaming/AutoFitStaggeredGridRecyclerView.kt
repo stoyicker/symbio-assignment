@@ -5,7 +5,7 @@ import android.support.annotation.Px
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
-import org.jorge.ms.app.R
+import org.jorge.assignment.app.R
 import util.android.ext.getDimension
 
 /**
@@ -21,7 +21,7 @@ internal class AutoFitStaggeredGridRecyclerView(context: Context, attrs: Attribu
     private @Px val columnWidth: Int
 
     init {
-        @Px val defaultColumnWidth = context.getDimension(R.dimen.default_column_width).toInt()
+        val defaultColumnWidth = context.getDimension(R.dimen.default_column_width).toInt()
         if (attrs != null) {
             val attrsArray = intArrayOf(android.R.attr.columnWidth)
             val typedArray = context.obtainStyledAttributes(attrs, attrsArray)

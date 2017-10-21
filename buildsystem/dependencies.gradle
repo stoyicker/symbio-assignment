@@ -1,4 +1,4 @@
-final def daggerVersion = "2.11"
+final def daggerVersion = "2.12"
 final def espressoVersion = "2.2.2"
 final def jsr250Version = "1.0"
 final def junitPlatformRunnerVersion = "1.0.0-M3"
@@ -6,14 +6,13 @@ final def jUnitVersion = "4.12"
 final def kotlinVersion = rootProject.ext.kotlinVersion
 final def mockitoKotlinVersion = "1.4.0"
 final def mockitoAndroidVersion = "2.7.22"
-final def paperparcelVersion = "2.0.1"
+final def paperParcelVersion = "2.0.4"
 final def picassoVersion = "2.5.2"
 final def retrofitVersion = "2.3.0"
 final def rxAndroidVersion = "2.0.1"
 final def rxJavaVersion = "2.1.3"
 final def spekVersion = "1.1.0-beta2"
 final def storeVersion = "3.0.0-beta"
-final def supportVersion = "26.0.1"
 
 ext {
     compileDependencies = [
@@ -40,7 +39,7 @@ ext {
             "com.google.dagger:dagger-compiler:$daggerVersion"
     ]
     providedDataDependencies = [
-            "com.android.support:support-annotations:$supportVersion"
+            "com.android.support:support-annotations:$supportLibraryVersion"
     ]
     compileDataDependencies = [
             "com.squareup.retrofit2:retrofit:$retrofitVersion",
@@ -56,21 +55,21 @@ ext {
     ]
     annotationProcessorAppDependencies = [
             "com.google.dagger:dagger-compiler:$daggerVersion",
-            "nz.bradcampbell:paperparcel-compiler:$paperparcelVersion"
+            "nz.bradcampbell:paperparcel-compiler:$paperParcelVersion"
     ]
     annotationProcessorAndroidTestAppDependencies = [
             "com.google.dagger:dagger-compiler:$daggerVersion"
     ]
     compileAppDependencies = [
             "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
-            "com.android.support:appcompat-v7:$supportVersion",
-            "com.android.support:design:$supportVersion",
+            "com.android.support:appcompat-v7:$supportLibraryVersion",
+            "com.android.support:design:$supportLibraryVersion",
             "com.google.dagger:dagger-android:$daggerVersion",
             "com.squareup.picasso:picasso:$picassoVersion",
-            "nz.bradcampbell:paperparcel:$paperparcelVersion"
+            "nz.bradcampbell:paperparcel:$paperParcelVersion"
     ]
     providedUtilAndroidDependencies = [
-            "com.android.support:support-annotations:$supportVersion"
+            "com.android.support:support-annotations:$supportLibraryVersion"
     ]
     compileUtilAndroidTestDependencies = [
             "com.android.support.test.espresso:espresso-core:$espressoVersion",

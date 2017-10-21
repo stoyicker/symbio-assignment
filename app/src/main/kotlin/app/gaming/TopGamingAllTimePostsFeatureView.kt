@@ -18,7 +18,7 @@ import app.common.PresentationPost
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.item_post.view.*
-import org.jorge.ms.app.R
+import org.jorge.assignment.app.R
 
 /**
  * Configuration for the recycler view holding the post list.
@@ -302,10 +302,10 @@ internal class Adapter(private val callback: TopGamingAllTimePostsActivity.Behav
     }
 }
 
-private val KEY_TITLE = "org.jorge.ms.app.KEY_TITLE"
-private val KEY_SUBREDDIT = "org.jorge.ms.app.KEY_SUBREDDIT"
-private val KEY_SCORE = "org.jorge.ms.app.KEY_SCORE"
-private val KEY_THUMBNAIL = "org.jorge.ms.app.KEY_THUMBNAIL"
+private val KEY_TITLE = "org.jorge.assignment.app.KEY_TITLE"
+private val KEY_SUBREDDIT = "org.jorge.assignment.app.KEY_SUBREDDIT"
+private val KEY_SCORE = "org.jorge.assignment.app.KEY_SCORE"
+private val KEY_THUMBNAIL = "org.jorge.assignment.app.KEY_THUMBNAIL"
 
 /**
  * @see <a href="https://gist.githubusercontent.com/nesquena/d09dc68ff07e845cc622/raw/e2429b173f75afb408b420ad4088fed68240334c/EndlessRecyclerViewScrollListener.java">Adapted from CodePath</a>

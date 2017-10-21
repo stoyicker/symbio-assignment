@@ -6,7 +6,7 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import app.gaming.TopGamingAllTimePostsFeatureView
-import org.jorge.ms.app.R
+import org.jorge.assignment.app.R
 import util.android.HtmlCompat
 
 /**

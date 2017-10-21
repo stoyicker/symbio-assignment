@@ -2,7 +2,7 @@ package app.share
 
 import android.content.Context
 import android.content.Intent
-import org.jorge.ms.app.R
+import org.jorge.assignment.app.R
 
 /**
  * Wraps sharing functionality.

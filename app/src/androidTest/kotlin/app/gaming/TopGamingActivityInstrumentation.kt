@@ -28,7 +28,7 @@ import domain.entity.Post
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.subjects.ReplaySubject
 import org.hamcrest.Matchers.allOf
-import org.jorge.ms.app.R
+import org.jorge.assignment.app.R
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExpectedException

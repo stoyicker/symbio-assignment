@@ -6,7 +6,7 @@ import domain.entity.TimeRange
 import io.reactivex.observers.TestObserver
 import org.jetbrains.spek.api.SubjectSpek
 import org.jetbrains.spek.api.dsl.it
-import org.jorge.ms.data.BuildConfig
+import org.jorge.assignment.data.BuildConfig
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import retrofit2.Retrofit

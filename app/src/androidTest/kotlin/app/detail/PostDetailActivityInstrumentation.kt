@@ -21,7 +21,7 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import app.common.PresentationPost
 import org.hamcrest.Matchers.allOf
-import org.jorge.ms.app.R
+import org.jorge.assignment.app.R
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.verify

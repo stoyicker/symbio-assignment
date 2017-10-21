@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.FrameLayout
 import app.common.PresentationPost
-import org.jorge.ms.app.R
+import org.jorge.assignment.app.R
 import util.android.ext.getDimension
 
 /**

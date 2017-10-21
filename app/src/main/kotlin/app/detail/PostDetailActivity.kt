@@ -13,7 +13,7 @@ import app.common.PresentationPost
 import app.share.ShareFeature
 import kotlinx.android.synthetic.main.include_post_detail_view.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import org.jorge.ms.app.R
+import org.jorge.assignment.app.R
 import javax.inject.Inject
 
 

@@ -2,7 +2,7 @@ package data.common
 
 import dagger.Module
 import dagger.Provides
-import org.jorge.ms.data.BuildConfig
+import org.jorge.assignment.data.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import javax.inject.Singleton

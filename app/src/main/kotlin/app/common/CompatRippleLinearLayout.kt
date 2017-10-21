@@ -9,7 +9,7 @@ import android.view.MotionEvent
 import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.LinearLayout
-import org.jorge.ms.app.R
+import org.jorge.assignment.app.R
 import util.android.ext.getColorCompat
 import util.android.ext.getInteger
 

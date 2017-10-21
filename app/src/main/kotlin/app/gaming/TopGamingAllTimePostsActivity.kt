@@ -14,12 +14,14 @@ import android.view.ViewAnimationUtils
 import app.MainApplication
 import app.common.PresentationPost
 import app.filter.FilterFeature
-import kotlinx.android.synthetic.main.activity_top_gaming.*
-import kotlinx.android.synthetic.main.include_toolbar.*
-import kotlinx.android.synthetic.main.include_top_posts_view.*
-import org.jorge.ms.app.R
+import kotlinx.android.synthetic.main.activity_top_gaming.root
+import kotlinx.android.synthetic.main.include_toolbar.toolbar
+import kotlinx.android.synthetic.main.include_top_posts_view.content
+import kotlinx.android.synthetic.main.include_top_posts_view.error
+import kotlinx.android.synthetic.main.include_top_posts_view.progress
+import kotlinx.android.synthetic.main.include_top_posts_view.scroll_guide
+import org.jorge.assignment.app.R
 import javax.inject.Inject
-
 
 /**
  * An Activity that shows the top posts from r/gaming.
