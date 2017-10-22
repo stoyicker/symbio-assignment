@@ -8,8 +8,8 @@ import android.os.StrictMode
 internal class DebugApplication : MainApplication() {
     override fun onCreate() {
         super.onCreate()
-//        enforceThreadStrictMode()
-//        enforceVMStrictMode()
+        enforceThreadStrictMode()
+        enforceVMStrictMode()
     }
 
     /**

@@ -42,10 +42,10 @@ internal class CountryListRequestSourceIntegrationSpek : SubjectSpek<CountryList
                         assertTrue { nativeName.isNotBlank() }
                         assertTrue { region.isNotBlank() }
                         assertTrue { capital.isNotBlank() }
-                        assertTrue { area.isNotBlank() }
+                        assertTrue { area!!.isNotBlank() }
                         assertTrue { languages.isNotEmpty() }
                         assertTrue { translations.isNotEmpty() }
-                        assertTrue { flagUrl.isNotBlank() }
+                        assertTrue { flagUrl!!.isNotBlank() }
                     }
                 }
         testObserver.assertComplete()

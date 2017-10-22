@@ -120,7 +120,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
             }).getString(key))
         }
         val combinedBundle = Bundle().also { bundle ->
-            arrayOf(KEY_TITLE, KEY_FLAG_URL).forEach {
+            arrayOf(KEY_NAME, KEY_FLAG_URL).forEach {
                 fold(bundle, it)
             }
         }
@@ -182,26 +182,24 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
 
                 override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
                         shownItems[oldItemPosition].let { oldItem ->
-                            filteredItems[newItemPosition].let { newItem ->
-                                oldItem == newItem
-                            }
+                            filteredItems[newItemPosition].let { newItem -> oldItem == newItem }
                         }
 
-                override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int) = null
-//                        shownItems[oldItemPosition].let {
-//                            (_, oldTitle, oldSubreddit, oldScore, oldThumbnail) ->
-//                            filteredItems[newItemPosition].let {
-//                                (_, newTitle, newSubreddit, newScore, newThumbnail) ->
-//                                Bundle().apply {
-//                                    putString(KEY_TITLE, newTitle.takeIf {
-//                                        !it.contentEquals(oldTitle)
-//                                    })
-//                                    putString(KEY_FLAG_URL, newThumbnail.takeIf {
-//                                        it != oldThumbnail
-//                                    })
-//                                }
-//                            }
-//                        }
+                override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int) =
+                        shownItems[oldItemPosition].let {
+                            (oldName, _, _, _, _, _, oldFlagUrl) ->
+                            filteredItems[newItemPosition].let {
+                                (newName, _, _, _, _, _, newFlagUrl) ->
+                                Bundle().apply {
+                                    putString(KEY_NAME, newName.takeIf {
+                                        !it.contentEquals(oldName)
+                                    })
+                                    putString(KEY_FLAG_URL, newFlagUrl.takeIf {
+                                        it != oldFlagUrl
+                                    })
+                                }
+                            }
+                        }
             })
             return FilterResults().also {
                 it.values = filteredItems
@@ -247,7 +245,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
          * @param item The item these updates correspond to.
          */
         fun renderPartial(bundle: Bundle, item: PresentationCountry) {
-            bundle.getString(KEY_TITLE)?.let { setName(it) }
+            bundle.getString(KEY_NAME)?.let { setName(it) }
             setFlag(bundle.getString(KEY_FLAG_URL))
             itemView.setOnClickListener { onItemClicked(item) }
         }
@@ -290,7 +288,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
     }
 }
 
-private const val KEY_TITLE = "org.jorge.assignment.app.KEY_TITLE"
+private const val KEY_NAME = "org.jorge.assignment.app.KEY_NAME"
 private const val KEY_FLAG_URL = "org.jorge.assignment.app.KEY_FLAG_URL"
 
 /**
