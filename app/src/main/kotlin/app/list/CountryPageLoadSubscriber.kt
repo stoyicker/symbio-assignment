@@ -23,9 +23,10 @@ internal open class CountryPageLoadSubscriber(
         coordinator.apply {
             if (!payload.none()) {
                 page++
-                // * is the spread operator. We use it to build an immutable list.
+                // * is the spread operator
                 view.updateContent(listOf(
-                        *payload.map { entityMapper.transform(it) }.toTypedArray()))
+                        *payload.subList(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
+                                .map { entityMapper.transform(it) }.toTypedArray()))
             }
             view.apply {
                 hideLoadingLayout()
@@ -48,5 +49,9 @@ internal open class CountryPageLoadSubscriber(
     internal interface Factory {
         fun newSubscriber(coordinator: CountryListCoordinator)
                 : DisposableSingleObserver<List<Country>>
+    }
+
+    private companion object {
+        const val PAGE_SIZE = 20
     }
 }

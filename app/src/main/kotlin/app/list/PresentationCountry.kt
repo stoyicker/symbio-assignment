@@ -12,10 +12,10 @@ internal data class PresentationCountry(
         val nativeName: String,
         val region: String,
         val capital: String,
-        val area: String,
+        val area: String?,
         val languages: Array<String>,
         val germanTranslation: String?,
-        val flagUrl: String) : Parcelable {
+        val flagUrl: String?) : Parcelable {
     /**
      * Note that Kotlin data classes compare all attributes on a country. That is not what we want,
      * so we are tuning that a bit both here and in equals(...).

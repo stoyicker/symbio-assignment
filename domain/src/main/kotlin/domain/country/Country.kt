@@ -9,7 +9,7 @@ class Country(
         val nativeName: String,
         val region: String,
         val capital: String,
-        val area: String,
+        val area: String?,
         val languages: Array<String>,
         val germanTranslation: String?,
-        val flagUrl: String)
+        val flagUrl: String?)

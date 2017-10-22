@@ -53,9 +53,10 @@ internal class CountryListRequestSourceModule(private val cacheDir: File) {
             // should be the latest.
             FluentStoreBuilder.parsedWithKey<Unit, BufferedSource, List<DataCountry>>(
                     Fetcher { fetcher(apiService) }) {
-                parsers = listOf(MoshiParserFactory.createSourceParser<List<DataCountry>>(Moshi.Builder().build().apply {
-                    adapter<List<DataCountry>>(Types.newParameterizedType(List::class.java, DataCountry::class.java))
-                }, List::class.java))
+                val type = Types.newParameterizedType(List::class.java, DataCountry::class.java)
+                parsers = listOf(MoshiParserFactory.createSourceParser<List<DataCountry>>(
+                        Moshi.Builder().build().apply { adapter<List<DataCountry>>(type) },
+                        type))
                 persister = FileSystemPersister.create(FileSystemFactory.create(cacheDir)) { it.toString() }
                 // When the disk data is stale, never try to retry from network since the likelihood
                 // of a change is extremely low and it is not required because we do it a fresh

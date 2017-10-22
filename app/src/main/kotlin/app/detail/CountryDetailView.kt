@@ -30,7 +30,7 @@ internal open class CountryDetailView(
             detailView.text = """
                 Region: $region
                 Capital: $capital
-                Area: $area
+                Area: ${area ?: "N/A"}
                 Languages: ${languages.joinToString(separator = ", ")}
                 German name: $germanTranslation"""
         }
