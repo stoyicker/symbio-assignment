@@ -1,8 +1,5 @@
-package data.common
+package data.countries
 
-import data.countries.CountryEntityMapper
-import data.countries.DataCountry
-import data.countries.DataLanguage
 import domain.country.Country
 import org.jetbrains.spek.api.SubjectSpek
 import org.jetbrains.spek.api.dsl.it
@@ -60,6 +57,13 @@ internal class CountryEntityMapperSpek : SubjectSpek<CountryEntityMapper>({
     private companion object {
         private fun assertEquivalent(srcModel: DataCountry, targetModel: Country) {
             assertEquals(srcModel.name, targetModel.name)
+            assertEquals(srcModel.nativeName, targetModel.nativeName)
+            assertEquals(srcModel.region, targetModel.region)
+            assertEquals(srcModel.capital, targetModel.capital)
+            assertEquals(srcModel.area, targetModel.area)
+            assertEquals(srcModel.languages.map { it.name }.toTypedArray(), targetModel.languages)
+            assertEquals(srcModel.translations["de"], targetModel.germanTranslation)
+            assertEquals(srcModel.flagUrl, targetModel.flagUrl)
         }
     }
 }
