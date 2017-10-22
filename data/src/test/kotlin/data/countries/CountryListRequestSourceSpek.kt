@@ -6,12 +6,10 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.reset
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import com.nytimes.android.external.store3.base.impl.FluentMemoryPolicyBuilder.Companion.build
 import com.nytimes.android.external.store3.base.impl.Store
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import data.ComponentHolder
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.jetbrains.spek.api.SubjectSpek
@@ -30,7 +28,7 @@ internal class CountryListRequestSourceSpek : SubjectSpek<CountryListRequestSour
     subject { CountryListRequestSource() }
 
     beforeEachTest {
-        ComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceSpekComponent
+        CountryComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceSpekComponent
                 .builder()
                 .countryListRequestSourceSpekModule(CountryListRequestSourceSpekModule(CACHE_DIR, MOCK_STORE))
                 .build()

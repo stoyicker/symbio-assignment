@@ -1,6 +1,5 @@
 package data.countries
 
-import data.ComponentHolder
 import domain.country.CountryListFacade
 import io.reactivex.Single
 import javax.inject.Inject
@@ -21,7 +20,7 @@ internal class CountryListFacadeImpl : CountryListFacade {
     lateinit var source: CountryListRequestSource
 
     init {
-        ComponentHolder.countryListFacadeComponent.inject(this)
+        CountryComponentHolder.countryListFacadeComponent.inject(this)
     }
 
     /**

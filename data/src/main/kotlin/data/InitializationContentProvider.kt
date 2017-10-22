@@ -3,6 +3,7 @@ package data
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.net.Uri
+import data.countries.CountryComponentHolder
 import data.countries.CountryListFacadeImpl
 import data.countries.CountryListRequestSourceModule
 import data.countries.DaggerCountryListFacadeComponent
@@ -17,8 +18,8 @@ import domain.country.CountryListFacadeHolder
  */
 internal class InitializationContentProvider : ContentProvider() {
     override fun onCreate(): Boolean {
-        ComponentHolder.countryListFacadeComponent = DaggerCountryListFacadeComponent.create()
-        ComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceComponent
+        CountryComponentHolder.countryListFacadeComponent = DaggerCountryListFacadeComponent.create()
+        CountryComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceComponent
                 .builder()
                 .countryListRequestSourceModule(CountryListRequestSourceModule(context.cacheDir))
                 .build()

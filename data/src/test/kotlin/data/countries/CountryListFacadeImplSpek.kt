@@ -8,7 +8,6 @@ import com.nhaarman.mockito_kotlin.whenever
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import data.ComponentHolder
 import domain.country.Country
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -27,7 +26,7 @@ internal class CountryListFacadeImplSpek : SubjectSpek<CountryListFacadeImpl>({
     subject { CountryListFacadeImpl() }
 
     beforeEachTest {
-        ComponentHolder.countryListFacadeComponent = DaggerCountryListFacadeModuleSpekComponent
+        CountryComponentHolder.countryListFacadeComponent = DaggerCountryListFacadeModuleSpekComponent
                 .builder()
                 .countryListFacadeSpekModule(CountryListFacadeSpekModule(MOCK_ENTITY_MAPPER, MOCK_SOURCE))
                 .build()

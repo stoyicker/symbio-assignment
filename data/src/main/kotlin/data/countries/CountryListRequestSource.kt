@@ -1,7 +1,6 @@
 package data.countries
 
 import com.nytimes.android.external.store3.base.impl.Store
-import data.ComponentHolder
 import javax.inject.Inject
 import dagger.Lazy as DaggerLazy
 
@@ -21,7 +20,7 @@ internal class CountryListRequestSource {
     private val store: Store<List<DataCountry>, Unit> by lazy { storeAccessor.get() }
 
     init {
-        ComponentHolder.countryListRequestSourceComponent.inject(this)
+        CountryComponentHolder.countryListRequestSourceComponent.inject(this)
     }
 
     /**
