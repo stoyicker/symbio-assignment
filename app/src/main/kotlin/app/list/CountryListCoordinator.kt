@@ -11,7 +11,7 @@ import domain.country.CountryListUseCase
 internal class CountryListCoordinator(
         internal val view: CountryListLoadableContentView,
         private val useCaseFactory: CountryListUseCase.Factory,
-        private val countryPageLoadSubscriberFactory: CountryPageLoadSubscriber.Factory) {
+        private val countryPageLoadObserverFactory: CountryPageLoadObserver.Factory) {
     internal var page = 0
     private var ongoingUseCase: CountryListUseCase? = null
 
@@ -20,7 +20,7 @@ internal class CountryListCoordinator(
      */
     fun actionLoadNextPage() {
         ongoingUseCase = useCaseFactory.newGet(page, UIPostExecutionThread)
-        ongoingUseCase?.execute(countryPageLoadSubscriberFactory.newSubscriber(this))
+        ongoingUseCase?.execute(countryPageLoadObserverFactory.newSubscriber(this))
     }
 
     /**

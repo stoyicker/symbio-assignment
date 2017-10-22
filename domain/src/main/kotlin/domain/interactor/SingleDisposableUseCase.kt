@@ -8,19 +8,13 @@ abstract class SingleDisposableUseCase<T> protected constructor(
         /**
          * Send null for in-place synchronous execution
          */
-        private val asyncExecutionScheduler: Scheduler? = null,
+        private val asyncExecutionScheduler: Scheduler,
         private val postExecutionScheduler: Scheduler)
     : DisposableUseCase(), UseCase<Single<T>> {
     fun execute(subscriber: DisposableSingleObserver<T>) {
-        assembledSubscriber = buildUseCase().let {
-            val completeSetup = { x: Single<T> ->
-                x.observeOn(postExecutionScheduler).subscribeWith(subscriber)
-            }
-            if (asyncExecutionScheduler != null) {
-                completeSetup(it.subscribeOn(asyncExecutionScheduler))
-            } else {
-                completeSetup(it)
-            }
-        }
+        assembledSubscriber = buildUseCase()
+                .subscribeOn(asyncExecutionScheduler)
+                .observeOn(postExecutionScheduler)
+                .subscribeWith(subscriber)
     }
 }

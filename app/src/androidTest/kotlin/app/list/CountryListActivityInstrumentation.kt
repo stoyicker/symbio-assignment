@@ -172,7 +172,7 @@ internal class CountryListActivityInstrumentation {
         internal val SUBSCRIBER_GENERATOR:
                 (CountryListCoordinator) -> DisposableSingleObserver<List<Country>> =
                 {
-                    object : CountryPageLoadSubscriber(it, PresentationCountryEntityMapper()) {
+                    object : CountryPageLoadObserver(it, PresentationCountryEntityMapper()) {
                         override fun onStart() {
                             super.onStart()
                             IDLING_RESOURCE.setIdleState(false)

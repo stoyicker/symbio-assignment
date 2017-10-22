@@ -4,7 +4,11 @@ import android.content.Intent
 import android.os.Handler
 import android.support.annotation.VisibleForTesting
 import android.support.v7.app.AppCompatActivity
+import app.common.UIPostExecutionThread
 import app.list.CountryListActivity
+import domain.country.Country
+import domain.country.FetchCountriesUseCase
+import io.reactivex.observers.DisposableSingleObserver
 
 /**
  * A simple activity that acts as a splash screen.
@@ -13,7 +17,7 @@ import app.list.CountryListActivity
  * to be drawn.
  */
 internal class SplashActivity : AppCompatActivity() {
-    private lateinit var handler: Handler
+    private var handler: Handler? = null
 
     override fun onResume() {
         super.onResume()
@@ -21,11 +25,23 @@ internal class SplashActivity : AppCompatActivity() {
     }
 
     /**
-     * Schedules the app content to be shown.
+     * Performs pre-fetching and schedules the app content to be shown.
      */
     private fun scheduleContentOpening() {
-        handler = Handler()
-        handler.postDelayed({ openContent() }, SHOW_TIME_MILLIS)
+        // 'Pre-fetch'. The way this is implemented is a bit arguable, due to it being inside the
+        // activity and instantiated directly. That's coupling with framework classes, which is bad.
+        // It would be delegated to a coordinator of its own if I was a bit less tired :P
+        FetchCountriesUseCase(0, UIPostExecutionThread).execute(
+                object : DisposableSingleObserver<List<Country>>() {
+                    override fun onSuccess(ignored: List<Country>) { prepareToMoveOn() }
+
+                    override fun onError(ignored: Throwable) { prepareToMoveOn() }
+
+                    private fun prepareToMoveOn() {
+                        handler = Handler()
+                        handler!!.postDelayed({ openContent() }, SHOW_TIME_MILLIS)
+                    }
+                })
     }
 
     /**
@@ -39,12 +55,12 @@ internal class SplashActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        handler.removeCallbacksAndMessages(null)
+        handler?.removeCallbacksAndMessages(null)
         super.onPause()
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     companion object {
-        const val SHOW_TIME_MILLIS = 1000L
+        const val SHOW_TIME_MILLIS = 600L
     }
 }
