@@ -6,4 +6,5 @@
     <color name="textColorSecondary">#ffffff</color>
     <color name="windowBackground">#e3e3e3</color>
     <color name="defaultRipple">#42ffffff</color>
+    <color name="textSubHead">#000000</color>
 </resources>
