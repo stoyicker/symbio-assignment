@@ -11,19 +11,28 @@ import com.squareup.picasso.Picasso
  * Wraps UI behavior for the list scenario. Class is only open for testing purposes.
  */
 internal open class CountryDetailView(
-        private val textView: TextView,
-        private val imageView: ImageView) : TextAndImageView<PresentationCountry> {
+        private val nameView: TextView,
+        private val imageView: ImageView,
+        private val detailView: TextView) : DetailView<PresentationCountry> {
     override fun updateContent(item: PresentationCountry) {
-        item.name.let {
-            textView.text = it
-            imageView.contentDescription = it
+        item.apply {
+            name.let {
+                nameView.text = "$it ($nativeName)"
+                imageView.contentDescription = it
+            }
+            Picasso.with(imageView.context)
+                    .load(flagUrl)
+                    // Trick for correct image placement
+                    .placeholder(ColorDrawable(Color.TRANSPARENT))
+                    .fit()
+                    .centerInside()
+                    .into(imageView)
+            detailView.text = """
+                Region: $region
+                Capital: $capital
+                Area: $area
+                Languages: ${languages.joinToString(separator = ", ")}
+                German name: $germanTranslation"""
         }
-        Picasso.with(imageView.context)
-                .load(item.name)
-                // Trick for correct image placement
-                .placeholder(ColorDrawable(Color.TRANSPARENT))
-                .fit()
-                .centerInside()
-                .into(imageView)
     }
 }
