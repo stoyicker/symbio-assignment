@@ -4,8 +4,10 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.net.Uri
 import data.countries.CountryListFacadeImpl
+import data.countries.CountryListRequestSourceModule
 import data.countries.DaggerCountryListFacadeComponent
-import domain.Domain
+import data.countries.DaggerCountryListRequestSourceComponent
+import domain.country.CountryListFacadeHolder
 
 /**
  * Used to tie to the app lifecycle, for things like obtaining a Context reference or initializing
@@ -16,10 +18,11 @@ import domain.Domain
 internal class InitializationContentProvider : ContentProvider() {
     override fun onCreate(): Boolean {
         ComponentHolder.countryListFacadeComponent = DaggerCountryListFacadeComponent.create()
-//        ComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceComponent.builder()
-//                .topRequestSourceModule(CountryListRequestSourceModule(context.cacheDir))
-//                .build()
-        Domain.countryListFacade(CountryListFacadeImpl())
+        ComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceComponent
+                .builder()
+                .countryListRequestSourceModule(CountryListRequestSourceModule(context.cacheDir))
+                .build()
+        CountryListFacadeHolder.countryListFacade(CountryListFacadeImpl())
         return true
     }
 

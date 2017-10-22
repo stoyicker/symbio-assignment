@@ -1,6 +1,5 @@
 package domain.country
 
-import domain.Domain
 import domain.interactor.PostExecutionThread
 
 /**
@@ -8,5 +7,5 @@ import domain.interactor.PostExecutionThread
  */
 class GetCountriesUseCase(page: Int, postExecutionThread: PostExecutionThread)
     : CountryListUseCase(page, postExecutionThread) {
-    override fun buildUseCase() = Domain.countryListFacade.getCountries()
+    override fun buildUseCase() = CountryListFacadeHolder.countryListFacade.getCountries()
 }

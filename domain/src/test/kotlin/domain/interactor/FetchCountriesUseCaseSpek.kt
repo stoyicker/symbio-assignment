@@ -4,7 +4,7 @@ import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.reset
 import com.nhaarman.mockito_kotlin.whenever
-import domain.Domain
+import domain.country.CountryListFacadeHolder
 import domain.country.Country
 import domain.country.CountryListFacade
 import domain.country.FetchCountriesUseCase
@@ -29,7 +29,7 @@ internal class FetchCountriesUseCaseSpek : SubjectSpek<FetchCountriesUseCase>({
 
     beforeEachTest {
         reset(MOCK_FACADE)
-        Domain.countryListFacade(MOCK_FACADE)
+        CountryListFacadeHolder.countryListFacade(MOCK_FACADE)
     }
 
     it ("should build its implementation as an observable") {

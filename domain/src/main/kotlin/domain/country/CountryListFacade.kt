@@ -7,11 +7,11 @@ import io.reactivex.Single
  */
 interface CountryListFacade {
     /**
-     * Fetch top posts from a subreddit.
+     * Fetch the country list.
      */
     fun fetchCountries(): Single<List<Country>>
     /**
-     * Get top posts from a subreddit.
+     * Get the country list.
      */
     fun getCountries(): Single<List<Country>>
 }

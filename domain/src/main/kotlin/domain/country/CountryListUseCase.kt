@@ -1,8 +1,8 @@
 package domain.country
 
-import domain.Domain
 import domain.interactor.PostExecutionThread
 import domain.interactor.SingleDisposableUseCase
+import io.reactivex.schedulers.Schedulers
 import kotlin.properties.Delegates
 
 /**
@@ -14,7 +14,7 @@ import kotlin.properties.Delegates
  */
 abstract class CountryListUseCase(page: Int, postExecutionThread: PostExecutionThread)
     : SingleDisposableUseCase<List<Country>>(
-        asyncExecutionScheduler = Domain.useCaseScheduler,
+        asyncExecutionScheduler = Schedulers.io(),
         postExecutionScheduler = postExecutionThread.scheduler()) {
     // This makes sure we do not try to request negative pages
     private var safePage by Delegates.vetoable(0, { _, _, new -> new >= 0 })

@@ -8,8 +8,7 @@ import app.list.PresentationCountry
 import com.squareup.picasso.Picasso
 
 /**
- * Wraps UI behavior for top all time gaming posts scenario. Class is only open for testing
- * purposes.
+ * Wraps UI behavior for the list scenario. Class is only open for testing purposes.
  */
 internal open class CountryDetailView(
         private val textView: TextView,

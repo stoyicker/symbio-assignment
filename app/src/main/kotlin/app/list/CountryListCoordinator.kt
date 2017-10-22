@@ -4,7 +4,7 @@ import app.common.UIPostExecutionThread
 import domain.country.CountryListUseCase
 
 /**
- * Takes care of binding the logic of the top gaming posts request to the view that handles its
+ * Takes care of binding the logic of the country list request to the view that handles its
  * outcome.
  * @param view The view associated to this object.
  */

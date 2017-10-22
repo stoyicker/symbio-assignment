@@ -54,7 +54,7 @@ internal class CountryListModule constructor(
 
     @Provides
     @Singleton
-    fun topGamingAllTimePostsUseCaseFactory() = object : CountryListUseCase.Factory {
+    fun countryListUseCaseFactory() = object : CountryListUseCase.Factory {
         override fun newFetch(page: Int, postExecutionThread: PostExecutionThread) =
                 FetchCountriesUseCase(page, postExecutionThread)
 
@@ -64,7 +64,7 @@ internal class CountryListModule constructor(
 
     @Provides
     @Singleton
-    fun topGamingAllTimePostsView() =
+    fun countryListView() =
             CountryListLoadableContentView(contentView, errorView, progressView, guideView)
 
     @Provides

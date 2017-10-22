@@ -23,7 +23,7 @@ import org.jorge.assignment.app.R
 import javax.inject.Inject
 
 /**
- * An Activity that shows the top posts from r/gaming.
+ * An Activity that shows a country list.
  */
 internal class CountryListActivity : CountryListViewConfig.InteractionCallback, AppCompatActivity() {
     @Inject

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_label">reddit</string>
-    <string name="top_posts_error_description">Error loading</string>
-    <string name="top_posts_error_action">Retry</string>
-    <string name="top_posts_scroll_guide">Scroll down to see more!</string>
-    <string name="search_view_hint"><![CDATA[<font color=#FF9999>Search r/gaming</font>]]></string>
-    <string name="search_view_hint_clear">Search r/gaming</string>
+    <string name="app_label">assignment</string>
+    <string name="error_description">Error loading</string>
+    <string name="error_action">Retry</string>
+    <string name="scroll_guide">Scroll down to see more!</string>
+    <string name="search_view_hint"><![CDATA[<font color=#FF9999>Search…</font>]]></string>
+    <string name="search_view_hint_clear">Search…</string>
     <string name="share">Share…</string>
 </resources>

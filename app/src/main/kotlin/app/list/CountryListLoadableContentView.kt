@@ -7,7 +7,7 @@ import org.jorge.assignment.app.R
 import util.android.ext.getDimension
 
 /**
- * Wraps UI behavior for top all time gaming posts scenario.
+ * Wraps UI behavior for the list scenario.
  */
 internal class CountryListLoadableContentView(
        val contentView: RecyclerView,

@@ -27,5 +27,5 @@ internal class CountryListFacadeModule {
 
     @Provides
     @Singleton
-    fun topRequestSource() = CountryListRequestSource()
+    fun countryListRequestSource() = CountryListRequestSource()
 }

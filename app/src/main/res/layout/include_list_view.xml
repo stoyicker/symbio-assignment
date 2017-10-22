@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
-        android:columnWidth="@dimen/top_posts_column_width" />
+        android:columnWidth="@dimen/column_width" />
     <android.support.v4.widget.ContentLoadingProgressBar
         android:id="@+id/progress"
         android:layout_width="match_parent"
@@ -28,13 +28,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:text="@string/top_posts_error_description" />
+            android:text="@string/error_description" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textStyle="bold"
-            android:text="@string/top_posts_error_action" />
+            android:text="@string/error_action" />
     </LinearLayout>
     <TextView
         android:id="@+id/scroll_guide"
@@ -44,6 +44,6 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:text="@string/top_posts_scroll_guide"
+        android:text="@string/scroll_guide"
         android:visibility="invisible" />
 </FrameLayout>
