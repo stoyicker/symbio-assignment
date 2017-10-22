@@ -15,7 +15,7 @@
         android:textIsSelectable="false"
         android:clickable="false"
         style="@style/AppTheme.TextTitle" />
-    <ImageView
+    <util.android.widget.OutScalingImageView
         android:id="@+id/flag"
         android:layout_width="match_parent"
         android:layout_height="0dp"

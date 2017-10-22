@@ -270,14 +270,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
          */
         private fun setFlag(flagLink: String?) {
             itemView.flag.let {
-                if (flagLink != null) {
-                    Picasso.with(it.context)
-                            .load(flagLink)
-                            .into(this)
-                } else {
-                    it.visibility = View.GONE
-                    it.setImageDrawable(null)
-                }
+                Picasso.with(it.context).load(flagLink).into(this)
             }
         }
 
