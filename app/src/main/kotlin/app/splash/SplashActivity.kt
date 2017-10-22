@@ -12,7 +12,7 @@ import app.list.CountryListActivity
  * background in the theme. This allows it to be shown without having to wait for the content view
  * to be drawn.
  */
-class SplashActivity : AppCompatActivity() {
+internal class SplashActivity : AppCompatActivity() {
     private lateinit var handler: Handler
 
     override fun onResume() {
@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    internal companion object {
+    companion object {
         const val SHOW_TIME_MILLIS = 1000L
     }
 }

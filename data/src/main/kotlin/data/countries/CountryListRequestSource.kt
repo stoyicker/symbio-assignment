@@ -29,11 +29,11 @@ internal class CountryListRequestSource {
      * success. On failure, cache is the fallback.
      * @see Store
      */
-    internal fun fetch() = store.fetch(Unit).onErrorResumeNext { store.get(Unit) }
+    fun fetch() = store.fetch(Unit).onErrorResumeNext { store.get(Unit) }
 
     /**
      * Delegates to its internal responsible for the request. Cache checks: memory > disk > network.
      * @see Store
      */
-    internal fun get() = store.get(Unit)
+    fun get() = store.get(Unit)
 }

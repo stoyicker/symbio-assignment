@@ -10,8 +10,8 @@ import util.android.ext.getDimension
  * Wraps UI behavior for top all time gaming posts scenario.
  */
 internal class CountryListLoadableContentView(
-       internal val contentView: RecyclerView,
-       internal val errorView: View,
+       val contentView: RecyclerView,
+       val errorView: View,
        private val progressView: View,
        private val guideView: View) : LoadableContentView<PresentationCountry> {
     override fun showLoadingLayout() {

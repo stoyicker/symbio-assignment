@@ -21,7 +21,7 @@ internal class CountryListCoordinator(
      * indicating if this load was triggered manually. Defaults to <code>false</code>, which
      * resorts to memory and disk cache, checking for data availability in that order.
      */
-    internal fun actionLoadNextPage(requestedManually: Boolean = true) {
+    fun actionLoadNextPage(requestedManually: Boolean = true) {
         val ongoingUseCase = if (requestedManually) {
             useCaseFactory.newFetch(page, UIPostExecutionThread)
         } else {
@@ -33,7 +33,7 @@ internal class CountryListCoordinator(
     /**
      * Aborts the on-going next page load, if any.
      */
-    internal fun abortActionLoadNextPage() {
+    fun abortActionLoadNextPage() {
         ongoingUseCase?.dispose()
     }
 }

@@ -15,7 +15,7 @@ internal class FilterFeature(
         activity: Activity,
         private val searchView: SearchView,
         private val target: CountryListViewConfig) {
-    internal var query: CharSequence = ""
+    var query: CharSequence = ""
         private set
 
     init {
@@ -42,7 +42,7 @@ internal class FilterFeature(
      * Delegates a query to the query handler in order to filter the list.
      * @param newQuery The query.
      */
-    internal fun applyQuery(newQuery: CharSequence?) {
+    fun applyQuery(newQuery: CharSequence?) {
         searchView.setQuery(newQuery, false)
     }
 }

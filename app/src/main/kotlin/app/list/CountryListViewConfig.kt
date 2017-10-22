@@ -41,7 +41,7 @@ internal class CountryListViewConfig(
      * Requests a filtering command to be performed.
      * @param constraint The constraint for the filtering action.
      */
-    internal fun filterView(constraint: CharSequence?) {
+    fun filterView(constraint: CharSequence?) {
         adapter.filter.filter(constraint, null)
     }
 
@@ -142,7 +142,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
      * the current filter.
      * @param toAdd The items to add.
      */
-    internal fun addItems(toAdd: List<PresentationCountry>) {
+    fun addItems(toAdd: List<PresentationCountry>) {
         // If the list is empty we have tried to load a non-existent page, which means we already
         // have all pages, so there is nothing to add.
         if (toAdd.isNotEmpty()) {
@@ -156,7 +156,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
     /**
      * A filter that keeps track of its last query for repetition.
      */
-    internal inner class RepeatableFilter : Filter() {
+    inner class RepeatableFilter : Filter() {
         private var currentQuery: CharSequence = ""
         private lateinit var diff: DiffUtil.DiffResult
 
@@ -240,7 +240,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
          * Draw an item.
          * @title The item to draw.
          */
-        internal fun render(item: PresentationCountry) {
+        fun render(item: PresentationCountry) {
             setTitle(item.name)
 //            setSubreddit(item.subreddit)
 //            setScore(item.score)
@@ -253,7 +253,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
          * @param bundle The updates that need to be drawn.
          * @param item The item these updates correspond to.
          */
-        internal fun renderPartial(bundle: Bundle, item: PresentationCountry) {
+        fun renderPartial(bundle: Bundle, item: PresentationCountry) {
             bundle.getString(KEY_TITLE)?.let { setTitle(it) }
             bundle.getString(KEY_SUBREDDIT)?.let { setSubreddit(it) }
             bundle.getString(KEY_SCORE)?.let { setScore(Integer.valueOf(it)) }
