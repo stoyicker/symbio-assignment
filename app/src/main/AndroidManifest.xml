@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.jorge.assignment.app">
     <application
+        android:label="@string/app_label"
         android:allowBackup="false"
         android:icon="@null"
         android:launchMode="singleTask">
