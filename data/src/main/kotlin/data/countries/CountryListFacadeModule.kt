@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(CountryListFacadeModule::class))
 @Singleton
 internal interface CountryListFacadeComponent {
-    fun inject(target: CountryListFacade)
+    fun inject(target: CountryListFacadeImpl)
 }
 
 /**

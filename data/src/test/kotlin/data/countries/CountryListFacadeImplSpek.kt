@@ -96,6 +96,15 @@ internal class CountryListFacadeImplSpek : SubjectSpek<CountryListFacadeImpl>({
 }
 
 /**
+ * The reason why we use a replacement component instead of inheritance in the module structure
+ * is that such a solution could have some potentially bad consequences.
+ * @see <a href="https://google.github.io/dagger/testing.html">Testing with Dagger</a>
+ */
+@Component(modules = arrayOf(CountryListFacadeSpekModule::class))
+@Singleton
+internal interface CountryListFacadeModuleSpekComponent : CountryListFacadeComponent
+
+/**
  * Module used to provide stuff required by this Spek.
  */
 @Module
@@ -108,14 +117,5 @@ internal class CountryListFacadeSpekModule(
 
     @Provides
     @Singleton
-    fun source() = source
+    fun countryListRequestSource() = source
 }
-
-/**
- * The reason why we use a replacement component instead of inheritance in the module structure
- * is that such a solution could have some potentially bad consequences.
- * @see <a href="https://google.github.io/dagger/testing.html">Testing with Dagger</a>
- */
-@Component(modules = arrayOf(CountryListFacadeSpekModule::class))
-@Singleton
-internal interface CountryListFacadeModuleSpekComponent : CountryListFacadeComponent
