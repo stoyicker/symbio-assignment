@@ -19,7 +19,7 @@ internal class CountryEntityMapperSpek : SubjectSpek<CountryEntityMapper>({
         val source = DataCountry(
                 languages = listOf(DataLanguage("languageOne")),
                 translations = mapOf("de" to "languageOneInGerman"),
-                flagUrl = "aUrl",
+                flag = "aUrl",
                 name = "aName",
                 capital = "aCapital",
                 region = "aRegion",
@@ -32,7 +32,7 @@ internal class CountryEntityMapperSpek : SubjectSpek<CountryEntityMapper>({
         val source = DataCountry(
                 languages = emptyList(),
                 translations = emptyMap(),
-                flagUrl = "",
+                flag = "",
                 name = "",
                 capital = "",
                 region = "",
@@ -45,7 +45,7 @@ internal class CountryEntityMapperSpek : SubjectSpek<CountryEntityMapper>({
         val source = DataCountry(
                 languages = listOf(DataLanguage("languageOne")),
                 translations = emptyMap(),
-                flagUrl = "aUrl",
+                flag = "aUrl",
                 name = "aName",
                 capital = "",
                 region = "",
@@ -63,7 +63,7 @@ internal class CountryEntityMapperSpek : SubjectSpek<CountryEntityMapper>({
             assertEquals(srcModel.area, targetModel.area)
             assertEquals(srcModel.languages.map { it.name }.toTypedArray(), targetModel.languages)
             assertEquals(srcModel.translations["de"], targetModel.germanTranslation)
-            assertEquals(srcModel.flagUrl, targetModel.flagUrl)
+            assertEquals(srcModel.flag, targetModel.flag)
         }
     }
 }

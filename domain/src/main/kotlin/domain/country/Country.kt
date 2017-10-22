@@ -12,4 +12,4 @@ class Country(
         val area: String?,
         val languages: Array<String>,
         val germanTranslation: String?,
-        val flagUrl: String?)
+        val flag: String?)

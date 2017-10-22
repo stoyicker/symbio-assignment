@@ -58,7 +58,7 @@ internal class DetailActivityInstrumentation {
                 area = "area",
                 languages = arrayOf("languageOne"),
                 germanTranslation = "nameInGerman",
-                flagUrl = "flagUrl",
+                flag = "flag",
                 nativeName = "nativeName")
     }
 }

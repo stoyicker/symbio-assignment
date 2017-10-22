@@ -17,6 +17,6 @@ internal class PresentationCountryEntityMapper {
                 area = it.area,
                 languages = it.languages,
                 germanTranslation = it.germanTranslation,
-                flagUrl = it.flagUrl)
+                flag = it.flag)
     }
 }

@@ -17,6 +17,6 @@ internal class CountryEntityMapper {
                 area = it.area,
                 languages = it.languages.map { it.name }.toTypedArray(),
                 germanTranslation = it.translations["de"],
-                flagUrl = it.flagUrl)
+                flag = it.flag)
     }
 }

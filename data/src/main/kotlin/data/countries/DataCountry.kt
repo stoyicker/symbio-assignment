@@ -8,7 +8,7 @@ import com.squareup.moshi.Json
 internal class DataCountry(
         @Json(name = "languages") val languages: List<DataLanguage>,
         @Json(name = "translations") val translations: Map<String, String>,
-        @Json(name = "flag") val flagUrl: String?,
+        @Json(name = "flag") val flag: String?,
         @Json(name = "name") val name: String,
         @Json(name = "capital") val capital: String,
         @Json(name = "region") val region: String,

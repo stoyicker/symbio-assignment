@@ -102,7 +102,7 @@ internal class CountryListActivityInstrumentation {
                 area = "",
                 languages = emptyArray(),
                 germanTranslation = "",
-                flagUrl = "",
+                flag = "",
                 nativeName = "")))
         SUBJECT.onComplete()
         launchActivity()
@@ -139,7 +139,7 @@ internal class CountryListActivityInstrumentation {
                 area = "",
                 languages = emptyArray(),
                 germanTranslation = "",
-                flagUrl = "",
+                flag = "",
                 nativeName = "")))
         SUBJECT.onComplete()
         launchActivity()
@@ -154,7 +154,7 @@ internal class CountryListActivityInstrumentation {
                         area = "",
                         languages = emptyArray(),
                         germanTranslation = "",
-                        flagUrl = "",
+                        flag = "",
                         nativeName = ""))
         ))
         Intents.release()

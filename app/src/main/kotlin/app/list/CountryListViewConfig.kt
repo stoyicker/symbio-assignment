@@ -189,15 +189,15 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
 
                 override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int) =
                         shownItems[oldItemPosition].let {
-                            (oldName, _, _, _, _, _, oldFlagUrl) ->
+                            (oldName, _, _, _, _, _, oldflag) ->
                             filteredItems[newItemPosition].let {
-                                (newName, _, _, _, _, _, newFlagUrl) ->
+                                (newName, _, _, _, _, _, newflag) ->
                                 Bundle().apply {
                                     putString(KEY_NAME, newName.takeIf {
                                         !it.contentEquals(oldName)
                                     })
-                                    putString(KEY_FLAG_URL, newFlagUrl.takeIf {
-                                        it != oldFlagUrl
+                                    putString(KEY_FLAG_URL, newflag.takeIf {
+                                        it != oldflag
                                     })
                                 }
                             }
@@ -240,7 +240,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
          */
         fun render(item: PresentationCountry) {
             setName(item.name)
-            setFlag(item.flagUrl)
+            setFlag(item.flag)
             itemView.setOnClickListener { onItemClicked(item) }
         }
 

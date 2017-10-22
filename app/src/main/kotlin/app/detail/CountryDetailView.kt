@@ -21,7 +21,7 @@ internal open class CountryDetailView(
                 imageView.contentDescription = it
             }
             Picasso.with(imageView.context)
-                    .load(flagUrl)
+                    .load(flag)
                     // Trick for correct image placement
                     .placeholder(ColorDrawable(Color.TRANSPARENT))
                     .fit()
