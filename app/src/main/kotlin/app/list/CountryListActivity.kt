@@ -77,8 +77,7 @@ internal class CountryListActivity : CountryListViewConfig.InteractionCallback, 
      * Requests the next item batch to load.
      */
     private fun requestLoad() {
-        coordinator.actionLoadNextPage(intent.getBooleanExtra(
-                CountryListActivity.KEY_STARTED_MANUALLY, false))
+        coordinator.actionLoadNextPage()
         intent.putExtra(CountryListActivity.KEY_STARTED_MANUALLY, false)
     }
 

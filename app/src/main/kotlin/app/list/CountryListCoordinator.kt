@@ -17,17 +17,10 @@ internal class CountryListCoordinator(
 
     /**
      * Triggers the load of the next page.
-     * @param requestedManually In order to decide whether or not to resort to the cache, a boolean
-     * indicating if this load was triggered manually. Defaults to <code>false</code>, which
-     * resorts to memory and disk cache, checking for data availability in that order.
      */
-    fun actionLoadNextPage(requestedManually: Boolean = true) {
-        val ongoingUseCase = if (requestedManually) {
-            useCaseFactory.newFetch(page, UIPostExecutionThread)
-        } else {
-            useCaseFactory.newGet(page, UIPostExecutionThread)
-        }
-        ongoingUseCase.execute(countryPageLoadSubscriberFactory.newSubscriber(this))
+    fun actionLoadNextPage() {
+        ongoingUseCase = useCaseFactory.newGet(page, UIPostExecutionThread)
+        ongoingUseCase?.execute(countryPageLoadSubscriberFactory.newSubscriber(this))
     }
 
     /**

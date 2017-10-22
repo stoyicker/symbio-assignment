@@ -22,11 +22,17 @@ internal open class CountryPageLoadSubscriber(
     override fun onSuccess(payload: List<Country>) {
         coordinator.apply {
             if (!payload.none()) {
+                if (page * PAGE_SIZE >= payload.size) {
+                    view.updateContent(emptyList())
+                } else {
+                    // * is the spread operator
+                    view.updateContent(listOf(
+                            *payload.subList(
+                                    page * PAGE_SIZE,
+                                    Math.min((page + 1) * PAGE_SIZE, payload.size))
+                                    .map { entityMapper.transform(it) }.toTypedArray()))
+                }
                 page++
-                // * is the spread operator
-                view.updateContent(listOf(
-                        *payload.subList(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
-                                .map { entityMapper.transform(it) }.toTypedArray()))
             }
             view.apply {
                 hideLoadingLayout()
