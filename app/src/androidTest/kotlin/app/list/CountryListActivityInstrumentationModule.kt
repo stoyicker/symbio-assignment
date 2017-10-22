@@ -1,13 +1,10 @@
 package app.list
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import app.common.UIPostExecutionThread
-import app.detail.CountryDetailActivity
-import app.list.TopGamingActivityInstrumentation.Companion.SUBJECT
-import app.list.TopGamingActivityInstrumentation.Companion.SUBSCRIBER_GENERATOR
+import app.list.CountryListActivityInstrumentation.Companion.SUBJECT
+import app.list.CountryListActivityInstrumentation.Companion.SUBSCRIBER_GENERATOR
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -18,29 +15,24 @@ import io.reactivex.Single
 import javax.inject.Singleton
 
 /**
+ * The reason why we use a replacement component instead of inheritance in the module structure
+ * is that such a solution could have some potentially bad consequences.
+ * @see <a href="https://google.github.io/dagger/testing.html">Testing with Dagger</a>
+ */
+@Component(modules = arrayOf(CountryListActivityInstrumentationModule::class))
+@Singleton
+internal interface CountryListActivityInstrumentationActivityComponent : CountryListActivityComponent
+
+/**
  * Module used to provide stuff required by this test.
  */
 @Module
-internal class TopGamingAllTimePostsFeatureInstrumentationModule(
-        private val context: Context,
+internal class CountryListActivityInstrumentationModule(
         private val contentView: RecyclerView,
         private val errorView: View,
         private val progressView: View,
-        private val guideView: View) {
-    @Provides
-    @Singleton
-    fun coordinatorBehaviorCallback(coordinator: CountryListCoordinator) =
-            object : CountryListActivity.BehaviorCallback {
-                @SuppressLint("InlinedApi")
-                override fun onItemClicked(item: PresentationCountry) {
-                    context.startActivity(CountryDetailActivity.getCallingIntent(context, item))
-                }
-
-                override fun onPageLoadRequested() {
-                    coordinator.actionLoadNextPage()
-                }
-            }
-
+        private val guideView: View,
+        private val interactionCallback: CountryListViewConfig.InteractionCallback) {
     @Provides
     @Singleton
     fun pageLoadSubscriberFactory() = object : CountryPageLoadSubscriber.Factory {
@@ -75,18 +67,6 @@ internal class TopGamingAllTimePostsFeatureInstrumentationModule(
 
     @Provides
     @Singleton
-    fun viewConfig(
-            view: CountryListLoadableContentView,
-            callback: CountryListActivity.BehaviorCallback) =
-            CountryListViewConfig(view, callback)
+    fun viewConfig(view: CountryListLoadableContentView) =
+            CountryListViewConfig(view, interactionCallback)
 }
-
-/**
- * The reason why we use a replacement component instead of inheritance in the module structure
- * is that such a solution could have some potentially bad consequences.
- * @see <a href="https://google.github.io/dagger/testing.html">Testing with Dagger</a>
- */
-@Component(modules = arrayOf(TopGamingAllTimePostsFeatureInstrumentationModule::class))
-@Singleton
-internal interface CountryListInstrumentationComponent
-    : CountryListComponent

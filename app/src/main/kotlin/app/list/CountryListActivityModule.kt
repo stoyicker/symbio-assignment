@@ -13,11 +13,11 @@ import javax.inject.Singleton
 
 /**
  * A component to inject instances of CountryListActivity.
- * @see CountryListModule
+ * @see CountryListActivityModule
  */
-@Component(modules = arrayOf(CountryListModule::class))
+@Component(modules = arrayOf(CountryListActivityModule::class))
 @Singleton
-internal interface CountryListComponent {
+internal interface CountryListActivityComponent {
     fun inject(target: CountryListActivity)
 }
 
@@ -26,7 +26,7 @@ internal interface CountryListComponent {
  * @see CountryListActivity
  */
 @Module
-internal class CountryListModule(
+internal class CountryListActivityModule constructor(
         private val contentView: RecyclerView,
         private val errorView: View,
         private val progressView: View,

@@ -8,9 +8,10 @@ import android.widget.TextView
 import app.detail.CountryDetailModule
 import app.detail.DaggerPostDetailFeatureComponent
 import app.detail.PostDetailFeatureComponent
-import app.list.CountryListComponent
-import app.list.CountryListModule
-import app.list.DaggerCountryListComponent
+import app.list.CountryListActivityComponent
+import app.list.CountryListActivityModule
+import app.list.CountryListViewConfig
+import app.list.DaggerCountryListActivityComponent
 
 /**
  * Custom application.
@@ -22,13 +23,22 @@ internal open class MainApplication : Application() {
      * a reference to it in order to inject itself.
      * @see app.list.CountryListActivity
      */
-    open fun buildTopGamingAllTimePostsFeatureComponent(
-            contentView: RecyclerView, errorView: View, progressView: View, guideView: View):
-            CountryListComponent = DaggerCountryListComponent
-            .builder()
-            .countryListModule(
-                    CountryListModule(contentView, errorView, progressView, guideView))
-            .build()
+    open fun buildCountryListActivityComponent(
+            contentView: RecyclerView,
+            errorView: View,
+            progressView: View,
+            guideView: View,
+            interactionCallback: CountryListViewConfig.InteractionCallback): CountryListActivityComponent =
+            DaggerCountryListActivityComponent
+                    .builder()
+                    .countryListActivityModule(
+                            CountryListActivityModule(
+                                    contentView = contentView,
+                                    errorView = errorView,
+                                    progressView = progressView,
+                                    guideView = guideView,
+                                    interactionCallback = interactionCallback))
+                    .build()
 
 
     /**
@@ -36,7 +46,7 @@ internal open class MainApplication : Application() {
      * a reference to it in order to inject itself.
      * @see app.detail.CountryDetailActivity
      */
-    open fun buildPostDetailFeatureComponent(textView: TextView, imageView: ImageView)
+    open fun buildCountryDetailComponent(textView: TextView, imageView: ImageView)
             : PostDetailFeatureComponent = DaggerPostDetailFeatureComponent.builder()
                     .countryDetailModule(CountryDetailModule(textView, imageView))
                     .build()

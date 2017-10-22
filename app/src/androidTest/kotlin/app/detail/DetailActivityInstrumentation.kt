@@ -21,7 +21,7 @@ import kotlin.test.assertEquals
 /**
  * Instrumentation tests for CountryDetailActivity.
  */
-internal class PostDetailActivityInstrumentation {
+internal class DetailActivityInstrumentation {
     @JvmField
     @Rule
     val activityTestRule = object : ActivityTestRule<CountryDetailActivity>(

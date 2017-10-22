@@ -22,7 +22,7 @@ import org.jorge.assignment.app.R
  */
 internal class CountryListViewConfig(
         view: CountryListLoadableContentView,
-        private val callback: CountryListActivity.BehaviorCallback) {
+        private val callback: CountryListViewConfig.InteractionCallback) {
     private val adapter: Adapter = adapter(callback)
 
     /**
@@ -49,7 +49,7 @@ internal class CountryListViewConfig(
      * Returns an adapter with stable ids that reports user interactions to the provided callback.
      * @return An adapter with stable ids that reports user interactions to the provided callback.
      */
-    private fun adapter(callback: CountryListActivity.BehaviorCallback) =
+    private fun adapter(callback: CountryListViewConfig.InteractionCallback) =
             Adapter(callback).also { it.setHasStableIds(true) }
 
     /**
@@ -85,7 +85,7 @@ internal class CountryListViewConfig(
  * An alternative would have been to use the databinding library, but the fact that it does not
  * support merge layouts would make diverse screen support more complicated.
  */
-internal class Adapter(private val callback: CountryListActivity.BehaviorCallback)
+internal class Adapter(private val callback: CountryListViewConfig.InteractionCallback)
     : RecyclerView.Adapter<Adapter.ViewHolder>(), Filterable {
     private var items = listOf<PresentationCountry>()
     private var shownItems = emptyList<PresentationCountry>()

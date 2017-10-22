@@ -105,9 +105,14 @@ internal class CountryListActivity : CountryListViewConfig.InteractionCallback, 
      * Injects this instance with the corresponding feature component.
      */
     private fun inject() {
-        (application as MainApplication).buildTopGamingAllTimePostsFeatureComponent(
+        (application as MainApplication).buildCountryListActivityComponent(
                 // https://kotlinlang.org/docs/tutorials/android-plugin.html#using-kotlin-android-extensions
-                content, error, progress, scroll_guide).inject(this)
+                contentView = content,
+                errorView = error,
+                progressView = progress,
+                guideView = scroll_guide,
+                interactionCallback = this)
+                .inject(this)
     }
 
     override fun onItemClicked(item: PresentationCountry) {

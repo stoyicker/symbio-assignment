@@ -43,7 +43,7 @@ ActivityTestRule#beforeActivityLaunched is only called when the Activity is sche
  * already, and JUnit's @Before is invoked before the test, but with the Activity prepared already.
  * This forces us to manually launch the activity in every test.
  */
-internal class TopGamingActivityInstrumentation {
+internal class CountryListActivityInstrumentation {
     @JvmField
     @Rule
     val activityTestRule = object : ActivityTestRule<CountryListActivity>(

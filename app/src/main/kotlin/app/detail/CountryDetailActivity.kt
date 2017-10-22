@@ -51,7 +51,7 @@ internal class CountryDetailActivity : AppCompatActivity() {
      */
     private fun inject() {
         // https://kotlinlang.org/docs/tutorials/android-plugin.html#using-kotlin-android-extensions
-        (application as MainApplication).buildPostDetailFeatureComponent(title_view, thumbnail)
+        (application as MainApplication).buildCountryDetailComponent(title_view, thumbnail)
                 .inject(this)
     }
 
