@@ -23,7 +23,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.v7.widget.Toolbar
 import android.view.View
 import app.detail.CountryDetailActivity
-import domain.entity.Country
+import domain.country.Country
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.subjects.ReplaySubject
 import org.hamcrest.Matchers.allOf

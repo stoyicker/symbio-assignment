@@ -5,19 +5,19 @@ import android.view.View
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import domain.exec.PostExecutionThread
-import domain.interactor.TopGamingAllTimeFetchPostsUseCase
-import domain.interactor.TopGamingAllTimeGetPostsUseCase
-import domain.interactor.TopGamingAllTimePostsUseCase
+import domain.country.CountryListUseCase
+import domain.country.FetchCountriesUseCase
+import domain.country.GetCountriesUseCase
+import domain.interactor.PostExecutionThread
 import javax.inject.Singleton
 
 /**
  * A component to inject instances of CountryListActivity.
- * @see CountryListActivityModule
+ * @see CountryListModule
  */
-@Component(modules = arrayOf(CountryListActivityModule::class))
+@Component(modules = arrayOf(CountryListModule::class))
 @Singleton
-internal interface CountryListActivityComponent {
+internal interface CountryListComponent {
     fun inject(target: CountryListActivity)
 }
 
@@ -26,7 +26,7 @@ internal interface CountryListActivityComponent {
  * @see CountryListActivity
  */
 @Module
-internal class CountryListActivityModule constructor(
+internal class CountryListModule constructor(
         private val contentView: RecyclerView,
         private val errorView: View,
         private val progressView: View,
@@ -46,19 +46,20 @@ internal class CountryListActivityModule constructor(
 
     @Provides
     @Singleton
-    fun topGamingAllTimePostsCoordinator(view: CountryListLoadableContentView,
-                                         useCaseFactory: TopGamingAllTimePostsUseCase.Factory,
-                                         countryPageLoadSubscriberFactory: CountryPageLoadSubscriber.Factory) =
+    fun countryListCoordinator(
+            view: CountryListLoadableContentView,
+            useCaseFactory: CountryListUseCase.Factory,
+            countryPageLoadSubscriberFactory: CountryPageLoadSubscriber.Factory) =
             CountryListCoordinator(view, useCaseFactory, countryPageLoadSubscriberFactory)
 
     @Provides
     @Singleton
-    fun topGamingAllTimePostsUseCaseFactory() = object : TopGamingAllTimePostsUseCase.Factory {
+    fun topGamingAllTimePostsUseCaseFactory() = object : CountryListUseCase.Factory {
         override fun newFetch(page: Int, postExecutionThread: PostExecutionThread) =
-                TopGamingAllTimeFetchPostsUseCase(page, postExecutionThread)
+                FetchCountriesUseCase(page, postExecutionThread)
 
         override fun newGet(page: Int, postExecutionThread: PostExecutionThread) =
-                TopGamingAllTimeGetPostsUseCase(page, postExecutionThread)
+                GetCountriesUseCase(page, postExecutionThread)
     }
 
     @Provides

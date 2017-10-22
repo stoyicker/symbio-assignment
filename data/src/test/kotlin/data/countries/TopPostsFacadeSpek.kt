@@ -9,7 +9,7 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import data.ComponentHolder
-import domain.entity.Country
+import domain.country.Country
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.jetbrains.spek.api.SubjectSpek
@@ -27,7 +27,7 @@ internal class TopPostsFacadeSpek : SubjectSpek<CountryListFacadeImpl>({
     subject { CountryListFacadeImpl() }
 
     beforeEachTest {
-        ComponentHolder.topPostsFacadeComponent = DaggerCountryListFacadeModuleSpekComponent
+        ComponentHolder.countryListFacadeComponent = DaggerCountryListFacadeModuleSpekComponent
                 .builder()
                 .countryListFacadeSpekModule(CountryListFacadeSpekModule(MOCK_ENTITY_MAPPER, MOCK_SOURCE))
                 .build()

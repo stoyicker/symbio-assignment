@@ -8,9 +8,9 @@ import app.list.CountryListActivityInstrumentation.Companion.SUBSCRIBER_GENERATO
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import domain.entity.Country
-import domain.exec.PostExecutionThread
-import domain.interactor.TopGamingAllTimePostsUseCase
+import domain.country.Country
+import domain.country.CountryListUseCase
+import domain.interactor.PostExecutionThread
 import io.reactivex.Single
 import javax.inject.Singleton
 
@@ -19,15 +19,15 @@ import javax.inject.Singleton
  * is that such a solution could have some potentially bad consequences.
  * @see <a href="https://google.github.io/dagger/testing.html">Testing with Dagger</a>
  */
-@Component(modules = arrayOf(CountryListActivityInstrumentationModule::class))
+@Component(modules = arrayOf(CountryListInstrumentationModule::class))
 @Singleton
-internal interface CountryListActivityInstrumentationActivityComponent : CountryListActivityComponent
+internal interface CountryListInstrumentationComponent : CountryListComponent
 
 /**
  * Module used to provide stuff required by this test.
  */
 @Module
-internal class CountryListActivityInstrumentationModule(
+internal class CountryListInstrumentationModule(
         private val contentView: RecyclerView,
         private val errorView: View,
         private val progressView: View,
@@ -42,17 +42,17 @@ internal class CountryListActivityInstrumentationModule(
 
     @Provides
     @Singleton
-    fun topGamingAllTimePostsCoordinator(view: CountryListLoadableContentView,
-                                         useCaseFactory: TopGamingAllTimePostsUseCase.Factory,
-                                         countryPageLoadSubscriberFactory: CountryPageLoadSubscriber.Factory) =
+    fun countryListCoordinator(view: CountryListLoadableContentView,
+                               useCaseFactory: CountryListUseCase.Factory,
+                               countryPageLoadSubscriberFactory: CountryPageLoadSubscriber.Factory) =
             CountryListCoordinator(view, useCaseFactory, countryPageLoadSubscriberFactory)
 
     @Provides
     @Singleton
-    fun topGamingAllTimePostsUseCaseFactory(): TopGamingAllTimePostsUseCase.Factory =
-        object : TopGamingAllTimePostsUseCase.Factory {
+    fun countryListUseCaseFactory(): CountryListUseCase.Factory =
+        object : CountryListUseCase.Factory {
             override fun newFetch(page: Int, postExecutionThread: PostExecutionThread) =
-                object : TopGamingAllTimePostsUseCase(page, UIPostExecutionThread) {
+                object : CountryListUseCase(page, UIPostExecutionThread) {
                     override fun buildUseCase(): Single<List<Country>> = SUBJECT.singleOrError()
                 }
 
@@ -62,7 +62,7 @@ internal class CountryListActivityInstrumentationModule(
 
     @Provides
     @Singleton
-    fun topGamingAllTimePostsView() = CountryListLoadableContentView(
+    fun countryListView() = CountryListLoadableContentView(
             contentView, errorView, progressView, guideView)
 
     @Provides

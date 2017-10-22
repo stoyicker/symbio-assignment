@@ -15,7 +15,7 @@ import domain.Domain
  */
 internal class InitializationContentProvider : ContentProvider() {
     override fun onCreate(): Boolean {
-        ComponentHolder.topPostsFacadeComponent = DaggerCountryListFacadeComponent.create()
+        ComponentHolder.countryListFacadeComponent = DaggerCountryListFacadeComponent.create()
 //        ComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceComponent.builder()
 //                .topRequestSourceModule(CountryListRequestSourceModule(context.cacheDir))
 //                .build()

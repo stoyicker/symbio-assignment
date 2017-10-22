@@ -1,6 +1,5 @@
-package domain.repository
+package domain.country
 
-import domain.entity.Country
 import io.reactivex.Single
 
 /**

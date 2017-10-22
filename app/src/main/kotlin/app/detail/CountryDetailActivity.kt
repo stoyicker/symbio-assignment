@@ -9,8 +9,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import app.MainApplication
 import app.list.PresentationCountry
-import kotlinx.android.synthetic.main.include_post_detail_view.thumbnail
-import kotlinx.android.synthetic.main.include_post_detail_view.title_view
+import kotlinx.android.synthetic.main.include_detail_view.thumbnail
+import kotlinx.android.synthetic.main.include_detail_view.title_view
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
 import org.jorge.assignment.app.R
 import javax.inject.Inject
@@ -25,7 +25,7 @@ internal class CountryDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         overridePendingTransition(0, 0)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_post_detail)
+        setContentView(R.layout.activity_item_detail)
         configureToolbar()
         inject()
         render()

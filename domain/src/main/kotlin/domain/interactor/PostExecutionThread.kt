@@ -1,4 +1,4 @@
-package domain.exec
+package domain.interactor
 
 import io.reactivex.Scheduler
 

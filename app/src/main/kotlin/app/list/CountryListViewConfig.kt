@@ -14,7 +14,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
-import kotlinx.android.synthetic.main.item_post.view.title_view
+import kotlinx.android.synthetic.main.list_item.view.title_view
 import org.jorge.assignment.app.R
 
 /**
@@ -98,7 +98,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
             = ViewHolder(LayoutInflater.from(parent.context).inflate(
-                R.layout.item_post, parent, false), { callback.onItemClicked(it) })
+                R.layout.list_item, parent, false), { callback.onItemClicked(it) })
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.render(shownItems[position])

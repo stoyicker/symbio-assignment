@@ -1,13 +1,13 @@
 package domain.interactor
 
-import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.reset
 import com.nhaarman.mockito_kotlin.whenever
 import domain.Domain
-import domain.entity.Post
-import domain.exec.PostExecutionThread
-import domain.repository.DomainTopPostsFacade
+import domain.country.Country
+import domain.country.CountryListFacade
+import domain.country.GetCountriesUseCase
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.observers.DisposableSingleObserver
@@ -20,12 +20,12 @@ import kotlin.test.assertEquals
 import kotlin.test.fail
 
 /**
- * Tests for the all-time gaming get top posts use case.
- * @see TopGamingAllTimePostsUseCase
+ * Tests for the use case that gets countries from the cache first.
+ * @see GetCountriesUseCase
  */
 @RunWith(JUnitPlatform::class)
-internal class TopGamingAllTimePostsGetUseCaseSpek : SubjectSpek<TopGamingAllTimeGetPostsUseCase>({
-    subject { TopGamingAllTimeGetPostsUseCase(PAGE, POST_EXECUTION_THREAD_SCHEDULE_IMMEDIATELY) }
+internal class GetCountriesUseCaseSpek : SubjectSpek<GetCountriesUseCase>({
+    subject { GetCountriesUseCase(PAGE, POST_EXECUTION_THREAD_SCHEDULE_IMMEDIATELY) }
 
     beforeEachTest {
         reset(MOCK_FACADE)
@@ -34,11 +34,9 @@ internal class TopGamingAllTimePostsGetUseCaseSpek : SubjectSpek<TopGamingAllTim
 
     it ("should build its implementation as an observable") {
         // Cannot mock Post as it is a data class
-        val values = setOf(Post("", "title", "sr", -8, "a", "a"),
-                Post("rafe", "titfle", "eeesr", 9, "", "a"),
-                Post("123", "titlea", "sr", 0, "a", "a"))
-        val testSubscriber = object : DisposableSingleObserver<Iterable<Post>>() {
-            override fun onSuccess(payload: Iterable<Post>) {
+        val values = listOf<Country>(mock(), mock(), mock())
+        val testSubscriber = object : DisposableSingleObserver<List<Country>>() {
+            override fun onSuccess(payload: List<Country>) {
                 assertEquals(payload, values, "Values not as expected")
             }
 
@@ -46,7 +44,7 @@ internal class TopGamingAllTimePostsGetUseCaseSpek : SubjectSpek<TopGamingAllTim
                 fail("An error occurred: $error")
             }
         }
-        whenever(MOCK_FACADE.getTop(any(), any(), any())) doReturn Single.just<Iterable<Post>>(values)
+        whenever(MOCK_FACADE.getCountries()) doReturn Single.just<List<Country>>(values)
         subject.execute(testSubscriber)
     }
 }) {
@@ -55,6 +53,6 @@ internal class TopGamingAllTimePostsGetUseCaseSpek : SubjectSpek<TopGamingAllTim
         private val POST_EXECUTION_THREAD_SCHEDULE_IMMEDIATELY = object : PostExecutionThread {
             override fun scheduler(): Scheduler = Schedulers.trampoline()
         }
-        private val MOCK_FACADE = mock<DomainTopPostsFacade>()
+        private val MOCK_FACADE = mock<CountryListFacade>()
     }
 }

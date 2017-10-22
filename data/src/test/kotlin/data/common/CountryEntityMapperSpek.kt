@@ -3,7 +3,7 @@ package data.common
 import data.countries.CountryEntityMapper
 import data.countries.DataCountry
 import data.countries.DataLanguage
-import domain.entity.Country
+import domain.country.Country
 import org.jetbrains.spek.api.SubjectSpek
 import org.jetbrains.spek.api.dsl.it
 import org.junit.platform.runner.JUnitPlatform

@@ -1,6 +1,6 @@
 package domain
 
-import domain.repository.CountryListFacade
+import domain.country.CountryListFacade
 import io.reactivex.schedulers.Schedulers
 
 /**

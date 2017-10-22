@@ -13,12 +13,12 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import app.MainApplication
 import app.detail.CountryDetailActivity
-import kotlinx.android.synthetic.main.activity_top_gaming.root
+import kotlinx.android.synthetic.main.activity_list.root
+import kotlinx.android.synthetic.main.include_list_view.content
+import kotlinx.android.synthetic.main.include_list_view.error
+import kotlinx.android.synthetic.main.include_list_view.progress
+import kotlinx.android.synthetic.main.include_list_view.scroll_guide
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
-import kotlinx.android.synthetic.main.include_top_posts_view.content
-import kotlinx.android.synthetic.main.include_top_posts_view.error
-import kotlinx.android.synthetic.main.include_top_posts_view.progress
-import kotlinx.android.synthetic.main.include_top_posts_view.scroll_guide
 import org.jorge.assignment.app.R
 import javax.inject.Inject
 
@@ -35,7 +35,7 @@ internal class CountryListActivity : CountryListViewConfig.InteractionCallback, 
     override fun onCreate(savedInstanceState: Bundle?) {
         overridePendingTransition(0, 0)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_top_gaming)
+        setContentView(R.layout.activity_list)
         revealLayout()
         inject()
         setSupportActionBar(toolbar)

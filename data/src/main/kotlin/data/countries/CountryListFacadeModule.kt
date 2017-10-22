@@ -3,7 +3,7 @@ package data.countries
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import domain.repository.CountryListFacade
+import domain.country.CountryListFacade
 import javax.inject.Singleton
 
 /**

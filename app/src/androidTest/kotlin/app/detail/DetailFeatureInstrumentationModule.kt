@@ -1,6 +1,5 @@
 package app.detail
 
-import android.content.Context
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -12,9 +11,9 @@ import javax.inject.Singleton
  * @see CountryDetailActivity
  */
 @Module
-internal class PostDetailFeatureInstrumentationModule(private val context: Context) {
+internal class CountryDetailInstrumentationModule {
     @Provides
-    fun postDetailView(): CountryDetailView = mock(CountryDetailView::class.java)
+    fun countryDetailView(): CountryDetailView = mock(CountryDetailView::class.java)
 }
 
 /**
@@ -22,7 +21,7 @@ internal class PostDetailFeatureInstrumentationModule(private val context: Conte
  * CountryDetailModule.
  * @see CountryDetailModule
  */
-@Component(modules = arrayOf(PostDetailFeatureInstrumentationModule::class))
+@Component(modules = arrayOf(CountryDetailInstrumentationModule::class))
 @Singleton
-internal interface PostDetailFeatureInstrumentationComponent : PostDetailFeatureComponent
+internal interface CountryDetailInstrumentationComponent : CountryDetailComponent
 

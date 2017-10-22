@@ -1,6 +1,6 @@
 package app.list
 
-import domain.entity.Country
+import domain.country.Country
 
 /**
  * Entity mapper between layers.

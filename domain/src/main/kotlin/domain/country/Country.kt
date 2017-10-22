@@ -1,4 +1,4 @@
-package domain.entity
+package domain.country
 
 /**
  * Models the relevant information about a post, but in a way that modules other than data can

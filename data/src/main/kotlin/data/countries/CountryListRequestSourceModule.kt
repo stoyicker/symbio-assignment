@@ -12,7 +12,7 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import data.NetworkModule
-import domain.repository.CountryListFacade
+import domain.country.CountryListFacade
 import okio.BufferedSource
 import retrofit2.Retrofit
 import java.io.File

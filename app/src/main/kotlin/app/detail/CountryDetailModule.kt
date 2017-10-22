@@ -13,7 +13,7 @@ import javax.inject.Singleton
  */
 @Component(modules = arrayOf(CountryDetailModule::class))
 @Singleton
-internal interface PostDetailFeatureComponent {
+internal interface CountryDetailComponent {
     fun inject(target: CountryDetailActivity)
 }
 
@@ -26,5 +26,5 @@ internal class CountryDetailModule(
         private val textView: TextView,
         private val imageView: ImageView) {
     @Provides
-    fun postDetailView() = CountryDetailView(textView, imageView)
+    fun countryDetailView() = CountryDetailView(textView, imageView)
 }

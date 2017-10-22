@@ -4,13 +4,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import app.detail.DaggerPostDetailFeatureInstrumentationComponent
-import app.detail.PostDetailFeatureComponent
-import app.detail.PostDetailFeatureInstrumentationModule
-import app.list.CountryListActivityComponent
-import app.list.CountryListActivityInstrumentationModule
+import app.detail.CountryDetailComponent
+import app.detail.CountryDetailInstrumentationModule
+import app.detail.DaggerCountryDetailInstrumentationComponent
+import app.list.CountryListComponent
+import app.list.CountryListInstrumentationModule
 import app.list.CountryListViewConfig
-import app.list.DaggerCountryListActivityInstrumentationActivityComponent
+import app.list.DaggerCountryListInstrumentationComponent
 
 /**
  * Custom application.
@@ -21,10 +21,10 @@ internal open class AndroidTestApplication : MainApplication() {
             errorView: View,
             progressView: View,
             guideView: View,
-            interactionCallback: CountryListViewConfig.InteractionCallback): CountryListActivityComponent =
-            DaggerCountryListActivityInstrumentationActivityComponent.builder()
-                    .countryListActivityInstrumentationModule(
-                            CountryListActivityInstrumentationModule(
+            interactionCallback: CountryListViewConfig.InteractionCallback): CountryListComponent =
+            DaggerCountryListInstrumentationComponent.builder()
+                    .countryListInstrumentationModule(
+                            CountryListInstrumentationModule(
                                     contentView = contentView,
                                     errorView = errorView,
                                     progressView = progressView,
@@ -33,7 +33,7 @@ internal open class AndroidTestApplication : MainApplication() {
                     .build()
 
     override fun buildCountryDetailComponent(textView: TextView, imageView: ImageView)
-            : PostDetailFeatureComponent = DaggerPostDetailFeatureInstrumentationComponent.builder()
-            .postDetailFeatureInstrumentationModule(PostDetailFeatureInstrumentationModule(this))
+            : CountryDetailComponent = DaggerCountryDetailInstrumentationComponent.builder()
+            .countryDetailInstrumentationModule(CountryDetailInstrumentationModule())
             .build()
 }

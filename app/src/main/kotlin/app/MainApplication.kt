@@ -5,13 +5,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import app.detail.CountryDetailComponent
 import app.detail.CountryDetailModule
-import app.detail.DaggerPostDetailFeatureComponent
-import app.detail.PostDetailFeatureComponent
-import app.list.CountryListActivityComponent
-import app.list.CountryListActivityModule
+import app.detail.DaggerCountryDetailComponent
+import app.list.CountryListComponent
+import app.list.CountryListModule
 import app.list.CountryListViewConfig
-import app.list.DaggerCountryListActivityComponent
+import app.list.DaggerCountryListComponent
 
 /**
  * Custom application.
@@ -28,11 +28,11 @@ internal open class MainApplication : Application() {
             errorView: View,
             progressView: View,
             guideView: View,
-            interactionCallback: CountryListViewConfig.InteractionCallback): CountryListActivityComponent =
-            DaggerCountryListActivityComponent
+            interactionCallback: CountryListViewConfig.InteractionCallback): CountryListComponent =
+            DaggerCountryListComponent
                     .builder()
-                    .countryListActivityModule(
-                            CountryListActivityModule(
+                    .countryListModule(
+                            CountryListModule(
                                     contentView = contentView,
                                     errorView = errorView,
                                     progressView = progressView,
@@ -47,7 +47,7 @@ internal open class MainApplication : Application() {
      * @see app.detail.CountryDetailActivity
      */
     open fun buildCountryDetailComponent(textView: TextView, imageView: ImageView)
-            : PostDetailFeatureComponent = DaggerPostDetailFeatureComponent.builder()
+            : CountryDetailComponent = DaggerCountryDetailComponent.builder()
                     .countryDetailModule(CountryDetailModule(textView, imageView))
                     .build()
 }

@@ -1,7 +1,7 @@
 package app.list
 
 import app.common.UIPostExecutionThread
-import domain.interactor.TopGamingAllTimePostsUseCase
+import domain.country.CountryListUseCase
 
 /**
  * Takes care of binding the logic of the top gaming posts request to the view that handles its
@@ -10,10 +10,10 @@ import domain.interactor.TopGamingAllTimePostsUseCase
  */
 internal class CountryListCoordinator(
         internal val view: CountryListLoadableContentView,
-        private val useCaseFactory: TopGamingAllTimePostsUseCase.Factory,
+        private val useCaseFactory: CountryListUseCase.Factory,
         private val countryPageLoadSubscriberFactory: CountryPageLoadSubscriber.Factory) {
     internal var page = 0
-    private var ongoingUseCase: TopGamingAllTimePostsUseCase? = null
+    private var ongoingUseCase: CountryListUseCase? = null
 
     /**
      * Triggers the load of the next page.
