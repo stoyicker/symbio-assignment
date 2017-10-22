@@ -3,22 +3,27 @@ package data
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.net.Uri
-import data.top.DaggerTopPostsFacadeComponent
-import data.top.DaggerTopRequestSourceComponent
-import data.top.TopRequestSourceModule
+import data.countries.CountryComponentHolder
+import data.countries.CountryListFacadeImpl
+import data.countries.CountryListRequestSourceModule
+import data.countries.DaggerCountryListFacadeComponent
+import data.countries.DaggerCountryListRequestSourceComponent
+import domain.country.CountryListFacadeHolder
 
 /**
  * Used to tie to the app lifecycle, for things like obtaining a Context reference or initializing
- * DI.
+ * DI, without adding explicit coupling.
  * @see <a href="https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html">
  *     The Firebase Blog: How does Firebase initialize on Android</a>
  */
 internal class InitializationContentProvider : ContentProvider() {
     override fun onCreate(): Boolean {
-        ComponentHolder.topPostsFacadeComponent = DaggerTopPostsFacadeComponent.create()
-        ComponentHolder.topRequestSourceComponent = DaggerTopRequestSourceComponent.builder()
-                .topRequestSourceModule(TopRequestSourceModule(context.cacheDir))
+        CountryComponentHolder.countryListFacadeComponent = DaggerCountryListFacadeComponent.create()
+        CountryComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceComponent
+                .builder()
+                .countryListRequestSourceModule(CountryListRequestSourceModule(context.cacheDir))
                 .build()
+        CountryListFacadeHolder.countryListFacade(CountryListFacadeImpl())
         return true
     }
 

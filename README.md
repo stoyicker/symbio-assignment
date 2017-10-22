@@ -1,5 +1,7 @@
 # symbio-assignment - Jorge Antonio Diaz-Benito Soriano
 
+Get the latest APK ([here](https://github.com/stoyicker/symbio-assignment/releases/latest)).
+
 [![Build Status](https://travis-ci.org/stoyicker/symbio-assignment.svg?branch=master)](https://travis-ci.org/stoyicker/symbio-assignment)
 
 This project is developed on top of my master-slave demo for the New York Times reactive cache 
@@ -50,8 +52,34 @@ Instrumentation tests are only present in the `app` module and can be run using 
 1. I'm using the splash activity to perform prefetch. I could do this on the main activity too of 
 course, but in detriment of higher coupling.
 2. Even if coupling wasn't a problem (suppose I wasn't doing anything in the splash), runtime 
-configuration changes are slow and are the differences between apps that run only on Pixel and whatnot 
-and apps that run also in budget phones.
+configuration changes are slow and are the differences between apps that run only on Pixel phones 
+and whatnot and apps that run also in budget phones.
+
+#### Caching - Store vs client-side header manipulation
+This project implements caching by using ([Store](https://github.com/NYTimes/Store)), an abstraction
+layer that sits between your Retrofit interface and your domain logic and implements the Store 
+pattern with a reactive approach. It fits very nicely with reactive architectures and its 1:1: 
+mapping to endpoints make it a very nice tool for low coupling, which is a factor I consider 
+important.
+
+A more traditional, some would say simpler approach, is client-side header manipulation. Something 
+like ([this](https://github.com/stoyicker/template/blob/2c9b3517a31c897fe167827bad98df752dff810b/app/src/main/kotlin/app/network/NetworkClient.kt)).
+However that requires modifying the very own network client for each different endpoint needs, which 
+I don't quite like.
+
+Note that image caching is not handled by Store, but Picasso instead.
+
+#### Single&lt;List&lt;T&gt;&gt; vs Observable&lt;T&gt;, do you not understand data streams?
+Well enough to know that the response from the only request this app executes is not a data stream. 
+We get an ordered bunch of items, that is, a _list_ of items, but only in _one_ bunch at a time. 
+Just because there are several items it doesn't mean we should use a stream-like representation - we 
+are not observing for interactions with a UI element or leave an open port for incoming connections 
+or similar - therefore using Observable/Flowable is conceptually incorrect. Moreover, supposing we 
+used one of these classes instead, there would be a rather unnecessary overhead, because on our 
+subscriber we will either queue a UI update for every element (country, in this case) that is 
+received in onNext, or manually collect them and then request a single UI update, which is what is 
+happening in the actual implementation, only that we don't unfold the list into an unnecessary 
+Observable/Flowable and therefore we don't need to put it back together either.
 
 #### When transitioning from master to slave, you're sending the entire item instead of an id
 I am indeed. I know it is recommended that you pass only the id and then use this to retrieve the id 
@@ -65,7 +93,7 @@ GitHub profile shows my technical capabilities and as such they aren't necessary
 doing a standard one as I've heard from a friend that this is a good company. However, requiring 
 use of a concrete component is no standard and, most importantly, doesn't help this assessment in 
 any way. Therefore, although I'll be happy to help writing code for any specific components were I 
-to end up employed by Symbio, now it is not the time to make such a demand.
+to end up employed by Symbio, that's not the case just yet.
 
 Feel free to bring this or any other points up for discussion at an interview if you disagree with 
 my thoughts.

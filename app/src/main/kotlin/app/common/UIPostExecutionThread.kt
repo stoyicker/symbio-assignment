@@ -1,6 +1,6 @@
 package app.common
 
-import domain.exec.PostExecutionThread
+import domain.interactor.PostExecutionThread
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 

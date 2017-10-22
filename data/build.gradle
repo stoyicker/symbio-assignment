@@ -12,7 +12,7 @@ android {
         versionName rootProject.ext.androidVersionName
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
-        buildConfigField "String", "API_URL", '"https://reddit.com/"'
+        buildConfigField "String", "API_URL", '"https://restcountries.eu/rest/"'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
