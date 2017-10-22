@@ -11,8 +11,7 @@ import android.widget.ImageView
  * @see <a href="https://github.com/triposo/barone/blob/391e533f319f010b304596d4429d03edb1e7dc96/src/com/triposo/barone/ScalingImageView.java">
  *     ScalingImageView</>
  */
-internal class OutScalingImageView(context: Context, attrs: AttributeSet?)
-    : ImageView(context, attrs) {
+class OutScalingImageView(context: Context, attrs: AttributeSet?) : ImageView(context, attrs) {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var localHeightMeasureSpec = heightMeasureSpec
         val mDrawable = drawable

@@ -46,8 +46,11 @@ internal open class MainApplication : Application() {
      * a reference to it in order to inject itself.
      * @see app.detail.CountryDetailActivity
      */
-    open fun buildCountryDetailComponent(textView: TextView, imageView: ImageView)
+    open fun buildCountryDetailComponent(
+            nameView: TextView,
+            flagView: ImageView,
+            detailView: TextView)
             : CountryDetailComponent = DaggerCountryDetailComponent.builder()
-                    .countryDetailModule(CountryDetailModule(textView, imageView))
+                    .countryDetailModule(CountryDetailModule(nameView, flagView, detailView))
                     .build()
 }

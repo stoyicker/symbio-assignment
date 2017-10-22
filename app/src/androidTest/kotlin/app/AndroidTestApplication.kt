@@ -32,8 +32,11 @@ internal open class AndroidTestApplication : MainApplication() {
                                     interactionCallback = interactionCallback))
                     .build()
 
-    override fun buildCountryDetailComponent(textView: TextView, imageView: ImageView)
-            : CountryDetailComponent = DaggerCountryDetailInstrumentationComponent.builder()
-            .countryDetailInstrumentationModule(CountryDetailInstrumentationModule())
-            .build()
+    override fun buildCountryDetailComponent(
+            nameView: TextView,
+            flagView: ImageView,
+            detailView: TextView): CountryDetailComponent =
+            DaggerCountryDetailInstrumentationComponent.builder()
+                    .countryDetailInstrumentationModule(CountryDetailInstrumentationModule())
+                    .build()
 }

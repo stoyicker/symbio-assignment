@@ -14,7 +14,8 @@ import android.widget.Filter
 import android.widget.Filterable
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
-import kotlinx.android.synthetic.main.list_item.view.title_view
+import kotlinx.android.synthetic.main.list_item.view.flag
+import kotlinx.android.synthetic.main.list_item.view.name
 import org.jorge.assignment.app.R
 
 /**
@@ -119,7 +120,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
             }).getString(key))
         }
         val combinedBundle = Bundle().also { bundle ->
-            arrayOf(KEY_TITLE, KEY_SUBREDDIT, KEY_SCORE, KEY_THUMBNAIL).forEach {
+            arrayOf(KEY_TITLE, KEY_FLAG_URL).forEach {
                 fold(bundle, it)
             }
         }
@@ -195,13 +196,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
 //                                    putString(KEY_TITLE, newTitle.takeIf {
 //                                        !it.contentEquals(oldTitle)
 //                                    })
-//                                    putString(KEY_SUBREDDIT, newSubreddit.takeIf {
-//                                        !it.contentEquals(oldSubreddit)
-//                                    })
-//                                    putString(KEY_SCORE, "${newScore.takeIf {
-//                                        it != oldScore
-//                                    }}")
-//                                    putString(KEY_THUMBNAIL, newThumbnail.takeIf {
+//                                    putString(KEY_FLAG_URL, newThumbnail.takeIf {
 //                                        it != oldThumbnail
 //                                    })
 //                                }
@@ -231,7 +226,7 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
      * @param itemView The view to dump the held data onto.
      * @param onItemClicked What to run when a click happens.
      */
-    internal class ViewHolder internal constructor(
+    internal class ViewHolder(
             itemView: View,
             private val onItemClicked: (PresentationCountry) -> Unit)
         : RecyclerView.ViewHolder(itemView), Target {
@@ -241,11 +236,9 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
          * @title The item to draw.
          */
         fun render(item: PresentationCountry) {
-            setTitle(item.name)
-//            setSubreddit(item.subreddit)
-//            setScore(item.score)
-//            setThumbnail(item.thumbnailLink)
-//            itemView.setOnClickListener { onItemClicked(item) }
+            setName(item.name)
+            setFlag(item.flagUrl)
+            itemView.setOnClickListener { onItemClicked(item) }
         }
 
         /**
@@ -254,10 +247,8 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
          * @param item The item these updates correspond to.
          */
         fun renderPartial(bundle: Bundle, item: PresentationCountry) {
-            bundle.getString(KEY_TITLE)?.let { setTitle(it) }
-            bundle.getString(KEY_SUBREDDIT)?.let { setSubreddit(it) }
-            bundle.getString(KEY_SCORE)?.let { setScore(Integer.valueOf(it)) }
-            setThumbnail(bundle.getString(KEY_THUMBNAIL))
+            bundle.getString(KEY_TITLE)?.let { setName(it) }
+            setFlag(bundle.getString(KEY_FLAG_URL))
             itemView.setOnClickListener { onItemClicked(item) }
         }
 
@@ -265,60 +256,42 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
          * Updates the layout according to the changes required by a new title.
          * @param title The new title.
          */
-        private fun setTitle(title: String) {
-            itemView.title_view.text = title
-//            itemView.thumbnail.contentDescription = title
+        private fun setName(title: String) {
+            itemView.name.text = title
+            itemView.flag.contentDescription = title
         }
 
         /**
-         * Updates the layout according to the changes required by a new subreddit.
-         * @param name The new subreddit name.
+         * Updates the layout according to the changes required by a new flag link.
+         * @param thumbnailLink The new flag link, or <code>null</code> if none is applicable.
          */
-        private fun setSubreddit(name: String) {
-//            itemView.subreddit.text = name
-        }
-
-        /**
-         * Updates the layout according to the changes required by a new score.
-         * @param score The new score.
-         */
-        private fun setScore(score: Int) {
-//            itemView.score.text = score.toString()
+        private fun setFlag(thumbnailLink: String?) {
+            itemView.flag.let {
+                if (thumbnailLink != null) {
+                    Picasso.with(it.context).load(thumbnailLink).into(this)
+                } else {
+                    it.visibility = View.GONE
+                    it.setImageDrawable(null)
+                }
+            }
         }
 
         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-//            itemView.thumbnail.visibility = View.GONE
-//            itemView.thumbnail.setImageDrawable(null)
+            itemView.flag.visibility = View.GONE
+            itemView.flag.setImageDrawable(null)
         }
 
         override fun onBitmapFailed(errorDrawable: Drawable?) { }
 
         override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-//            itemView.thumbnail.setImageBitmap(bitmap)
-//            itemView.thumbnail.visibility = View.VISIBLE
-        }
-
-        /**
-         * Updates the layout according to the changes required by a new thumbnail link.
-         * @param thumbnailLink The new thumbnail link, or <code>null</code> if none is applicable.
-         */
-        private fun setThumbnail(thumbnailLink: String?) {
-//            itemView.thumbnail.let {
-//                if (thumbnailLink != null) {
-//                    Picasso.with(it.context).load(thumbnailLink).into(this)
-//                } else {
-//                    it.visibility = View.GONE
-//                    it.setImageDrawable(null)
-//                }
-//            }
+            itemView.flag.setImageBitmap(bitmap)
+            itemView.flag.visibility = View.VISIBLE
         }
     }
 }
 
 private const val KEY_TITLE = "org.jorge.assignment.app.KEY_TITLE"
-private const val KEY_SUBREDDIT = "org.jorge.assignment.app.KEY_SUBREDDIT"
-private const val KEY_SCORE = "org.jorge.assignment.app.KEY_SCORE"
-private const val KEY_THUMBNAIL = "org.jorge.assignment.app.KEY_THUMBNAIL"
+private const val KEY_FLAG_URL = "org.jorge.assignment.app.KEY_FLAG_URL"
 
 /**
  * @see <a href="https://gist.githubusercontent.com/nesquena/d09dc68ff07e845cc622/raw/e2429b173f75afb408b420ad4088fed68240334c/EndlessRecyclerViewScrollListener.java">Adapted from CodePath</a>

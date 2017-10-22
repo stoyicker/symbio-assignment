@@ -9,8 +9,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import app.MainApplication
 import app.list.PresentationCountry
-import kotlinx.android.synthetic.main.include_detail_view.thumbnail
-import kotlinx.android.synthetic.main.include_detail_view.title_view
+import kotlinx.android.synthetic.main.include_detail_view.detail
+import kotlinx.android.synthetic.main.include_detail_view.flag
+import kotlinx.android.synthetic.main.include_detail_view.name
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
 import org.jorge.assignment.app.R
 import javax.inject.Inject
@@ -51,7 +52,7 @@ internal class CountryDetailActivity : AppCompatActivity() {
      */
     private fun inject() {
         // https://kotlinlang.org/docs/tutorials/android-plugin.html#using-kotlin-android-extensions
-        (application as MainApplication).buildCountryDetailComponent(title_view, thumbnail)
+        (application as MainApplication).buildCountryDetailComponent(name, flag, detail)
                 .inject(this)
     }
 

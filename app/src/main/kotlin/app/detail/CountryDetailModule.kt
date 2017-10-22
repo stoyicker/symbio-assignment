@@ -23,8 +23,9 @@ internal interface CountryDetailComponent {
  */
 @Module
 internal class CountryDetailModule(
-        private val textView: TextView,
-        private val imageView: ImageView) {
+        private val nameView: TextView,
+        private val flagView: ImageView,
+        private val detailView: TextView) {
     @Provides
-    fun countryDetailView() = CountryDetailView(textView, imageView)
+    fun countryDetailView() = CountryDetailView(nameView, flagView, detailView)
 }
