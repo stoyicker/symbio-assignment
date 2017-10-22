@@ -24,6 +24,6 @@ internal class CountryEntityMapper {
                 // to get a format Android can understand or
                 // 2. put together an arguably dirtier but much quicker solution - pull the ready-to-use
                 // files from somewhere else.
-                flag = "https://raw.githubusercontent.com/hjnilsson/country-flags/26b79b8730b39eeaa47194a2322ece4947329df7/png250px/${it.alpha2Code.toLowerCase(Locale.ENGLISH)}.png")
+                flag = "https://raw.githubusercontent.com/hjnilsson/country-flags/26b79b8730b39eeaa47194a2322ece4947329df7/png1000px/${it.alpha2Code.toLowerCase(Locale.ENGLISH)}.png")
     }
 }

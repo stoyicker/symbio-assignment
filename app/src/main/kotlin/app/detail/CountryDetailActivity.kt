@@ -35,6 +35,7 @@ internal class CountryDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
+                supportFinishAfterTransition()
                 NavUtils.navigateUpFromSameTask(this)
                 return true
             }

@@ -24,8 +24,6 @@ internal open class CountryDetailView(
                     .load(flag)
                     // Trick for correct image placement
                     .placeholder(ColorDrawable(Color.TRANSPARENT))
-                    .fit()
-                    .centerInside()
                     .into(imageView)
             detailView.text = """
                 Region: $region
