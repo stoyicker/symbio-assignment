@@ -9,7 +9,7 @@ internal class CountryEntityMapper {
     /**
      * Guess what :D
      */
-    fun transform(dataModel: DataCountry) = dataModel.apply {
+    fun transform(model: DataCountry) = model.apply {
         Country(name = name,
                 nativeName = nativeName,
                 region = region,
