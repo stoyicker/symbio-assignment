@@ -1,5 +1,7 @@
 # symbio-assignment - Jorge Antonio Diaz-Benito Soriano
 
+Get the latest APK ([here](https://github.com/stoyicker/symbio-assignment/releases/latest)).
+
 [![Build Status](https://travis-ci.org/stoyicker/symbio-assignment.svg?branch=master)](https://travis-ci.org/stoyicker/symbio-assignment)
 
 This project is developed on top of my master-slave demo for the New York Times reactive cache 

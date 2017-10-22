@@ -102,7 +102,7 @@ internal class CountryListActivityInstrumentation {
                 area = "",
                 languages = emptyArray(),
                 germanTranslation = "",
-                flag = "",
+                flag = "https://github.com/hjnilsson/country-flags/blob/master/png250px/ad.png",
                 nativeName = "")))
         SUBJECT.onComplete()
         launchActivity()
@@ -139,7 +139,7 @@ internal class CountryListActivityInstrumentation {
                 area = "",
                 languages = emptyArray(),
                 germanTranslation = "",
-                flag = "",
+                flag = "https://github.com/hjnilsson/country-flags/blob/master/png250px/ad.png",
                 nativeName = "")))
         SUBJECT.onComplete()
         launchActivity()
@@ -154,7 +154,7 @@ internal class CountryListActivityInstrumentation {
                         area = "",
                         languages = emptyArray(),
                         germanTranslation = "",
-                        flag = "",
+                        flag = "https://github.com/hjnilsson/country-flags/blob/master/png250px/ad.png",
                         nativeName = ""))
         ))
         Intents.release()

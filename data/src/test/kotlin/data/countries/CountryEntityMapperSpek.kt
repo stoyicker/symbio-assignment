@@ -3,9 +3,12 @@ package data.countries
 import domain.country.Country
 import org.jetbrains.spek.api.SubjectSpek
 import org.jetbrains.spek.api.dsl.it
+import org.junit.Assert.assertArrayEquals
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import kotlin.test.assertEquals
+import java.util.Locale
 
 /**
  * Unit tests for the country entity mapper.
@@ -19,7 +22,7 @@ internal class CountryEntityMapperSpek : SubjectSpek<CountryEntityMapper>({
         val source = DataCountry(
                 languages = listOf(DataLanguage("languageOne")),
                 translations = mapOf("de" to "languageOneInGerman"),
-                flag = "aUrl",
+                alpha2Code = "alpha2Code",
                 name = "aName",
                 capital = "aCapital",
                 region = "aRegion",
@@ -32,7 +35,7 @@ internal class CountryEntityMapperSpek : SubjectSpek<CountryEntityMapper>({
         val source = DataCountry(
                 languages = emptyList(),
                 translations = emptyMap(),
-                flag = "",
+                alpha2Code = "",
                 name = "",
                 capital = "",
                 region = "",
@@ -45,7 +48,7 @@ internal class CountryEntityMapperSpek : SubjectSpek<CountryEntityMapper>({
         val source = DataCountry(
                 languages = listOf(DataLanguage("languageOne")),
                 translations = emptyMap(),
-                flag = "aUrl",
+                alpha2Code = "alpha2Code",
                 name = "aName",
                 capital = "",
                 region = "",
@@ -61,9 +64,9 @@ internal class CountryEntityMapperSpek : SubjectSpek<CountryEntityMapper>({
             assertEquals(srcModel.region, targetModel.region)
             assertEquals(srcModel.capital, targetModel.capital)
             assertEquals(srcModel.area, targetModel.area)
-            assertEquals(srcModel.languages.map { it.name }.toTypedArray(), targetModel.languages)
+            assertArrayEquals(srcModel.languages.map { it.name }.toTypedArray(), targetModel.languages)
             assertEquals(srcModel.translations["de"], targetModel.germanTranslation)
-            assertEquals(srcModel.flag, targetModel.flag)
+            assertTrue(targetModel.flag?.contains(srcModel.alpha2Code.toLowerCase(Locale.ENGLISH)) ?: false) // <- Not the best test, should extract the url and make an exact comparison instead
         }
     }
 }

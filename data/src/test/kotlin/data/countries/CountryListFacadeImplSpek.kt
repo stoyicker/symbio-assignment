@@ -46,7 +46,7 @@ internal class CountryListFacadeImplSpek : SubjectSpek<CountryListFacadeImpl>({
         whenever(MOCK_ENTITY_MAPPER.transform(eq(countryThree))) doReturn expectedTransformations[2]
         whenever(MOCK_SOURCE.fetch()) doReturn Single.just(listOf(countryOne, countryTwo, countryThree))
         val testObserver = TestObserver<List<Country>>()
-        subject.getCountries().subscribe(testObserver)
+        subject.fetchCountries().subscribe(testObserver)
         testObserver.assertNoErrors()
         testObserver.assertValues(expectedTransformations)
         testObserver.assertComplete()
@@ -72,7 +72,7 @@ internal class CountryListFacadeImplSpek : SubjectSpek<CountryListFacadeImpl>({
         val expectedError = mock<Exception>()
         whenever(MOCK_SOURCE.fetch()) doReturn Single.error(expectedError)
         val testObserver = TestObserver<List<Country>>()
-        subject.getCountries().subscribe(testObserver)
+        subject.fetchCountries().subscribe(testObserver)
         testObserver.assertNoValues()
         testObserver.assertError(expectedError)
         testObserver.assertNotComplete()

@@ -35,17 +35,15 @@ internal class CountryListRequestSourceIntegrationSpek : SubjectSpek<CountryList
                 .subscribe(testObserver)
         testObserver.assertNoErrors()
         @Suppress("UNCHECKED_CAST")
-        (testObserver.events.first() as List<DataCountry>).first().let {
-                it.apply {
-                    assertTrue { name.isNotBlank() }
-                    assertTrue { nativeName.isNotBlank() }
-                    assertTrue { region.isNotBlank() }
-                    assertTrue { capital.isNotBlank() }
-                    assertTrue { area!!.isNotBlank() }
-                    assertTrue { languages.isNotEmpty() }
-                    assertTrue { translations.isNotEmpty() }
-                    assertTrue { flag!!.isNotBlank() }
-                }
+        (testObserver.events.first() as List<List<DataCountry>>).first().first().apply {
+            assertTrue { name.isNotBlank() }
+            assertTrue { nativeName.isNotBlank() }
+            assertTrue { region.isNotBlank() }
+            assertTrue { capital.isNotBlank() }
+            assertTrue { area!!.isNotBlank() }
+            assertTrue { languages.isNotEmpty() }
+            assertTrue { translations.isNotEmpty() }
+            assertTrue { alpha2Code.isNotBlank() }
         }
         testObserver.assertComplete()
     }
