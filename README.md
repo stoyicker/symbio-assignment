@@ -49,8 +49,8 @@ Instrumentation tests are only present in the `app` module and can be run using 
 ## Decisions decisions (you probably want to read the relevant parts of the code first)
 
 #### Splash screen - Why didn't you use ApplicationLifecycleCallback to perform a runtime theme change in the main activity instead of using a separate one?
-1. I'm using the splash activity to perform prefetch. I could do this on the main activity too of 
-course, but in detriment of higher coupling.
+1. I'm using the splash activity to perform what you could call pre-fetching. I could do this on the
+ main activity too of course, but in detriment of higher coupling.
 2. Even if coupling wasn't a problem (suppose I wasn't doing anything in the splash), runtime 
 configuration changes are slow and are the differences between apps that run only on Pixel phones 
 and whatnot and apps that run also in budget phones.
