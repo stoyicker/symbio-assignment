@@ -6,6 +6,7 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.reset
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import com.nytimes.android.external.store3.base.impl.FluentMemoryPolicyBuilder.Companion.build
 import com.nytimes.android.external.store3.base.impl.Store
 import dagger.Component
 import dagger.Module
@@ -25,13 +26,13 @@ import javax.inject.Singleton
  * Unit tests for cache cleanup.
  */
 @RunWith(JUnitPlatform::class)
-internal class TopRequestSourceSpek : SubjectSpek<CountryListRequestSource>({
+internal class CountryListRequestSourceSpek : SubjectSpek<CountryListRequestSource>({
     subject { CountryListRequestSource() }
 
     beforeEachTest {
-        ComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceSpekDataComponent
+        ComponentHolder.countryListRequestSourceComponent = DaggerCountryListRequestSourceSpekComponent
                 .builder()
-                .topRequestSourceSpekModule(TopRequestSourceSpekModule(CACHE_DIR, MOCK_STORE))
+                .countryListRequestSourceSpekModule(CountryListRequestSourceSpekModule(CACHE_DIR, MOCK_STORE))
                 .build()
     }
 
@@ -44,11 +45,11 @@ internal class TopRequestSourceSpek : SubjectSpek<CountryListRequestSource>({
         val value = mock<List<DataCountry>>()
         whenever(MOCK_STORE.fetch(anyVararg())) doReturn Single.error(mock<Exception>())
         whenever(MOCK_STORE.get(anyVararg())) doReturn Single.just(value)
-        val testSubscriber = TestObserver<List<DataCountry>>()
-        subject.fetch().subscribe(testSubscriber)
+        val testObserver = TestObserver<List<DataCountry>>()
+        subject.fetch().subscribe(testObserver)
         verify(MOCK_STORE).fetch(anyVararg())
-        testSubscriber.assertValue(value)
-        testSubscriber.assertComplete()
+        testObserver.assertValue(value)
+        testObserver.assertComplete()
     }
 
     it ("should fall back to the cache on failed fetch without propagating the error when the cache is not empty") {
@@ -56,13 +57,13 @@ internal class TopRequestSourceSpek : SubjectSpek<CountryListRequestSource>({
         val fetchError = mock<Exception>()
         whenever(MOCK_STORE.fetch(anyVararg())) doReturn Single.error(fetchError)
         whenever(MOCK_STORE.get(anyVararg())) doReturn Single.just(cachedValue)
-        val testSubscriber = TestObserver<List<DataCountry>>()
-        subject.fetch().subscribe(testSubscriber)
+        val testObserver = TestObserver<List<DataCountry>>()
+        subject.fetch().subscribe(testObserver)
         verify(MOCK_STORE).fetch(anyVararg())
         verify(MOCK_STORE).get(anyVararg())
-        testSubscriber.assertNoErrors()
-        testSubscriber.assertValue(cachedValue)
-        testSubscriber.assertComplete()
+        testObserver.assertNoErrors()
+        testObserver.assertValue(cachedValue)
+        testObserver.assertComplete()
     }
 }) {
     private companion object {
@@ -75,7 +76,7 @@ internal class TopRequestSourceSpek : SubjectSpek<CountryListRequestSource>({
  * Module used to provide stuff required by this spek.
  */
 @Module
-internal class TopRequestSourceSpekModule(
+internal class CountryListRequestSourceSpekModule(
         private val cacheDir: File, private val store: Store<List<DataCountry>, Unit>) {
     @Provides
     fun networkInterface() = mock<Retrofit>()
@@ -93,6 +94,6 @@ internal class TopRequestSourceSpekModule(
  * is that such a solution could have some potentially bad consequences.
  * @see <a href="https://google.github.io/dagger/testing.html">Testing with Dagger</a>
  */
-@Component(modules = arrayOf(TopRequestSourceSpekModule::class))
+@Component(modules = arrayOf(CountryListRequestSourceSpekModule::class))
 @Singleton
-internal interface CountryListRequestSourceSpekDataComponent : CountryListRequestSourceComponent
+internal interface CountryListRequestSourceSpekComponent : CountryListRequestSourceComponent

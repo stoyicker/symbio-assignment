@@ -23,7 +23,7 @@ import javax.inject.Singleton
  * @see CountryListFacadeImpl
  */
 @RunWith(JUnitPlatform::class)
-internal class TopPostsFacadeSpek : SubjectSpek<CountryListFacadeImpl>({
+internal class CountryListFacadeImplSpek : SubjectSpek<CountryListFacadeImpl>({
     subject { CountryListFacadeImpl() }
 
     beforeEachTest {
@@ -46,11 +46,11 @@ internal class TopPostsFacadeSpek : SubjectSpek<CountryListFacadeImpl>({
         whenever(MOCK_ENTITY_MAPPER.transform(eq(countryTwo))) doReturn expectedTransformations[1]
         whenever(MOCK_ENTITY_MAPPER.transform(eq(countryThree))) doReturn expectedTransformations[2]
         whenever(MOCK_SOURCE.fetch()) doReturn Single.just(listOf(countryOne, countryTwo, countryThree))
-        val testSubscriber = TestObserver<List<Country>>()
-        subject.getCountries().subscribe(testSubscriber)
-        testSubscriber.assertNoErrors()
-        testSubscriber.assertValues(expectedTransformations)
-        testSubscriber.assertComplete()
+        val testObserver = TestObserver<List<Country>>()
+        subject.getCountries().subscribe(testObserver)
+        testObserver.assertNoErrors()
+        testObserver.assertValues(expectedTransformations)
+        testObserver.assertComplete()
     }
 
     it ("should return an observable of domain models upon successful get") {
@@ -62,31 +62,31 @@ internal class TopPostsFacadeSpek : SubjectSpek<CountryListFacadeImpl>({
         whenever(MOCK_ENTITY_MAPPER.transform(eq(countryTwo))) doReturn expectedTransformations[1]
         whenever(MOCK_ENTITY_MAPPER.transform(eq(countryThree))) doReturn expectedTransformations[2]
         whenever(MOCK_SOURCE.get()) doReturn Single.just(listOf(countryOne, countryTwo, countryThree))
-        val testSubscriber = TestObserver<List<Country>>()
-        subject.getCountries().subscribe(testSubscriber)
-        testSubscriber.assertNoErrors()
-        testSubscriber.assertValues(expectedTransformations)
-        testSubscriber.assertComplete()
+        val testObserver = TestObserver<List<Country>>()
+        subject.getCountries().subscribe(testObserver)
+        testObserver.assertNoErrors()
+        testObserver.assertValues(expectedTransformations)
+        testObserver.assertComplete()
     }
 
     it ("should return an observable with a propagated exception upon failed fetch") {
         val expectedError = mock<Exception>()
         whenever(MOCK_SOURCE.fetch()) doReturn Single.error(expectedError)
-        val testSubscriber = TestObserver<List<Country>>()
-        subject.getCountries().subscribe(testSubscriber)
-        testSubscriber.assertNoValues()
-        testSubscriber.assertError(expectedError)
-        testSubscriber.assertNotComplete()
+        val testObserver = TestObserver<List<Country>>()
+        subject.getCountries().subscribe(testObserver)
+        testObserver.assertNoValues()
+        testObserver.assertError(expectedError)
+        testObserver.assertNotComplete()
     }
 
     it ("should return an observable with a propagated exception upon failed get") {
         val expectedError = mock<Exception>()
         whenever(MOCK_SOURCE.get()) doReturn Single.error(expectedError)
-        val testSubscriber = TestObserver<List<Country>>()
-        subject.getCountries().subscribe(testSubscriber)
-        testSubscriber.assertNoValues()
-        testSubscriber.assertError(expectedError)
-        testSubscriber.assertNotComplete()
+        val testObserver = TestObserver<List<Country>>()
+        subject.getCountries().subscribe(testObserver)
+        testObserver.assertNoValues()
+        testObserver.assertError(expectedError)
+        testObserver.assertNotComplete()
     }
 }) {
     private companion object {

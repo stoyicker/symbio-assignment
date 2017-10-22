@@ -10,12 +10,13 @@ import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import kotlin.test.assertTrue
 
 /**
  * Integration test to guarantee validity of the actual endpoint, request formation and model.
  */
 @RunWith(JUnitPlatform::class)
-internal class TopRequestSourceIntegrationSpek : SubjectSpek<CountryListRequestSource>({
+internal class CountryListRequestSourceIntegrationSpek : SubjectSpek<CountryListRequestSource>({
     subject { CountryListRequestSource() }
 
     it ("should always fetch models with non-empty values for the attributes kept") {
@@ -25,19 +26,28 @@ internal class TopRequestSourceIntegrationSpek : SubjectSpek<CountryListRequestS
                 .validateEagerly(true)
                 .build()
                 .create(CountryApiService::class.java)
-        val testSubscriber = TestObserver<List<DataCountry>>()
+        val testObserver = TestObserver<List<DataCountry>>()
         val moshi = Moshi.Builder().build()
         retrofit.allCountries()
                 .map { moshi.adapter<List<DataCountry>>(
                         Types.newParameterizedType(List::class.java, DataCountry::class.java))
                         .fromJson(it.string()) }
-                .subscribe(testSubscriber)
-        testSubscriber.assertNoErrors()
+                .subscribe(testObserver)
+        testObserver.assertNoErrors()
         @Suppress("UNCHECKED_CAST")
-        (testSubscriber.events.first() as List<DataCountry>)
+        (testObserver.events.first() as List<DataCountry>)
                 .forEach {
-                        // TODO Assert things
+                    it.apply {
+                        assertTrue { name.isNotBlank() }
+                        assertTrue { nativeName.isNotBlank() }
+                        assertTrue { region.isNotBlank() }
+                        assertTrue { capital.isNotBlank() }
+                        assertTrue { area.isNotBlank() }
+                        assertTrue { languages.isNotEmpty() }
+                        assertTrue { translations.isNotEmpty() }
+                        assertTrue { flagUrl.isNotBlank() }
                     }
-        testSubscriber.assertComplete()
+                }
+        testObserver.assertComplete()
     }
 })

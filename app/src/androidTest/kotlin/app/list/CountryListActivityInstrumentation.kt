@@ -95,7 +95,15 @@ internal class CountryListActivityInstrumentation {
     fun onLoadItemsAreShown() {
         val name = "name"
         SUBJECT = ReplaySubject.create()
-        SUBJECT.onNext(listOf(Country(name)))
+        SUBJECT.onNext(listOf(Country(
+                name = name,
+                region = "",
+                capital = "",
+                area = "",
+                languages = emptyArray(),
+                germanTranslation = "",
+                flagUrl = "",
+                nativeName = "")))
         SUBJECT.onComplete()
         launchActivity()
         onView(withId(R.id.progress)).check { view, _ ->
@@ -104,7 +112,7 @@ internal class CountryListActivityInstrumentation {
             assertEquals(View.GONE, view.visibility, "Error visibility was not GONE") }
         onView(withId(R.id.content)).check { view, _ ->
             assertEquals(View.VISIBLE, view.visibility, "Content visibility was not VISIBLE") }
-        onView(withIndex(withText("Bananas title"), 0)).check(matches(isDisplayed()))
+        onView(withIndex(withText(name), 0)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -124,14 +132,30 @@ internal class CountryListActivityInstrumentation {
     fun onItemClickDetailIntentIsLaunched() {
         val name = "name"
         SUBJECT = ReplaySubject.create()
-        SUBJECT.onNext(listOf(Country(name)))
+        SUBJECT.onNext(listOf(Country(
+                name = name,
+                region = "",
+                capital = "",
+                area = "",
+                languages = emptyArray(),
+                germanTranslation = "",
+                flagUrl = "",
+                nativeName = "")))
         SUBJECT.onComplete()
         launchActivity()
         Intents.init()
         intending(anyIntent()).respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, null))
         onView(withIndex(withText(name), 0)).perform(click())
         intended(allOf(hasComponent(CountryDetailActivity::class.java.name),
-                hasExtra(CountryDetailActivity.KEY_MODEL, PresentationCountry(name))
+                hasExtra(CountryDetailActivity.KEY_MODEL, PresentationCountry(
+                        name = name,
+                        region = "",
+                        capital = "",
+                        area = "",
+                        languages = emptyArray(),
+                        germanTranslation = "",
+                        flagUrl = "",
+                        nativeName = ""))
         ))
         Intents.release()
     }

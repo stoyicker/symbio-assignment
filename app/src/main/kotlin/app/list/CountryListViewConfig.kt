@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.list_item.view.title_view
 import org.jorge.assignment.app.R
 
 /**
- * Configuration for the recycler view holding the post list.
+ * Configuration for the recycler view holding the list.
  */
 internal class CountryListViewConfig(
         view: CountryListLoadableContentView,

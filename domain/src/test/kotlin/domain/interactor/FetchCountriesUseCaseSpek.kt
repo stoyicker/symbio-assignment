@@ -33,9 +33,8 @@ internal class FetchCountriesUseCaseSpek : SubjectSpek<FetchCountriesUseCase>({
     }
 
     it ("should build its implementation as an observable") {
-        // Cannot mock Post as it is a data class
         val values = listOf<Country>(mock(), mock(), mock())
-        val testSubscriber = object : DisposableSingleObserver<List<Country>>() {
+        val testObserver = object : DisposableSingleObserver<List<Country>>() {
             override fun onSuccess(payload: List<Country>) {
                 assertEquals(payload, values, "Values not as expected")
             }
@@ -45,7 +44,7 @@ internal class FetchCountriesUseCaseSpek : SubjectSpek<FetchCountriesUseCase>({
             }
         }
         whenever(MOCK_FACADE.fetchCountries()) doReturn Single.just<List<Country>>(values)
-        subject.execute(testSubscriber)
+        subject.execute(testObserver)
     }
 }) {
     private companion object {

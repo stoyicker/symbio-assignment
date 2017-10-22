@@ -9,14 +9,14 @@ internal class PresentationCountryEntityMapper {
     /**
      * Guess what :D
      */
-    fun transform(model: Country) = model.apply {
-        PresentationCountry(name = name,
-                nativeName = nativeName,
-                region = region,
-                capital = capital,
-                area = area,
-                languages = languages,
-                germanTranslation = germanTranslation,
-                flagUrl = flagUrl)
+    fun transform(model: Country) = model.let {
+        PresentationCountry(name = it.name,
+                nativeName = it.nativeName,
+                region = it.region,
+                capital = it.capital,
+                area = it.area,
+                languages = it.languages,
+                germanTranslation = it.germanTranslation,
+                flagUrl = it.flagUrl)
     }
 }

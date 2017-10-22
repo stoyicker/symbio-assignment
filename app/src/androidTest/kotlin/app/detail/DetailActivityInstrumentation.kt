@@ -51,6 +51,14 @@ internal class DetailActivityInstrumentation {
     }
 
     private companion object {
-        private val ITEM = PresentationCountry("name")
+        private val ITEM = PresentationCountry(
+                name = "name",
+                region = "region",
+                capital = "capital",
+                area = "area",
+                languages = arrayOf("languageOne"),
+                germanTranslation = "nameInGerman",
+                flagUrl = "flagUrl",
+                nativeName = "nativeName")
     }
 }
