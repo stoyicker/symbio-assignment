@@ -53,8 +53,21 @@ course, but in detriment of higher coupling.
 configuration changes are slow and are the differences between apps that run only on Pixel phones 
 and whatnot and apps that run also in budget phones.
 
-#### Single&lt;List&lt;T&gt;&gt; vs Observable&lt;T&gt;, do you not understand data streams?
+#### Caching - Store vs client-side header manipulation
+This project implements caching by using ([Store](https://github.com/NYTimes/Store)), an abstraction
+layer that sits between your Retrofit interface and your domain logic and implements the Store 
+pattern with a reactive approach. It fits very nicely with reactive architectures and its 1:1: 
+mapping to endpoints make it a very nice tool for low coupling, which is a factor I consider 
+important.
 
+A more traditional, some would say simpler approach, is client-side header manipulation. Something 
+like ([this](https://github.com/stoyicker/template/blob/2c9b3517a31c897fe167827bad98df752dff810b/app/src/main/kotlin/app/network/NetworkClient.kt)).
+However that requires modifying the very own network client for each different endpoint needs, which 
+I don't quite like.
+
+Note that image caching is not handled by Store, but Picasso instead.
+
+#### Single&lt;List&lt;T&gt;&gt; vs Observable&lt;T&gt;, do you not understand data streams?
 Well enough to know that the response from the only request this app executes is not a data stream. 
 We get an ordered bunch of items, that is, a _list_ of items, but only in _one_ bunch at a time. 
 Just because there are several items it doesn't mean we should use a stream-like representation - we 
