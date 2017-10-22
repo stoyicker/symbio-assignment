@@ -9,6 +9,19 @@
     </issue>
     <!-- This check is broken when using Kotlin -->
     <issue id="UnusedResources" severity="ignore" />
+    <!-- This check is broken when using KotlinX -->
+    <issue id="UnusedIds">
+        <ignore regexp="toolbar" />
+        <ignore regexp="name" />
+        <ignore regexp="content" />
+        <ignore regexp="progress" />
+        <ignore regexp="error" />
+        <ignore regexp="root" />
+        <ignore regexp="search" />
+        <ignore regexp="scroll_guide" />
+        <ignore regexp="flag" />
+        <ignore regexp="detail" />
+    </issue>
     <issue id="MergeRootFrame">
         <ignore regexp="include_list_view" />
     </issue>

@@ -91,7 +91,7 @@ GitHub profile shows my technical capabilities and as such they aren't necessary
 doing a standard one as I've heard from a friend that this is a good company. However, requiring 
 use of a concrete component is no standard and, most importantly, doesn't help this assessment in 
 any way. Therefore, although I'll be happy to help writing code for any specific components were I 
-to end up employed by Symbio, now it is not the time to make such a demand.
+to end up employed by Symbio, that's not the case just yet.
 
 Feel free to bring this or any other points up for discussion at an interview if you disagree with 
 my thoughts.
