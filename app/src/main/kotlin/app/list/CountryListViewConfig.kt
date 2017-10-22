@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.list_item.view.flag
 import kotlinx.android.synthetic.main.list_item.view.name
+import org.jorge.assignment.app.BuildConfig
 import org.jorge.assignment.app.R
 
 /**
@@ -265,12 +266,14 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
 
         /**
          * Updates the layout according to the changes required by a new flag link.
-         * @param thumbnailLink The new flag link, or <code>null</code> if none is applicable.
+         * @param flagLink The new flag link, or <code>null</code> if none is applicable.
          */
-        private fun setFlag(thumbnailLink: String?) {
+        private fun setFlag(flagLink: String?) {
             itemView.flag.let {
-                if (thumbnailLink != null) {
-                    Picasso.with(it.context).load(thumbnailLink).into(this)
+                if (flagLink != null) {
+                    Picasso.with(it.context)
+                            .load(flagLink)
+                            .into(this)
                 } else {
                     it.visibility = View.GONE
                     it.setImageDrawable(null)

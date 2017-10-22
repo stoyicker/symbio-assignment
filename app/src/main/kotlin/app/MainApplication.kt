@@ -12,11 +12,17 @@ import app.list.CountryListComponent
 import app.list.CountryListModule
 import app.list.CountryListViewConfig
 import app.list.DaggerCountryListComponent
+import com.squareup.picasso.Picasso
+import org.jorge.assignment.app.BuildConfig
 
 /**
  * Custom application.
  */
 internal open class MainApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        setPicasso()
+    }
 
     /**
      * Objects related to this feature can call this method to have its component created and access
@@ -53,4 +59,9 @@ internal open class MainApplication : Application() {
             : CountryDetailComponent = DaggerCountryDetailComponent.builder()
                     .countryDetailModule(CountryDetailModule(nameView, flagView, detailView))
                     .build()
+
+    private fun setPicasso() = Picasso.Builder(this).apply {
+        indicatorsEnabled(BuildConfig.DEBUG)
+        Picasso.setSingletonInstance(this.build())
+    }
 }
