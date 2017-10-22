@@ -35,7 +35,7 @@ internal class CountryListInstrumentationModule(
         private val interactionCallback: CountryListViewConfig.InteractionCallback) {
     @Provides
     @Singleton
-    fun pageLoadSubscriberFactory() = object : CountryPageLoadSubscriber.Factory {
+    fun pageLoadSubscriberFactory() = object : CountryPageLoadObserver.Factory {
         override fun newSubscriber(coordinator: CountryListCoordinator) =
                 SUBSCRIBER_GENERATOR(coordinator)
     }
@@ -44,8 +44,8 @@ internal class CountryListInstrumentationModule(
     @Singleton
     fun countryListCoordinator(view: CountryListLoadableContentView,
                                useCaseFactory: CountryListUseCase.Factory,
-                               countryPageLoadSubscriberFactory: CountryPageLoadSubscriber.Factory) =
-            CountryListCoordinator(view, useCaseFactory, countryPageLoadSubscriberFactory)
+                               countryPageLoadObserverFactory: CountryPageLoadObserver.Factory) =
+            CountryListCoordinator(view, useCaseFactory, countryPageLoadObserverFactory)
 
     @Provides
     @Singleton

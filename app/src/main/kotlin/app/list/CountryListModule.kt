@@ -39,9 +39,9 @@ internal class CountryListModule constructor(
     @Provides
     @Singleton
     fun pageLoadSubscriberFactory(entityMapper: PresentationCountryEntityMapper) =
-            object : CountryPageLoadSubscriber.Factory {
+            object : CountryPageLoadObserver.Factory {
                 override fun newSubscriber(coordinator: CountryListCoordinator) =
-                        CountryPageLoadSubscriber(coordinator, entityMapper)
+                        CountryPageLoadObserver(coordinator, entityMapper)
     }
 
     @Provides
@@ -49,8 +49,8 @@ internal class CountryListModule constructor(
     fun countryListCoordinator(
             view: CountryListLoadableContentView,
             useCaseFactory: CountryListUseCase.Factory,
-            countryPageLoadSubscriberFactory: CountryPageLoadSubscriber.Factory) =
-            CountryListCoordinator(view, useCaseFactory, countryPageLoadSubscriberFactory)
+            countryPageLoadObserverFactory: CountryPageLoadObserver.Factory) =
+            CountryListCoordinator(view, useCaseFactory, countryPageLoadObserverFactory)
 
     @Provides
     @Singleton

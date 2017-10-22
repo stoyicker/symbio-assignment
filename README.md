@@ -1,6 +1,6 @@
 # symbio-assignment - Jorge Antonio Diaz-Benito Soriano
 
-Get the latest APK ([here](https://github.com/stoyicker/symbio-assignment/releases/latest)).
+Get the latest APK [here](https://github.com/stoyicker/symbio-assignment/releases/latest).
 
 [![Build Status](https://travis-ci.org/stoyicker/symbio-assignment.svg?branch=master)](https://travis-ci.org/stoyicker/symbio-assignment)
 
@@ -56,14 +56,14 @@ configuration changes are slow and are the differences between apps that run onl
 and whatnot and apps that run also in budget phones.
 
 #### Caching - Store vs client-side header manipulation
-This project implements caching by using ([Store](https://github.com/NYTimes/Store)), an abstraction
+This project implements caching by using [Store](https://github.com/NYTimes/Store), an abstraction
 layer that sits between your Retrofit interface and your domain logic and implements the Store 
 pattern with a reactive approach. It fits very nicely with reactive architectures and its 1:1: 
 mapping to endpoints make it a very nice tool for low coupling, which is a factor I consider 
 important.
 
 A more traditional, some would say simpler approach, is client-side header manipulation. Something 
-like ([this](https://github.com/stoyicker/template/blob/2c9b3517a31c897fe167827bad98df752dff810b/app/src/main/kotlin/app/network/NetworkClient.kt)).
+like [this](https://github.com/stoyicker/template/blob/2c9b3517a31c897fe167827bad98df752dff810b/app/src/main/kotlin/app/network/NetworkClient.kt).
 However that requires modifying the very own network client for each different endpoint needs, which 
 I don't quite like.
 

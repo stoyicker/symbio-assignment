@@ -4,10 +4,10 @@ import domain.country.Country
 import io.reactivex.observers.DisposableSingleObserver
 
 /**
- * The subscriber that will react to the outcome of the associated use case and request the
+ * The observer that will react to the outcome of the associated use case and request the
  * view to update itself.
  */
-internal open class CountryPageLoadSubscriber(
+internal open class CountryPageLoadObserver(
         private val coordinator: CountryListCoordinator,
         private val entityMapper: PresentationCountryEntityMapper)
     : DisposableSingleObserver<List<Country>>() {
