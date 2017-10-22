@@ -7,6 +7,7 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -211,6 +212,9 @@ internal class Adapter(private val callback: CountryListViewConfig.InteractionCa
             @Suppress("UNCHECKED_CAST")
             shownItems = results?.values as List<PresentationCountry>? ?: items
             diff.dispatchUpdatesTo(this@Adapter)
+            if (!recyclerView.canScrollVertically(1)) {
+                callback.onPageLoadRequested()
+            }
         }
 
         /**
