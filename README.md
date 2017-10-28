@@ -87,13 +87,5 @@ from the database as this is faster than Parcel-induced marshalling and demarsha
 that are not hierarchically complex, like the ones in this project. However, I haven't spent the 
 time setting up a database.
 
-#### A requirement was to show the country location on some sort of map-like view. Where is it?
-I left this out on purpose. I don't usually do assignments as companies agree that my very complete 
-GitHub profile shows my technical capabilities and as such they aren't necessary, but I can accept 
-doing a standard one as I've heard from a friend that this is a good company. However, requiring 
-use of a concrete component is no standard and, most importantly, doesn't help this assessment in 
-any way. Therefore, although I'll be happy to help writing code for any specific components were I 
-to end up employed by Symbio, that's not the case just yet.
-
 Feel free to bring this or any other points up for discussion at an interview if you disagree with 
 my thoughts.
